@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "supplier",
+  "item_code",
+  "price",
+  "capacity",
+  "moq",
+  "lead_days",
+  "quality"
+ ],
+ "fields": [
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "capacity",
+   "fieldtype": "Float",
+   "label": "Can Supply (max)",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "moq",
+   "fieldtype": "Float",
+   "label": "Minimum Order"
+  },
+  {
+   "fieldname": "lead_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (days)",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "quality",
+   "fieldtype": "Percent",
+   "label": "Quality Score %"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Allocation Offer",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "istable": 1,
+ "allow_rename": 0
+}

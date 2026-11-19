@@ -1,0 +1,293 @@
+(re-checked by separate code),(أُعيد فحصه بواسطة كود منفصل)
+0 = no limit,0 = بلا حد
+0 = no limit.,0 = بلا حد.
+0 = no limit. Offers without a score are kept.,0 = بلا حد. تُبقى العروض التي ليس لها درجة.
+A product has no limit at all: add a demand limit or a resource it uses.,هناك منتج بلا أي حد: أضف حدًا للطلب أو مورد يستخدمه.
+A warehouse name when you want a Stock Entry draft.,اسم مستودع عند الرغبة في مسودة قيد مخزون.
+ABC,تصنيف ABC
+Above Lower Bound %,فوق الحد الأدنى %
+Add items or press Load Data.,أضف أصنافًا أو اضغط تحميل البيانات.
+Add needs and offers or press Load Data.,أضف الاحتياجات والعروض أو اضغط تحميل البيانات.
+Add operations or press Load Data.,أضف عمليات أو اضغط تحميل البيانات.
+Add products or press Load Data.,أضف منتجات أو اضغط تحميل البيانات.
+Add sources and destinations or press Load Data.,أضف المصادر والوجهات أو اضغط تحميل البيانات.
+Add stops or press Load Data.,أضف نقاط توقف أو اضغط تحميل البيانات.
+Address,العنوان
+All the quantity goes to {0} and no other supplier can replace it under the same limits.,كل الكمية تذهب إلى {0} ولا يمكن لأي مورد آخر أن يحل محله ضمن الحدود نفسها.
+"All the quantity goes to {0}. If it cannot deliver, the next best plan costs {1} more.",كل الكمية تذهب إلى {0}. إذا تعذر عليه التوريد، فإن أفضل خطة بديلة تكلف {1} أكثر.
+All work finishes after {0} working hours; no schedule can finish before {1}.,ينتهي كل العمل بعد {0} ساعة عمل؛ ولا يمكن لأي جدول أن ينتهي قبل {1}.
+Allocation,التوزيع
+Allocation Need,احتياج التوزيع
+Allocation Offer,عرض التوزيع
+Allocation Result,نتيجة التوزيع
+Allow Unmet Demand,السماح بطلب غير مغطى
+Amount,المبلغ
+Available,المتاح
+Available Quantity,الكمية المتاحة
+BOM,قائمة المواد
+Best Dispatch Rule,أفضل قاعدة إسناد
+Best dispatch rule: {0}. Total lateness {1} hours.,أفضل قاعدة إسناد: {0}. إجمالي التأخير {1} ساعة.
+Bottleneck: {0} (one more unit adds {1} to the margin),عنق الزجاجة: {0} (قيمة وحدة إضافية تضيف {1} إلى الهامش)
+Budget,الميزانية
+Can Supply (max),أقصى كمية يمكن توريدها
+Capacity and quality score are empty: fill them where you know them (0 = no limit).,الطاقة الإنتاجية ودرجة الجودة فارغتان: املأهما حيث تعرفهما (0 = بلا حد).
+Charged once for every supplier that gets an order; pushes the plan to consolidate.,تُحتسب مرة واحدة لكل مورد يتلقى أمرًا؛ وتدفع الخطة إلى التجميع في عدد أقل من الموردين.
+Choose the item first.,اختر الصنف أولًا.
+Company,الشركة
+Converts hours of work into calendar time in the schedule.,تحوّل ساعات العمل إلى وقت تقويمي في الجدول.
+Cost of Placing One Order,تكلفة إصدار أمر واحد
+Cost per Extra Supplier Used,تكلفة كل مورد إضافي
+Cost per Unit,التكلفة لكل وحدة
+Cost per Unit per km,التكلفة لكل وحدة لكل كم
+Create Material Request (draft),إنشاء طلب مواد (مسودة)
+Create Production Plan (draft),إنشاء خطة إنتاج (مسودة)
+Create Purchase Orders (drafts),إنشاء أوامر شراء (مسودات)
+Create Stock Entry (draft),إنشاء قيد مخزون (مسودة)
+Customer,العميل
+Daily Demand Std Dev,الانحراف المعياري للطلب اليومي
+Data loaded,تم تحميل البيانات
+Decisions,القرارات
+Default Company,الشركة الافتراضية
+Default Lead Time (days),مدة التوريد الافتراضية (أيام)
+Depot,المستودع الرئيسي للانطلاق
+Depot Latitude,خط عرض نقطة الانطلاق
+Depot Longitude,خط طول نقطة الانطلاق
+Destination,الوجهة
+Destinations,الوجهات
+Distance Above Lower Bound %,المسافة فوق الحد الأدنى %
+"Distances are straight-line (as the crow flies), not road distances.",المسافات بخط مستقيم (كما يطير الغراب) وليست مسافات الطرق.
+Distribution,التوزيع
+Distribution Plan,خطة التوزيع
+Distribution Plans Needing Attention,خطط التوزيع التي تحتاج إلى انتباه
+Do Not Produce More Than Open Sales Orders,عدم الإنتاج أكثر من أوامر البيع المفتوحة
+Done,تم
+Draft,مسودة
+Draft created: {0}. Review it and submit it yourself.,تم إنشاء المسودة: {0}. راجعها واعتمدها بنفسك.
+Drafts Created,المسودات المنشأة
+Due,الاستحقاق
+Economic Order Qty,كمية الطلب الاقتصادية
+Empty or 0 = no limit.,فارغ أو 0 = بلا حد.
+End,النهاية
+Exact Route Order up to (stops),ترتيب المسار الدقيق حتى (نقاط التوقف)
+Finish Time of the Last Order,وقت انتهاء آخر أمر
+Forecast Method,طريقة التنبؤ
+From,من
+History (days),السجل (أيام)
+Holding Cost per Year %,تكلفة الاحتفاظ بالمخزون سنويًا %
+Home,الرئيسية
+Hours = operation time x remaining share of the order quantity. Each workstation does one job at a time.,الساعات = زمن العملية × النسبة المتبقية من كمية الأمر. كل محطة عمل تنفذ مهمة واحدة في كل مرة.
+How much the total margin would rise if you had one more unit of this resource: the real bottleneck shows the highest number.,مقدار الارتفاع في إجمالي الهامش لو توفرت وحدة إضافية من هذا المورد: عنق الزجاجة الحقيقي يظهر أعلى رقم.
+Independently Verified,تم التحقق باستقلالية
+Infeasible,غير ممكن
+Inputs changed,تغيرت المدخلات
+Inputs changed after the last result: press Solve again.,تغيرت المدخلات بعد آخر نتيجة: اضغط حل مرة أخرى.
+Item,صنف
+Item Name,اسم الصنف
+Item Price,سعر الصنف
+Items,الأصناف
+Kind,النوع
+Lane Costs,تكاليف المسارات
+Lane Costs (optional),تكاليف المسارات (اختياري)
+Latitude,خط العرض
+Lead Time (days),مدة التوريد (أيام)
+Leave empty for all warehouses of the company.,اتركه فارغًا لكل مستودعات الشركة.
+Left Over,المتبقي
+Less than 6 months of history: forecasts and safety stock are rough.,السجل أقل من 6 أشهر: التنبؤات ومخزون الأمان تقريبية.
+Load,الحمولة
+Load Data,تحميل البيانات
+Longest Lead Time (days),أطول مدة توريد (أيام)
+Longitude,خط الطول
+Lower Bound (hours),الحد الأدنى (ساعات)
+Lower Bound km,الحد الأدنى (كم)
+Lowest Quality Score %,أدنى درجة جودة %
+Margin = selling price - BOM cost. Material available = stock on hand (incoming purchases are not counted). Edit any number before solving.,الهامش = سعر البيع - تكلفة قائمة المواد. المواد المتاحة = المخزون الحالي (المشتريات القادمة غير محسوبة). عدّل أي رقم قبل الحل.
+Margin per Unit,الهامش لكل وحدة
+Material,مادة
+Material Request,طلب مواد
+Max Share of One Supplier %,أقصى حصة لمورد واحد %
+Maximum Quantity (demand),الكمية القصوى (الطلب)
+Minimise,تقليل
+Minimum Order,الحد الأدنى للطلب
+Minimum Quantity,الكمية الدنيا
+Mix Product,منتج التشكيلة
+Mix Resource,مورد التشكيلة
+NOT VERIFIED,لم يتم التحقق
+Needed only to create a Stock Entry draft between warehouses.,مطلوب فقط لإنشاء مسودة قيد مخزون بين المستودعات.
+Needs,الاحتياجات
+Needs Attention,يحتاج إلى انتباه
+Next Month Forecast,تنبؤ الشهر القادم
+No allocation satisfies every limit: relax a limit or add offers.,لا يوجد توزيع يحقق كل الحدود: خفف أحد الحدود أو أضف عروضًا.
+No buying Item Price with a supplier exists for these items.,لا يوجد سعر شراء لصنف مع مورد لهذه الأصناف.
+No cost and no location for {0} -> {1}: this lane is not used.,لا توجد تكلفة ولا موقع لـ {0} -> {1}: لن يُستخدم هذا المسار.
+No offer fits the limits for {0}.,لا يوجد عرض يناسب الحدود لـ {0}.
+No open transfer requests for this item: add destinations by hand.,لا توجد طلبات نقل مفتوحة لهذا الصنف: أضف الوجهات يدويًا.
+No open work order.,لا يوجد أمر عمل مفتوح.
+No pending purchase requests.,لا توجد طلبات شراء معلقة.
+No plan can be shorter than {0} km; this one is {1}% above that floor.,لا يمكن لأي خطة أن تقل عن {0} كم؛ وهذه الخطة أعلى من هذا الحد بنسبة {1}%.
+No plan can serve the demand with the allowed lanes.,لا توجد خطة تلبي الطلب بالمسارات المسموحة.
+No plan found.,لم يتم العثور على خطة.
+No product with an active default BOM and open sales orders was found.,لم يتم العثور على منتج له قائمة مواد افتراضية فعّالة وأوامر بيع مفتوحة.
+No product with an active default BOM was found.,لم يتم العثور على منتج له قائمة مواد افتراضية فعّالة.
+No product with an active default BOM{0} was found.,لم يتم العثور على منتج له قائمة مواد افتراضية فعالة{0}.
+No sales order is waiting for delivery.,لا يوجد أمر بيع في انتظار التسليم.
+No stock movement in the chosen period.,لا توجد حركة مخزون في الفترة المختارة.
+No stop has a location.,لا توجد نقطة توقف لها موقع.
+No warehouse found.,لم يتم العثور على مستودع.
+No warehouse holds this item.,لا يوجد مستودع يحتوي على هذا الصنف.
+Not Allowed,غير مسموح
+Nothing needs to be ordered now.,لا يوجد ما يلزم طلبه الآن.
+Nothing to schedule.,لا يوجد ما يمكن جدولته.
+OR Settings,إعدادات بحوث العمليات
+Offers,العروض
+Offers are in different currencies ({0}): convert them before solving.,العروض بعملات مختلفة ({0}): حوّلها قبل الحل.
+On Hand,في المخزون
+On Order,قيد الطلب
+One stop needs more than a vehicle can carry: {0},نقطة توقف تحتاج أكثر مما تستطيع مركبة حمله: {0}
+Only the {0} items with the highest movement are planned.,يتم التخطيط فقط لأكثر {0} صنفًا حركة.
+Operation,عملية
+Operations,العمليات
+Operations Research,بحوث العمليات
+Order,الأمر
+Order Now,اطلب الآن
+Outcome,الناتج
+Plan,الخطة
+Plan Destination,وجهة الخطة
+Plan Flow,حركة الخطة
+Plan Lane,مسار الخطة
+Plan Source,مصدر الخطة
+Planning Days,أيام التخطيط
+Policy: order a whole economic quantity whenever stock on hand plus on order falls to the reorder point.,السياسة: اطلب كمية اقتصادية كاملة كلما انخفض المخزون الحالي مع المطلوب إلى نقطة إعادة الطلب.
+Press Solve again: the earlier result no longer matches the data.,اضغط حل مرة أخرى: النتيجة السابقة لم تعد تطابق البيانات.
+Price,السعر
+Product Mix Plan,خطة تشكيلة الإنتاج
+Product Mix Plan by Status,خطط تشكيلة الإنتاج حسب الحالة
+Product Mix Plans Needing Attention,خطط تشكيلة الإنتاج التي تحتاج إلى انتباه
+Product mix,تشكيلة الإنتاج
+Production Plan,خطة الإنتاج
+Products,المنتجات
+Purchase Order,أمر شراء
+Purchase Order Drafts,مسودات أوامر الشراء
+Quality Score %,درجة الجودة %
+Quantity,الكمية
+Read before using,اقرأ قبل الاستخدام
+Reading your data...,جارٍ قراءة بياناتك...
+Recommended Quantity,الكمية الموصى بها
+Remaining Hours,الساعات المتبقية
+Reorder Item,صنف إعادة الطلب
+Reorder Plan,خطة إعادة الطلب
+Reorder Plan by Status,خطط إعادة الطلب حسب الحالة
+Reorder Plans Needing Attention,خطط إعادة الطلب التي تحتاج إلى انتباه
+Reorder Point,نقطة إعادة الطلب
+Reorder plan,خطة إعادة الطلب
+Required Quantity,الكمية المطلوبة
+Resource,المورد
+Resource Use per Unit,استهلاك المورد لكل وحدة
+Resources,الموارد
+Result,النتيجة
+Route,مسار
+Route Leg,جزء من المسار
+Route Load,حمولة المسار
+Route Plan,خطة المسار
+Route Plans Needing Attention,خطط المسارات التي تحتاج إلى انتباه
+Route Stop,نقطة توقف المسار
+Route km,كم المسار
+Route {0} has more than 12 stops: its stop order is improved but not proven the shortest.,المسار {0} فيه أكثر من 12 نقطة توقف: تم تحسين ترتيب التوقف لكن لم يثبت أنه الأقصر.
+Routes,المسارات
+Safety Stock,مخزون الأمان
+Sales Order,أمر بيع
+Schedule,جدولة
+Schedule From,الجدولة من
+Schedule Operation,عملية الجدولة
+Schedule Plan,خطة الجدولة
+Schedule Plans Needing Attention,خطط الجدولة التي تحتاج إلى انتباه
+Schedule Row,سطر الجدولة
+Selling Price,سعر البيع
+Sequence,التسلسل
+Service Level %,مستوى الخدمة %
+Setup,الإعداد
+Shipping Plan,خطة الشحن
+Solve,حل
+Solve the plan first. A plan that is not verified cannot create documents.,قم بحل الخطة أولًا. الخطة التي لم يتم التحقق منها لا يمكنها إنشاء مستندات.
+Solved,تم الحل
+Solved On,تاريخ الحل
+Solved Plans This Month,الخطط المحلولة هذا الشهر
+Solving...,جارٍ الحل...
+Some customers have no latitude/longitude on their Address: they will be left out until you fill them.,بعض العملاء ليس لديهم خط عرض/خط طول في عنوانهم: سيتم استبعادهم حتى تستكمل البيانات.
+Some warehouses have no latitude/longitude on a linked Address: give a lane cost for them or fill the coordinates.,بعض المستودعات ليس لها خط عرض/خط طول في عنوان مرتبط: حدد تكلفة مسار لها أو أكمل الإحداثيات.
+Source,المصدر
+Source Data,بيانات المصدر
+Sources,المصادر
+Start,بدء
+Status,الحالة
+Stock Entry,قيد مخزون
+Stop,نقطة توقف
+Stops,نقاط التوقف
+Summary,الملخص
+Supplier,المورد
+Supplier Allocation Plan,خطة توزيع الموردين
+Supplier Allocation Plan by Status,خطط توزيع الموردين حسب الحالة
+Supplier Allocation Plans Needing Attention,خطط توزيع الموردين التي تحتاج إلى انتباه
+Supplier allocation,توزيع الموردين
+The minimum quantities cannot be met with the available resources.,لا يمكن تحقيق الكميات الدنيا بالموارد المتاحة.
+The plan has no flow between existing warehouses.,لا توجد في الخطة حركة بين المستودعات القائمة.
+The plan has no quantity to order.,لا توجد في الخطة كمية للطلب.
+The plan has no quantity to produce.,لا توجد في الخطة كمية للإنتاج.
+The schedule is {0}% above the theoretical minimum; the real optimum lies between the two.,الجدول أعلى من الحد الأدنى النظري بنسبة {0}%؛ والأمثل الفعلي يقع بين الاثنين.
+"The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate.",أُعيد فحص الحل بواسطة كود منفصل: جميع القيود محققة، وفي المسائل الخطية يثبت الأمثل بشهادة ثنائية.
+The solver could not finish.,تعذر على المحلل إتمام الحل.
+This plan has notes to read first (see the summary). Create the draft anyway?,هذه الخطة بها ملاحظات يجب قراءتها أولًا (راجع الملخص). هل تريد إنشاء المسودة على أي حال؟
+To,إلى
+Total Cost,التكلفة الإجمالية
+Total Lateness,إجمالي التأخير
+Total Lateness (hours),إجمالي التأخير (ساعات)
+Total Margin,إجمالي الهامش
+Total Shipping Cost,إجمالي تكلفة الشحن
+Total Working Hours Needed,إجمالي ساعات العمل المطلوبة
+Total cost {0} across {1} suppliers,التكلفة الإجمالية {0} عبر {1} من الموردين
+Total km,إجمالي الكيلومترات
+Total margin {0},إجمالي الهامش {0}
+Total shipping cost {0},إجمالي تكلفة الشحن {0}
+UOM,وحدة القياس
+Unit Cost,تكلفة الوحدة
+Used,المستخدم
+Used for every lane that has no cost in the table below.,تُستخدم لكل مسار ليس له تكلفة في الجدول أدناه.
+Value of One More Unit,قيمة وحدة إضافية
+Vehicle Capacity,سعة المركبة
+Vehicles Available,المركبات المتاحة
+Vehicles Used,المركبات المستخدمة
+Warehouse,المستودع
+Whole Units Only,وحدات صحيحة فقط
+Whole-unit plan: values of extra resource units are not shown.,خطة بوحدات صحيحة: لا تُعرض قيم وحدات الموارد الإضافية.
+Work Order,أمر العمل
+Working Hours per Day,ساعات العمل في اليوم
+Working days are counted as consecutive calendar days: weekends and holidays are not skipped.,تُحتسب أيام العمل كأيام تقويمية متتالية: لا يتم استبعاد عطلات نهاية الأسبوع والإجازات.
+Workstation,محطة العمل
+Workstation Hours,ساعات محطة العمل
+Workstation capacity = daily working hours x these days.,طاقة محطة العمل = ساعات العمل اليومية × هذه الأيام.
+Yearly Demand,الطلب السنوي
+high error: treat as a rough guide,نسبة الخطأ مرتفعة: اعتبره تقديرًا تقريبيًا فقط
+history too short: simple average,السجل قصير جدًا: تم استخدام المتوسط البسيط
+verified,تم التحقق
+"{0} / {1}: no workstation, left out.",{0} / {1}: لا توجد محطة عمل، تم الاستبعاد.
+"{0} / {1}: the price is per {2}, not per stock unit: check it.",{0} / {1}: السعر لكل {2} وليس لكل وحدة مخزون: تحقق منه.
+"{0} deliveries waiting. Enter the depot position and the vehicle capacity, then press Solve.",{0} عمليات تسليم في الانتظار. أدخل موقع نقطة الانطلاق وسعة المركبة ثم اضغط حل.
+{0} has no resource use and no demand limit: the plan has no upper end.,{0} ليس له استهلاك موارد ولا حد للطلب: الخطة بلا حد أعلى.
+"{0} items needed, {1} offers. Press Solve.",{0} أصناف مطلوبة، و{1} عروض. اضغط حل.
+{0} items with stock movement. Press Solve.,{0} أصناف عليها حركة مخزون. اضغط حل.
+{0} of {1} items need an order now.,{0} من {1} أصناف تحتاج إلى طلب الآن.
+{0} operations on open work orders. Press Solve.,{0} عمليات على أوامر عمل مفتوحة. اضغط حل.
+"{0} products and {1} resources. Review the numbers, then press Solve.",{0} منتجات و{1} موارد. راجع الأرقام ثم اضغط حل.
+{0} shipments,{0} شحنات
+{0} sources and {1} destinations. Press Solve.,{0} مصادر و{1} وجهات. اضغط حل.
+"{0} uses {1} which is not in the resource list, so it is treated as unlimited.",{0} يستخدم {1} وهو غير موجود في قائمة الموارد، لذلك يُعامل على أنه غير محدود.
+{0} vehicles are needed.,المطلوب {0} مركبات.
+"{0} vehicles, {1} km in total",{0} مركبات، و{1} كم في المجموع
+"{0}: margin is not positive, so it will not be produced.",{0}: الهامش غير موجب، لذلك لن يتم إنتاجه.
+"{0}: no cost, so the economic quantity cannot be computed.",{0}: لا توجد تكلفة، لذلك لا يمكن حساب الكمية الاقتصادية.
+"{0}: no lead time on the item, used {1} days.",{0}: لا توجد مدة توريد للصنف، تم استخدام {1} يومًا.
+"{0}: no location, left out.",{0}: لا يوجد موقع، تم الاستبعاد.
+{0}: no selling price found: set one before trusting the plan.,{0}: لم يتم العثور على سعر بيع: حدد سعرًا قبل الاعتماد على الخطة.
+"{0}: no working hours set, 8 hours a day assumed.",{0}: لم تُحدد ساعات عمل، تم افتراض 8 ساعات في اليوم.
+"{0}: operation {1} has no workstation, so its time is not limited.",{0}: العملية {1} ليس لها محطة عمل، لذلك لا يُحدّ وقتها.
+{0}: {1},{0}: {1}
+{0}: {1} cannot be supplied.,{0}: لا يمكن توريد {1}.

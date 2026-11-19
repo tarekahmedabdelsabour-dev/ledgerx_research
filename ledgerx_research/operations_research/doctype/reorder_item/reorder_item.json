@@ -1,0 +1,129 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "item_name",
+  "abc",
+  "annual_demand",
+  "daily_sd",
+  "lead_days",
+  "unit_cost",
+  "on_hand",
+  "on_order",
+  "eoq",
+  "safety_stock",
+  "reorder_point",
+  "order_qty",
+  "forecast_method",
+  "forecast_next"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1,
+   "fetch_from": "item_code.item_name"
+  },
+  {
+   "fieldname": "abc",
+   "fieldtype": "Select",
+   "label": "ABC",
+   "options": "\nA\nB\nC",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "annual_demand",
+   "fieldtype": "Float",
+   "label": "Yearly Demand",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "daily_sd",
+   "fieldtype": "Float",
+   "label": "Daily Demand Std Dev"
+  },
+  {
+   "fieldname": "lead_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (days)"
+  },
+  {
+   "fieldname": "unit_cost",
+   "fieldtype": "Currency",
+   "label": "Unit Cost"
+  },
+  {
+   "fieldname": "on_hand",
+   "fieldtype": "Float",
+   "label": "On Hand"
+  },
+  {
+   "fieldname": "on_order",
+   "fieldtype": "Float",
+   "label": "On Order"
+  },
+  {
+   "fieldname": "eoq",
+   "fieldtype": "Float",
+   "label": "Economic Order Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "safety_stock",
+   "fieldtype": "Float",
+   "label": "Safety Stock",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reorder_point",
+   "fieldtype": "Float",
+   "label": "Reorder Point",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "order_qty",
+   "fieldtype": "Float",
+   "label": "Order Now",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "forecast_method",
+   "fieldtype": "Data",
+   "label": "Forecast Method",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_next",
+   "fieldtype": "Float",
+   "label": "Next Month Forecast",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Reorder Item",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "istable": 1,
+ "allow_rename": 0
+}

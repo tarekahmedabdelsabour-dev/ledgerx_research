@@ -1,0 +1,201 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "depot_name",
+  "depot_lat",
+  "depot_lng",
+  "cb1",
+  "vehicle_capacity",
+  "max_vehicles",
+  "sb_s",
+  "stops",
+  "sb_o",
+  "legs",
+  "total_km",
+  "lower_bound_km",
+  "gap_pct",
+  "vehicles_used",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "depot_name",
+   "fieldtype": "Data",
+   "label": "Depot"
+  },
+  {
+   "fieldname": "depot_lat",
+   "fieldtype": "Float",
+   "label": "Depot Latitude",
+   "precision": "6",
+   "reqd": 1
+  },
+  {
+   "fieldname": "depot_lng",
+   "fieldtype": "Float",
+   "label": "Depot Longitude",
+   "precision": "6",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vehicle_capacity",
+   "fieldtype": "Float",
+   "label": "Vehicle Capacity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "max_vehicles",
+   "fieldtype": "Int",
+   "label": "Vehicles Available",
+   "description": "0 = no limit."
+  },
+  {
+   "fieldname": "sb_s",
+   "fieldtype": "Section Break",
+   "label": "Stops"
+  },
+  {
+   "fieldname": "stops",
+   "fieldtype": "Table",
+   "label": "Stops",
+   "options": "Route Stop"
+  },
+  {
+   "fieldname": "sb_o",
+   "fieldtype": "Section Break",
+   "label": "Routes"
+  },
+  {
+   "fieldname": "legs",
+   "fieldtype": "Table",
+   "label": "Routes",
+   "options": "Route Leg",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_km",
+   "fieldtype": "Float",
+   "label": "Total km",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lower_bound_km",
+   "fieldtype": "Float",
+   "label": "Lower Bound km",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gap_pct",
+   "fieldtype": "Percent",
+   "label": "Distance Above Lower Bound %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vehicles_used",
+   "fieldtype": "Int",
+   "label": "Vehicles Used",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Route Plan",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:RTE-.YYYY.-.#####",
+ "icon": "fa fa-road",
+ "allow_rename": 0
+}

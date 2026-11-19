@@ -1,0 +1,337 @@
+{
+ "charts": [
+  {
+   "chart_name": "Product Mix Plan by Status",
+   "label": "Product Mix Plan by Status"
+  },
+  {
+   "chart_name": "Reorder Plan by Status",
+   "label": "Reorder Plan by Status"
+  },
+  {
+   "chart_name": "Supplier Allocation Plan by Status",
+   "label": "Supplier Allocation Plan by Status"
+  }
+ ],
+ "content": "[{\"id\": \"aa9408e3fa\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Operations Research</b></span>\", \"col\": 12}}, {\"id\": \"83892938b0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Product Mix Plan\", \"col\": 3}}, {\"id\": \"1cd095b2ed\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Reorder Plan\", \"col\": 3}}, {\"id\": \"98a151085c\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Route Plan\", \"col\": 3}}, {\"id\": \"4b7e531fb4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Supplier Allocation Plan\", \"col\": 3}}, {\"id\": \"778e03b6bc\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Product Mix Plans Needing Attention\", \"col\": 3}}, {\"id\": \"5423db2733\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Reorder Plans Needing Attention\", \"col\": 3}}, {\"id\": \"4dbefdbbfa\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Distribution Plans Needing Attention\", \"col\": 3}}, {\"id\": \"c9cac46877\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Route Plans Needing Attention\", \"col\": 3}}, {\"id\": \"43805e6843\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Schedule Plans Needing Attention\", \"col\": 3}}, {\"id\": \"4c2a20e078\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Supplier Allocation Plans Needing Attention\", \"col\": 3}}, {\"id\": \"c2867b5a12\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Solved Plans This Month\", \"col\": 3}}, {\"id\": \"3ed7cf487b\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Product Mix Plan by Status\", \"col\": 6}}, {\"id\": \"3328447c94\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Reorder Plan by Status\", \"col\": 6}}, {\"id\": \"c743970a4a\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Supplier Allocation Plan by Status\", \"col\": 6}}, {\"id\": \"8e0132f300\", \"type\": \"card\", \"data\": {\"card_name\": \"Decisions\", \"col\": 4}}, {\"id\": \"37871ba8a2\", \"type\": \"card\", \"data\": {\"card_name\": \"Drafts Created\", \"col\": 4}}, {\"id\": \"5309664696\", \"type\": \"card\", \"data\": {\"card_name\": \"Source Data\", \"col\": 4}}, {\"id\": \"9dcaa3a65a\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
+ "creation": "2026-11-19 07:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 1,
+ "icon": "calculator",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "Operations Research",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Decisions",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 6,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Product Mix Plan",
+   "link_type": "DocType",
+   "link_to": "Product Mix Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Reorder Plan",
+   "link_type": "DocType",
+   "link_to": "Reorder Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Distribution Plan",
+   "link_type": "DocType",
+   "link_to": "Distribution Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Route Plan",
+   "link_type": "DocType",
+   "link_to": "Route Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Schedule Plan",
+   "link_type": "DocType",
+   "link_to": "Schedule Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Supplier Allocation Plan",
+   "link_type": "DocType",
+   "link_to": "Supplier Allocation Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Drafts Created",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 4,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Production Plan",
+   "link_type": "DocType",
+   "link_to": "Production Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Material Request",
+   "link_type": "DocType",
+   "link_to": "Material Request",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Purchase Order",
+   "link_type": "DocType",
+   "link_to": "Purchase Order",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Stock Entry",
+   "link_type": "DocType",
+   "link_to": "Stock Entry",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Source Data",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 8,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "BOM",
+   "link_type": "DocType",
+   "link_to": "BOM",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Item",
+   "link_type": "DocType",
+   "link_to": "Item",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Warehouse",
+   "link_type": "DocType",
+   "link_to": "Warehouse",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Workstation",
+   "link_type": "DocType",
+   "link_to": "Workstation",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Work Order",
+   "link_type": "DocType",
+   "link_to": "Work Order",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Sales Order",
+   "link_type": "DocType",
+   "link_to": "Sales Order",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Item Price",
+   "link_type": "DocType",
+   "link_to": "Item Price",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Address",
+   "link_type": "DocType",
+   "link_to": "Address",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Setup",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 1,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "OR Settings",
+   "link_type": "DocType",
+   "link_to": "OR Settings",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  }
+ ],
+ "title": "Operations Research",
+ "modified": "2026-11-19 07:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Operations Research",
+ "number_cards": [
+  {
+   "label": "Product Mix Plans Needing Attention",
+   "number_card_name": "Product Mix Plans Needing Attention"
+  },
+  {
+   "label": "Reorder Plans Needing Attention",
+   "number_card_name": "Reorder Plans Needing Attention"
+  },
+  {
+   "label": "Distribution Plans Needing Attention",
+   "number_card_name": "Distribution Plans Needing Attention"
+  },
+  {
+   "label": "Route Plans Needing Attention",
+   "number_card_name": "Route Plans Needing Attention"
+  },
+  {
+   "label": "Schedule Plans Needing Attention",
+   "number_card_name": "Schedule Plans Needing Attention"
+  },
+  {
+   "label": "Supplier Allocation Plans Needing Attention",
+   "number_card_name": "Supplier Allocation Plans Needing Attention"
+  },
+  {
+   "label": "Solved Plans This Month",
+   "number_card_name": "Solved Plans This Month"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 23.0,
+ "shortcuts": [
+  {
+   "label": "Product Mix Plan",
+   "link_to": "Product Mix Plan",
+   "type": "DocType",
+   "doc_view": "List"
+  },
+  {
+   "label": "Reorder Plan",
+   "link_to": "Reorder Plan",
+   "type": "DocType",
+   "doc_view": "List"
+  },
+  {
+   "label": "Route Plan",
+   "link_to": "Route Plan",
+   "type": "DocType",
+   "doc_view": "List"
+  },
+  {
+   "label": "Supplier Allocation Plan",
+   "link_to": "Supplier Allocation Plan",
+   "type": "DocType",
+   "doc_view": "List"
+  }
+ ]
+}

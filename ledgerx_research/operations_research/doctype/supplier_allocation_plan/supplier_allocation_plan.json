@@ -1,0 +1,198 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "max_share_pct",
+  "max_lead_days",
+  "cb1",
+  "min_quality_pct",
+  "budget",
+  "supplier_setup_cost",
+  "sb_n",
+  "needs",
+  "sb_of",
+  "offers",
+  "sb_r2",
+  "results",
+  "total_cost",
+  "purchase_orders",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "max_share_pct",
+   "fieldtype": "Percent",
+   "label": "Max Share of One Supplier %",
+   "description": "Empty or 0 = no limit."
+  },
+  {
+   "fieldname": "max_lead_days",
+   "fieldtype": "Int",
+   "label": "Longest Lead Time (days)",
+   "description": "0 = no limit."
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "min_quality_pct",
+   "fieldtype": "Percent",
+   "label": "Lowest Quality Score %",
+   "description": "0 = no limit. Offers without a score are kept."
+  },
+  {
+   "fieldname": "budget",
+   "fieldtype": "Currency",
+   "label": "Budget"
+  },
+  {
+   "fieldname": "supplier_setup_cost",
+   "fieldtype": "Currency",
+   "label": "Cost per Extra Supplier Used",
+   "description": "Charged once for every supplier that gets an order; pushes the plan to consolidate."
+  },
+  {
+   "fieldname": "sb_n",
+   "fieldtype": "Section Break",
+   "label": "Needs"
+  },
+  {
+   "fieldname": "needs",
+   "fieldtype": "Table",
+   "label": "Needs",
+   "options": "Allocation Need"
+  },
+  {
+   "fieldname": "sb_of",
+   "fieldtype": "Section Break",
+   "label": "Offers"
+  },
+  {
+   "fieldname": "offers",
+   "fieldtype": "Table",
+   "label": "Offers",
+   "options": "Allocation Offer"
+  },
+  {
+   "fieldname": "sb_r2",
+   "fieldtype": "Section Break",
+   "label": "Allocation"
+  },
+  {
+   "fieldname": "results",
+   "fieldtype": "Table",
+   "label": "Allocation",
+   "options": "Allocation Result",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "purchase_orders",
+   "fieldtype": "Small Text",
+   "label": "Purchase Order Drafts",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Supplier Allocation Plan",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:ALC-.YYYY.-.#####",
+ "icon": "fa fa-handshake-o",
+ "allow_rename": 0
+}

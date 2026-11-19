@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "route_no",
+  "sequence",
+  "stop",
+  "route_load",
+  "route_km"
+ ],
+ "fields": [
+  {
+   "fieldname": "route_no",
+   "fieldtype": "Int",
+   "label": "Route",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sequence",
+   "fieldtype": "Int",
+   "label": "Order",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "stop",
+   "fieldtype": "Data",
+   "label": "Stop",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "route_load",
+   "fieldtype": "Float",
+   "label": "Route Load",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "route_km",
+   "fieldtype": "Float",
+   "label": "Route km",
+   "read_only": 1,
+   "in_list_view": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Route Leg",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "istable": 1,
+ "allow_rename": 0
+}

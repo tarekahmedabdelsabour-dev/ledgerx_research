@@ -1,0 +1,195 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "start_at",
+  "cb1",
+  "objective",
+  "hours_per_day",
+  "sb_o",
+  "operations",
+  "sb_s",
+  "rows",
+  "makespan_hours",
+  "lower_bound_hours",
+  "gap_pct",
+  "rule",
+  "total_lateness_hours",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_at",
+   "fieldtype": "Datetime",
+   "label": "Schedule From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "objective",
+   "fieldtype": "Select",
+   "label": "Minimise",
+   "options": "Finish Time of the Last Order\nTotal Lateness",
+   "default": "Finish Time of the Last Order"
+  },
+  {
+   "fieldname": "hours_per_day",
+   "fieldtype": "Float",
+   "label": "Working Hours per Day",
+   "default": 8,
+   "description": "Converts hours of work into calendar time in the schedule."
+  },
+  {
+   "fieldname": "sb_o",
+   "fieldtype": "Section Break",
+   "label": "Operations"
+  },
+  {
+   "fieldname": "operations",
+   "fieldtype": "Table",
+   "label": "Operations",
+   "options": "Schedule Operation"
+  },
+  {
+   "fieldname": "sb_s",
+   "fieldtype": "Section Break",
+   "label": "Schedule"
+  },
+  {
+   "fieldname": "rows",
+   "fieldtype": "Table",
+   "label": "Schedule",
+   "options": "Schedule Row",
+   "read_only": 1
+  },
+  {
+   "fieldname": "makespan_hours",
+   "fieldtype": "Float",
+   "label": "Total Working Hours Needed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lower_bound_hours",
+   "fieldtype": "Float",
+   "label": "Lower Bound (hours)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gap_pct",
+   "fieldtype": "Percent",
+   "label": "Above Lower Bound %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rule",
+   "fieldtype": "Data",
+   "label": "Best Dispatch Rule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_lateness_hours",
+   "fieldtype": "Float",
+   "label": "Total Lateness (hours)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Schedule Plan",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:SCH-.YYYY.-.#####",
+ "icon": "fa fa-calendar",
+ "allow_rename": 0
+}

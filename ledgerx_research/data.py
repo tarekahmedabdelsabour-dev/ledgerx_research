@@ -326,3 +326,187 @@ def make_purchase_orders(doc):
 		po.insert()
 		names.append(po.name)
 	return names
+
+
+# ----------------------------------------------------------------------------------- break-even
+def load_breakeven(company, from_date, to_date, fixed_rows):
+	"""Products from the invoices of the period (price, cost at sale, quantity) and the amount of each fixed cost that has an account."""
+	warnings = []
+	rows = frappe.db.sql(
+		"""select sii.item_code, sum(sii.stock_qty) q, sum(sii.base_net_amount) rev, sum(ifnull(sii.incoming_rate, 0) * sii.stock_qty) cost
+		from `tabSales Invoice Item` sii join `tabSales Invoice` si on si.name = sii.parent
+		where si.docstatus = 1 and si.company = %s and si.posting_date between %s and %s group by sii.item_code having sum(sii.stock_qty) > 0
+		order by sum(sii.base_net_amount) desc limit 51""", (company, from_date, to_date), as_dict=True)
+	if len(rows) > 50:
+		warnings.append(_("Only the 50 items with the highest sales are included."))
+		rows = rows[:50]
+	products = [{"item_code": r.item_code, "price": flt(r.rev) / flt(r.q), "variable_cost": flt(r.cost) / flt(r.q), "qty": flt(r.q)} for r in rows]
+	if not products:
+		warnings.append(_("No sales in the chosen period."))
+	warnings.append(_("Variable cost = the stock cost at the time of sale. Add direct labour, commissions and delivery per unit if they exist."))
+	warnings.append(_("Returns are netted against sales."))
+	filled = 0
+	for fr in fixed_rows:
+		if fr.get("account") and not flt(fr.get("amount")):
+			s = frappe.db.sql("select sum(debit - credit) from `tabGL Entry` where account = %s and company = %s and is_cancelled = 0 and posting_date between %s and %s",
+				(fr["account"], company, from_date, to_date))
+			fr["amount"] = flt(s[0][0]) if s and s[0][0] else 0.0
+			filled += 1
+	if filled:
+		warnings.append(_("{0} fixed cost amounts were read from the ledger for the same period.").format(filled))
+	return products, fixed_rows, warnings
+
+
+# ----------------------------------------------------------------------------------- profitability and stock health
+GROUP_COLUMNS = {"Item": "sii.item_code", "Customer": "si.customer", "Item Group": "sii.item_group"}
+
+
+def load_profitability(company, from_date, to_date, group_by):
+	col = GROUP_COLUMNS.get(group_by)
+	if not col:
+		frappe.throw(_("Choose what to analyse by."))
+	rows = frappe.db.sql(
+		f"""select {col} g, sum(sii.stock_qty) q, sum(sii.base_net_amount) rev, sum(ifnull(sii.incoming_rate, 0) * sii.stock_qty) cost
+		from `tabSales Invoice Item` sii join `tabSales Invoice` si on si.name = sii.parent
+		where si.docstatus = 1 and si.company = %s and si.posting_date between %s and %s group by {col} limit 2000""", (company, from_date, to_date), as_dict=True)
+	warnings = []
+	if len(rows) >= 2000:
+		warnings.append(_("Only the first 2000 groups are analysed."))
+	warnings.append(_("Cost = the stock cost at the time of sale. Overheads, delivery and returns' handling are not included."))
+	return [{"name": r.g or _("(none)"), "revenue": flt(r.rev), "cost": flt(r.cost), "qty": flt(r.q)} for r in rows], warnings
+
+
+def load_stock_health(company):
+	from datetime import date
+	whs = company_warehouses(company)
+	if not whs:
+		return []
+	today = getdate(nowdate())
+	stock = frappe.get_all("Bin", filters={"warehouse": ["in", whs], "actual_qty": [">", 0]}, fields=["item_code", "actual_qty", "stock_value"], limit_page_length=0)
+	agg = defaultdict(lambda: [0.0, 0.0])
+	for b in stock:
+		agg[b.item_code][0] += flt(b.actual_qty)
+		agg[b.item_code][1] += flt(b.stock_value)
+	if not agg:
+		return []
+	codes = list(agg)
+	ph = ", ".join(["%s"] * len(codes))
+	last = {r.item_code: r.d for r in frappe.db.sql(
+		f"select item_code, max(posting_date) d from `tabStock Ledger Entry` where is_cancelled = 0 and actual_qty < 0 and item_code in ({ph}) group by item_code", codes, as_dict=True)}
+	since = add_days(nowdate(), -365)
+	out_ = {r.item_code: flt(r.q) for r in frappe.db.sql(
+		f"select item_code, sum(-actual_qty) q from `tabStock Ledger Entry` where is_cancelled = 0 and actual_qty < 0 and posting_date >= %s and item_code in ({ph}) "
+		f"and voucher_type in ('Delivery Note', 'Sales Invoice', 'Stock Entry') group by item_code", [since, *codes], as_dict=True)}
+	rows = []
+	for c, (q, v) in agg.items():
+		d = last.get(c)
+		rows.append({"item": c, "qty": q, "value": v, "days_since_move": (today - getdate(d)).days if d else 9999, "daily_demand": out_.get(c, 0.0) / 365.0})
+	return rows
+
+
+# ----------------------------------------------------------------------------------- pricing
+def load_pricing(company, item_code):
+	"""Cost, current price, monthly quantity and the monthly (price, quantity) history for an elasticity estimate."""
+	since = add_days(nowdate(), -365)
+	rows = frappe.db.sql(
+		"""select si.posting_date d, sum(sii.stock_qty) q, sum(sii.base_net_amount) rev, sum(ifnull(sii.incoming_rate, 0) * sii.stock_qty) cost
+		from `tabSales Invoice Item` sii join `tabSales Invoice` si on si.name = sii.parent
+		where si.docstatus = 1 and si.company = %s and si.posting_date >= %s and sii.item_code = %s group by si.posting_date""", (company, since, item_code), as_dict=True)
+	months = defaultdict(lambda: [0.0, 0.0, 0.0])
+	for r in rows:
+		m = months[str(r.d)[:7]]
+		m[0] += flt(r.q)
+		m[1] += flt(r.rev)
+		m[2] += flt(r.cost)
+	tq = sum(m[0] for m in months.values())
+	warnings = []
+	if not tq:
+		warnings.append(_("No sales of this item in the last 12 months."))
+		return {"cost": 0, "price": 0, "qty": 0, "points": []}, warnings
+	rev = sum(m[1] for m in months.values())
+	cost = sum(m[2] for m in months.values()) / tq
+	if not cost:
+		cost = flt(frappe.db.get_value("Item", item_code, "valuation_rate"))
+	n = max(len(months), 1)
+	points = [(m[1] / m[0], m[0]) for m in months.values() if m[0] > 0]
+	return {"cost": cost, "price": rev / tq, "qty": tq / 12.0, "points": points}, warnings
+
+
+# ----------------------------------------------------------------------------------- make or buy
+def load_make_or_buy(company, item_code):
+	warnings = []
+	make_var = buy = 0.0
+	bom = frappe.db.get_value("BOM", {"item": item_code, "is_active": 1, "is_default": 1, "docstatus": 1}, ["name", "total_cost", "quantity"], as_dict=True)
+	if bom:
+		make_var = flt(bom.total_cost) / (flt(bom.quantity) or 1.0)
+	else:
+		warnings.append(_("No active default BOM: enter the making cost."))
+	buy = flt(frappe.db.get_value("Item Price", {"item_code": item_code, "buying": 1}, "price_list_rate", order_by="valid_from desc")) or flt(frappe.db.get_value("Item", item_code, "last_purchase_rate"))
+	if not buy:
+		warnings.append(_("No buying price found: enter it."))
+	warnings.append(_("The BOM cost includes materials and operations at their standard rates. Add the fixed yearly costs of each option yourself."))
+	return make_var, buy, warnings
+
+
+# ----------------------------------------------------------------------------------- decision review
+def _demand_in_window(item_code, whs, start, end):
+	if not whs:
+		return 0.0
+	ph = ", ".join(["%s"] * len(whs))
+	r = frappe.db.sql(
+		f"""select sum(-sle.actual_qty) from `tabStock Ledger Entry` sle where sle.is_cancelled = 0 and sle.actual_qty < 0 and sle.item_code = %s
+		and sle.posting_date between %s and %s and sle.warehouse in ({ph}) and (sle.voucher_type in ('Delivery Note', 'Sales Invoice') or (sle.voucher_type = 'Stock Entry'
+		and sle.voucher_no in (select name from `tabStock Entry` where purpose in %s and docstatus = 1)))""", [item_code, start, end, *whs, CONSUMING_ENTRIES])
+	return flt(r[0][0]) if r and r[0][0] else 0.0
+
+
+def load_review(company, plan_type, from_date, to_date):
+	"""Rows to compare for the plans solved in the period. Only plans old enough for the outcome to be known are used."""
+	warnings = []
+	rows = []
+	today = getdate(nowdate())
+	plans = frappe.get_all(plan_type, filters={"company": company, "solved_on": ["between", [f"{from_date} 00:00:00", f"{to_date} 23:59:59"]], "status": ["in", ["Solved", "Needs Attention"]]},
+		fields=["name", "solved_on"] + (["warehouse", "lookback_days"] if plan_type == "Reorder Plan" else ["planning_days"] if plan_type == "Product Mix Plan" else []), limit_page_length=500)
+	skipped = 0
+	for p in plans:
+		solved = getdate(p.solved_on)
+		if plan_type == "Reorder Plan":
+			end = add_days(solved, 30)
+			if getdate(end) > today:
+				skipped += 1
+				continue
+			whs = company_warehouses(company, p.warehouse)
+			for it in frappe.get_all("Reorder Item", filters={"parent": p.name, "parenttype": plan_type}, fields=["item_code", "forecast_next"]):
+				if flt(it.forecast_next) > 0:
+					rows.append({"plan": p.name, "item_code": it.item_code, "expected": flt(it.forecast_next), "actual": _demand_in_window(it.item_code, whs, add_days(solved, 1), end)})
+		elif plan_type == "Product Mix Plan":
+			days = int(p.planning_days or 30)
+			end = add_days(solved, days)
+			if getdate(end) > today:
+				skipped += 1
+				continue
+			for it in frappe.get_all("Mix Product", filters={"parent": p.name, "parenttype": plan_type}, fields=["item_code", "plan_qty"]):
+				if flt(it.plan_qty) > 0:
+					made = frappe.db.sql(
+						"""select sum(sed.qty) from `tabStock Entry Detail` sed join `tabStock Entry` se on se.name = sed.parent where se.docstatus = 1 and se.purpose = 'Manufacture'
+						and se.company = %s and sed.is_finished_item = 1 and sed.item_code = %s and se.posting_date between %s and %s""", (company, it.item_code, add_days(solved, 1), end))
+					rows.append({"plan": p.name, "item_code": it.item_code, "expected": flt(it.plan_qty), "actual": flt(made[0][0]) if made and made[0][0] else 0.0})
+		else:
+			if solved >= today:
+				skipped += 1
+				continue
+			for it in frappe.get_all("Allocation Result", filters={"parent": p.name, "parenttype": plan_type}, fields=["supplier", "item_code", "price"]):
+				paid = frappe.db.sql(
+					"""select sum(poi.base_net_amount) / nullif(sum(poi.qty), 0) from `tabPurchase Order Item` poi join `tabPurchase Order` po on po.name = poi.parent
+					where po.docstatus = 1 and po.company = %s and po.supplier = %s and poi.item_code = %s and po.transaction_date > %s""", (company, it.supplier, it.item_code, solved))
+				if paid and paid[0][0]:
+					rows.append({"plan": p.name, "item_code": it.item_code, "supplier": it.supplier, "expected": flt(it.price), "actual": flt(paid[0][0])})
+	if skipped:
+		warnings.append(_("{0} plans are too recent to be checked yet.").format(skipped))
+	if plan_type == "Supplier Allocation Plan":
+		warnings.append(_("Compares the planned price with the average price of purchase orders placed with the same supplier after the plan."))
+	elif plan_type == "Reorder Plan":
+		warnings.append(_("Compares the forecast of next month's demand with the demand of the 30 days that followed."))
+	else:
+		warnings.append(_("Compares the planned quantity with the quantity produced in the planning days that followed."))
+	return rows, warnings

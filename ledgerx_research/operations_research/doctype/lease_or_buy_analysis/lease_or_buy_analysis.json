@@ -1,0 +1,221 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "asset",
+  "rate_pct",
+  "life_years",
+  "sb_b",
+  "price",
+  "residual",
+  "yearly_cost_own",
+  "sb_l",
+  "lease_payment",
+  "lease_years",
+  "lease_cost_extra",
+  "sb_o",
+  "own_pv",
+  "lease_pv",
+  "cheaper",
+  "cb_o",
+  "own_annual",
+  "lease_annual",
+  "saving",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "asset",
+   "fieldtype": "Data",
+   "label": "Asset",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rate_pct",
+   "fieldtype": "Percent",
+   "label": "Discount Rate per Year %",
+   "default": 10,
+   "reqd": 1
+  },
+  {
+   "fieldname": "life_years",
+   "fieldtype": "Int",
+   "label": "Years of Use",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_b",
+   "fieldtype": "Section Break",
+   "label": "If You Buy"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Purchase Price"
+  },
+  {
+   "fieldname": "residual",
+   "fieldtype": "Currency",
+   "label": "Value at the End"
+  },
+  {
+   "fieldname": "yearly_cost_own",
+   "fieldtype": "Currency",
+   "label": "Yearly Running Cost (maintenance, insurance)"
+  },
+  {
+   "fieldname": "sb_l",
+   "fieldtype": "Section Break",
+   "label": "If You Lease"
+  },
+  {
+   "fieldname": "lease_payment",
+   "fieldtype": "Currency",
+   "label": "Yearly Lease Payment"
+  },
+  {
+   "fieldname": "lease_years",
+   "fieldtype": "Int",
+   "label": "Lease Years",
+   "description": "Leave empty to use the years of use."
+  },
+  {
+   "fieldname": "lease_cost_extra",
+   "fieldtype": "Currency",
+   "label": "Yearly Extra Cost While Leasing"
+  },
+  {
+   "fieldname": "sb_o",
+   "fieldtype": "Section Break",
+   "label": "Outcome"
+  },
+  {
+   "fieldname": "own_pv",
+   "fieldtype": "Currency",
+   "label": "Cost of Buying (today's money)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lease_pv",
+   "fieldtype": "Currency",
+   "label": "Cost of Leasing (today's money)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cheaper",
+   "fieldtype": "Data",
+   "label": "Cheaper Option",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "own_annual",
+   "fieldtype": "Currency",
+   "label": "Buying: Equivalent Yearly Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lease_annual",
+   "fieldtype": "Currency",
+   "label": "Leasing: Equivalent Yearly Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "saving",
+   "fieldtype": "Currency",
+   "label": "Saving (today's money)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Lease or Buy Analysis",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:LVB-.YYYY.-.#####",
+ "icon": "fa fa-key",
+ "allow_rename": 0
+}

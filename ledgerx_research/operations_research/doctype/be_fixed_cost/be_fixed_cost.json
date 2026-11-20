@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "cost_name",
+  "account",
+  "amount",
+  "is_cash"
+ ],
+ "fields": [
+  {
+   "fieldname": "cost_name",
+   "fieldtype": "Data",
+   "label": "Fixed Cost",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "label": "Account",
+   "options": "Account",
+   "in_list_view": 1,
+   "description": "Optional: Load Data fills the amount from this account for the period."
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount for the Period",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "is_cash",
+   "fieldtype": "Check",
+   "label": "Paid in Cash",
+   "default": 1,
+   "in_list_view": 1,
+   "description": "Untick for depreciation and other non-cash costs."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "BE Fixed Cost",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "istable": 1,
+ "allow_rename": 0
+}

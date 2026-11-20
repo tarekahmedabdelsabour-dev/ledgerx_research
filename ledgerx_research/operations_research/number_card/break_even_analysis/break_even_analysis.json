@@ -1,0 +1,20 @@
+{
+ "creation": "2026-11-20 07:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Number Card",
+ "document_type": "Break Even Analysis",
+ "filters_json": "[[\"Break Even Analysis\", \"status\", \"=\", \"Needs Attention\"]]",
+ "function": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Break Even Analysis",
+ "modified": "2026-11-20 07:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Break Even Analysis",
+ "owner": "Administrator",
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Daily",
+ "type": "Document Type"
+}

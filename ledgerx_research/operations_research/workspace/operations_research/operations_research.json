@@ -13,8 +13,8 @@
    "label": "Supplier Allocation Plan by Status"
   }
  ],
- "content": "[{\"id\": \"aa9408e3fa\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Operations Research</b></span>\", \"col\": 12}}, {\"id\": \"83892938b0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Product Mix Plan\", \"col\": 3}}, {\"id\": \"1cd095b2ed\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Reorder Plan\", \"col\": 3}}, {\"id\": \"98a151085c\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Route Plan\", \"col\": 3}}, {\"id\": \"4b7e531fb4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Supplier Allocation Plan\", \"col\": 3}}, {\"id\": \"778e03b6bc\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Product Mix Plans Needing Attention\", \"col\": 3}}, {\"id\": \"5423db2733\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Reorder Plans Needing Attention\", \"col\": 3}}, {\"id\": \"4dbefdbbfa\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Distribution Plans Needing Attention\", \"col\": 3}}, {\"id\": \"c9cac46877\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Route Plans Needing Attention\", \"col\": 3}}, {\"id\": \"43805e6843\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Schedule Plans Needing Attention\", \"col\": 3}}, {\"id\": \"4c2a20e078\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Supplier Allocation Plans Needing Attention\", \"col\": 3}}, {\"id\": \"c2867b5a12\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Solved Plans This Month\", \"col\": 3}}, {\"id\": \"3ed7cf487b\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Product Mix Plan by Status\", \"col\": 6}}, {\"id\": \"3328447c94\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Reorder Plan by Status\", \"col\": 6}}, {\"id\": \"c743970a4a\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Supplier Allocation Plan by Status\", \"col\": 6}}, {\"id\": \"8e0132f300\", \"type\": \"card\", \"data\": {\"card_name\": \"Decisions\", \"col\": 4}}, {\"id\": \"37871ba8a2\", \"type\": \"card\", \"data\": {\"card_name\": \"Drafts Created\", \"col\": 4}}, {\"id\": \"5309664696\", \"type\": \"card\", \"data\": {\"card_name\": \"Source Data\", \"col\": 4}}, {\"id\": \"9dcaa3a65a\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
- "creation": "2026-11-19 07:00:00.000000",
+ "content": "[{\"id\": \"07fdccbfee\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Operations Research</b></span>\", \"col\": 12}}, {\"id\": \"dfeb6e8df7\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Product Mix Plan\", \"col\": 3}}, {\"id\": \"43d8000719\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Reorder Plan\", \"col\": 3}}, {\"id\": \"279f379d8b\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Break Even Analysis\", \"col\": 3}}, {\"id\": \"d6767de8ba\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Investment Analysis\", \"col\": 3}}, {\"id\": \"599f93b23b\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Product Mix Plans Needing Attention\", \"col\": 3}}, {\"id\": \"41e992f271\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Reorder Plans Needing Attention\", \"col\": 3}}, {\"id\": \"a7dbfef31a\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Distribution Plans Needing Attention\", \"col\": 3}}, {\"id\": \"3a0ab8a7d6\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Route Plans Needing Attention\", \"col\": 3}}, {\"id\": \"4fc4bbde25\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Schedule Plans Needing Attention\", \"col\": 3}}, {\"id\": \"530be29e06\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Supplier Allocation Plans Needing Attention\", \"col\": 3}}, {\"id\": \"cb7d995761\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Break Even Analysis\", \"col\": 3}}, {\"id\": \"28bf1aa4de\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Solved Plans This Month\", \"col\": 3}}, {\"id\": \"ca5e0d244b\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Product Mix Plan by Status\", \"col\": 6}}, {\"id\": \"01e2dd904d\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Reorder Plan by Status\", \"col\": 6}}, {\"id\": \"8705b4695c\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Supplier Allocation Plan by Status\", \"col\": 6}}, {\"id\": \"4c3d20bb46\", \"type\": \"card\", \"data\": {\"card_name\": \"Decisions\", \"col\": 4}}, {\"id\": \"0f6bd673b7\", \"type\": \"card\", \"data\": {\"card_name\": \"Finance and Investment\", \"col\": 4}}, {\"id\": \"dce5da450f\", \"type\": \"card\", \"data\": {\"card_name\": \"Profit and Pricing\", \"col\": 4}}, {\"id\": \"5d25d9a5fb\", \"type\": \"card\", \"data\": {\"card_name\": \"Review\", \"col\": 4}}, {\"id\": \"507f2c219d\", \"type\": \"card\", \"data\": {\"card_name\": \"Drafts Created\", \"col\": 4}}, {\"id\": \"29c8c4d510\", \"type\": \"card\", \"data\": {\"card_name\": \"Source Data\", \"col\": 4}}, {\"id\": \"04de2daf56\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
+ "creation": "2026-11-20 07:00:00.000000",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -93,6 +93,107 @@
    "label": "Supplier Allocation Plan",
    "link_type": "DocType",
    "link_to": "Supplier Allocation Plan",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Finance and Investment",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 4,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Break Even Analysis",
+   "link_type": "DocType",
+   "link_to": "Break Even Analysis",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Investment Analysis",
+   "link_type": "DocType",
+   "link_to": "Investment Analysis",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Make or Buy Analysis",
+   "link_type": "DocType",
+   "link_to": "Make or Buy Analysis",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Lease or Buy Analysis",
+   "link_type": "DocType",
+   "link_to": "Lease or Buy Analysis",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Profit and Pricing",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 2,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Profitability Analysis",
+   "link_type": "DocType",
+   "link_to": "Profitability Analysis",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Pricing Analysis",
+   "link_type": "DocType",
+   "link_to": "Pricing Analysis",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Review",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 1,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Decision Review",
+   "link_type": "DocType",
+   "link_to": "Decision Review",
    "hidden": 0,
    "is_query_report": 0,
    "onboard": 0,
@@ -268,7 +369,7 @@
   }
  ],
  "title": "Operations Research",
- "modified": "2026-11-19 07:00:00.000000",
+ "modified": "2026-11-20 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "Operations Research",
  "name": "Operations Research",
@@ -298,6 +399,10 @@
    "number_card_name": "Supplier Allocation Plans Needing Attention"
   },
   {
+   "label": "Break Even Analysis",
+   "number_card_name": "Break Even Analysis"
+  },
+  {
    "label": "Solved Plans This Month",
    "number_card_name": "Solved Plans This Month"
   }
@@ -322,14 +427,14 @@
    "doc_view": "List"
   },
   {
-   "label": "Route Plan",
-   "link_to": "Route Plan",
+   "label": "Break Even Analysis",
+   "link_to": "Break Even Analysis",
    "type": "DocType",
    "doc_view": "List"
   },
   {
-   "label": "Supplier Allocation Plan",
-   "link_to": "Supplier Allocation Plan",
+   "label": "Investment Analysis",
+   "link_to": "Investment Analysis",
    "type": "DocType",
    "doc_view": "List"
   }

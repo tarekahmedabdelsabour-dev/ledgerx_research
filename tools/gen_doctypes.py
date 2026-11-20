@@ -81,6 +81,8 @@ doctype("Mix Product", [
 	f("min_qty", "Float", "Minimum Quantity"),
 	f("max_qty", "Float", "Maximum Quantity (demand)", description="0 = no limit"),
 	f("plan_qty", "Float", "Recommended Quantity", read_only=1, in_list_view=1),
+	f("margin_low", "Float", "Margin Can Fall To", read_only=1, description="The plan stays the best one while the margin stays between these two numbers."),
+	f("margin_high", "Float", "Margin Can Rise To", read_only=1),
 	f("usage_json", "Code", "Resource Use per Unit", hidden=1),
 ], istable=1)
 
@@ -91,6 +93,22 @@ doctype("Mix Resource", [
 	f("used", "Float", "Used", read_only=1, in_list_view=1),
 	f("slack", "Float", "Left Over", read_only=1),
 	f("shadow_price", "Float", "Value of One More Unit", read_only=1, in_list_view=1, description="How much the total margin would rise if you had one more unit of this resource: the real bottleneck shows the highest number."),
+	f("range_low", "Float", "Can Fall To", read_only=1, description="The value of one more unit holds while the available amount stays between these two numbers."),
+	f("range_high", "Float", "Can Rise To", read_only=1),
+], istable=1)
+
+doctype("Mix Scenario", [
+	f("scenario", "Data", "Scenario", reqd=1, in_list_view=1, description="Rows with the same name are applied together."),
+	f("kind", "Select", "What Changes", options="Resource\nMargin\nMax Quantity\nMin Quantity", reqd=1, in_list_view=1),
+	f("key", "Data", "Name", reqd=1, in_list_view=1, description="The resource name, or the item code of the product."),
+	f("pct", "Percent", "Change %", reqd=1, in_list_view=1),
+], istable=1)
+
+doctype("Mix Scenario Result", [
+	f("scenario", "Data", "Scenario", read_only=1, in_list_view=1),
+	f("total_margin", "Currency", "Total Margin", read_only=1, in_list_view=1),
+	f("change", "Currency", "Change", read_only=1, in_list_view=1),
+	f("moved", "Small Text", "Products That Change", read_only=1, in_list_view=1),
 ], istable=1)
 
 doctype("Product Mix Plan", [
@@ -106,6 +124,17 @@ doctype("Product Mix Plan", [
 	sec("sb_o", "Outcome"),
 	f("objective", "Currency", "Total Margin", read_only=1),
 	f("production_plan", "Link", "Production Plan", options="Production Plan", read_only=1),
+	sec("sb_w", "What-if and Risk"),
+	f("scenarios", "Table", "Scenarios", options="Mix Scenario", description="Try a change (more of a material, a price drop...) and press What-if to see the new best plan."),
+	f("scenario_results", "Table", "Scenario Results", options="Mix Scenario Result", read_only=1),
+	f("risk_sd_pct", "Percent", "How Much Can Numbers Vary %", default=10),
+	f("risk_draws", "Int", "Simulations", default=300),
+	col("cb_w"),
+	f("risk_p5", "Currency", "Worst Realistic Margin (5%)", read_only=1),
+	f("risk_p50", "Currency", "Typical Margin", read_only=1),
+	f("risk_p95", "Currency", "Best Realistic Margin (95%)", read_only=1),
+	f("risk_keep_pct", "Percent", "Plan Still Possible In % of Cases", read_only=1),
+	f("risk_regret", "Currency", "Average Loss From Not Re-planning", read_only=1),
 	*result_block(),
 ], autoname="format:MIX-.YYYY.-.#####", icon="fa fa-industry", perms=PERMS)
 
@@ -309,6 +338,236 @@ doctype("Supplier Allocation Plan", [
 	f("purchase_orders", "Small Text", "Purchase Order Drafts", read_only=1),
 	*result_block(),
 ], autoname="format:ALC-.YYYY.-.#####", icon="fa fa-handshake-o", perms=PERMS)
+
+
+# ------------------------------------------------------------------ break-even
+doctype("BE Fixed Cost", [
+	f("cost_name", "Data", "Fixed Cost", reqd=1, in_list_view=1),
+	f("account", "Link", "Account", options="Account", in_list_view=1, description="Optional: Load Data fills the amount from this account for the period."),
+	f("amount", "Currency", "Amount for the Period", in_list_view=1),
+	f("is_cash", "Check", "Paid in Cash", default=1, in_list_view=1, description="Untick for depreciation and other non-cash costs."),
+], istable=1)
+
+doctype("BE Product", [
+	f("item_code", "Link", "Item", options="Item", reqd=1, in_list_view=1),
+	f("price", "Currency", "Selling Price", in_list_view=1),
+	f("variable_cost", "Currency", "Variable Cost per Unit", in_list_view=1),
+	f("qty", "Float", "Expected Quantity", in_list_view=1, description="Also sets the sales mix between products."),
+	f("break_even_units", "Float", "Break-even Units", read_only=1, in_list_view=1),
+	f("break_even_revenue", "Currency", "Break-even Revenue", read_only=1, in_list_view=1),
+], istable=1)
+
+doctype("BE Sensitivity", [
+	f("what", "Data", "What Changes", read_only=1, in_list_view=1),
+	f("change_pct", "Percent", "Change %", read_only=1, in_list_view=1),
+	f("break_even_units", "Float", "Break-even Units", read_only=1, in_list_view=1),
+	f("expected_profit", "Currency", "Profit at Expected Sales", read_only=1, in_list_view=1),
+], istable=1)
+
+doctype("Break Even Analysis", [
+	f("company", "Link", "Company", options="Company", reqd=1),
+	f("from_date", "Date", "History From"),
+	f("to_date", "Date", "History To"),
+	col("cb1"),
+	f("target_profit", "Currency", "Target Profit"),
+	f("capacity_units", "Float", "Capacity (units)"),
+	f("risk_sd_pct", "Percent", "How Much Can Numbers Vary %", default=10),
+	sec("sb_f", "Fixed Costs for the Period"),
+	f("fixed_costs", "Table", "Fixed Costs", options="BE Fixed Cost"),
+	sec("sb_p", "Products"),
+	f("products", "Table", "Products", options="BE Product"),
+	sec("sb_b", "Break-even"),
+	f("total_fixed", "Currency", "Total Fixed Costs", read_only=1),
+	f("break_even_units", "Float", "Break-even Units", read_only=1),
+	f("break_even_revenue", "Currency", "Break-even Revenue", read_only=1),
+	f("cash_break_even_units", "Float", "Cash Break-even Units", read_only=1),
+	col("cb_b"),
+	f("target_units", "Float", "Units for the Target Profit", read_only=1),
+	f("target_revenue", "Currency", "Revenue for the Target Profit", read_only=1),
+	f("margin_of_safety_pct", "Percent", "Margin of Safety %", read_only=1, description="How far sales can fall before the period makes a loss."),
+	f("operating_leverage", "Float", "Operating Leverage", read_only=1, description="A 1% change in sales changes profit by this many percent."),
+	f("expected_profit", "Currency", "Profit at Expected Sales", read_only=1),
+	sec("sb_k", "Risk"),
+	f("loss_probability_pct", "Percent", "Chance of a Loss %", read_only=1),
+	f("profit_p5", "Currency", "Worst Realistic Profit (5%)", read_only=1),
+	f("profit_p50", "Currency", "Typical Profit", read_only=1),
+	f("profit_p95", "Currency", "Best Realistic Profit (95%)", read_only=1),
+	sec("sb_s", "What If"),
+	f("sensitivity", "Table", "Sensitivity", options="BE Sensitivity", read_only=1),
+	*result_block(),
+], autoname="format:BEA-.YYYY.-.#####", icon="fa fa-balance-scale", perms=PERMS)
+
+# ------------------------------------------------------------------ investment
+doctype("Investment Cash Flow", [
+	f("year", "Int", "Year", reqd=1, in_list_view=1, description="0 = now."),
+	f("amount", "Currency", "Cash Flow", reqd=1, in_list_view=1, description="Money out is negative."),
+	f("note", "Data", "Note", in_list_view=1),
+], istable=1)
+
+doctype("Investment Analysis", [
+	f("project_name", "Data", "Project", reqd=1),
+	f("company", "Link", "Company", options="Company"),
+	col("cb1"),
+	f("discount_rate_pct", "Percent", "Required Return per Year %", default=10, reqd=1, description="The return you could get elsewhere with the same risk."),
+	f("risk_sd_pct", "Percent", "How Much Can Future Cash Vary %", default=0),
+	sec("sb_c", "Cash Flows"),
+	f("cash_flows", "Table", "Cash Flows", options="Investment Cash Flow"),
+	sec("sb_o", "Appraisal"),
+	f("npv", "Currency", "Net Present Value", read_only=1, description="Positive: the project earns more than the required return."),
+	f("irr_pct", "Percent", "Internal Rate of Return %", read_only=1),
+	f("profitability_index", "Float", "Profitability Index", read_only=1),
+	col("cb_o"),
+	f("payback_years", "Float", "Payback (years)", read_only=1),
+	f("discounted_payback_years", "Float", "Discounted Payback (years)", read_only=1),
+	f("decision", "Data", "Decision", read_only=1),
+	sec("sb_k", "Risk"),
+	f("loss_probability_pct", "Percent", "Chance NPV Is Negative %", read_only=1),
+	f("npv_p5", "Currency", "Worst Realistic NPV (5%)", read_only=1),
+	f("npv_p95", "Currency", "Best Realistic NPV (95%)", read_only=1),
+	*result_block(),
+], autoname="format:INV-.YYYY.-.#####", icon="fa fa-line-chart", perms=PERMS)
+
+doctype("Make or Buy Analysis", [
+	f("company", "Link", "Company", options="Company"),
+	f("item_code", "Link", "Item", options="Item", description="Optional: Load Data fills the making cost from the default BOM and the buying price from the price list."),
+	f("annual_volume", "Float", "Yearly Volume", reqd=1),
+	sec("sb_m", "Make"),
+	f("make_fixed", "Currency", "Fixed Cost of Making per Year"),
+	f("make_variable", "Currency", "Making Cost per Unit"),
+	sec("sb_b", "Buy"),
+	f("buy_fixed", "Currency", "Fixed Cost of Buying per Year"),
+	f("buy_price", "Currency", "Buying Price per Unit"),
+	sec("sb_o", "Outcome"),
+	f("make_cost", "Currency", "Total Cost If Made", read_only=1),
+	f("buy_cost", "Currency", "Total Cost If Bought", read_only=1),
+	f("cheaper", "Data", "Cheaper Option", read_only=1),
+	col("cb_o"),
+	f("saving", "Currency", "Saving per Year", read_only=1),
+	f("indifference_volume", "Float", "Volume Where Both Cost the Same", read_only=1),
+	f("rule", "Data", "Rule", read_only=1),
+	*result_block(),
+], autoname="format:MOB-.YYYY.-.#####", icon="fa fa-exchange", perms=PERMS)
+
+doctype("Lease or Buy Analysis", [
+	f("asset", "Data", "Asset", reqd=1),
+	f("rate_pct", "Percent", "Discount Rate per Year %", default=10, reqd=1),
+	f("life_years", "Int", "Years of Use", reqd=1),
+	sec("sb_b", "If You Buy"),
+	f("price", "Currency", "Purchase Price"),
+	f("residual", "Currency", "Value at the End"),
+	f("yearly_cost_own", "Currency", "Yearly Running Cost (maintenance, insurance)"),
+	sec("sb_l", "If You Lease"),
+	f("lease_payment", "Currency", "Yearly Lease Payment"),
+	f("lease_years", "Int", "Lease Years", description="Leave empty to use the years of use."),
+	f("lease_cost_extra", "Currency", "Yearly Extra Cost While Leasing"),
+	sec("sb_o", "Outcome"),
+	f("own_pv", "Currency", "Cost of Buying (today's money)", read_only=1),
+	f("lease_pv", "Currency", "Cost of Leasing (today's money)", read_only=1),
+	f("cheaper", "Data", "Cheaper Option", read_only=1),
+	col("cb_o"),
+	f("own_annual", "Currency", "Buying: Equivalent Yearly Cost", read_only=1),
+	f("lease_annual", "Currency", "Leasing: Equivalent Yearly Cost", read_only=1),
+	f("saving", "Currency", "Saving (today's money)", read_only=1),
+	*result_block(),
+], autoname="format:LVB-.YYYY.-.#####", icon="fa fa-key", perms=PERMS)
+
+# ------------------------------------------------------------------ profitability
+doctype("Profit Row", [
+	f("group_name", "Data", "Name", read_only=1, in_list_view=1),
+	f("revenue", "Currency", "Revenue", read_only=1, in_list_view=1),
+	f("cost", "Currency", "Cost", read_only=1, in_list_view=1),
+	f("margin", "Currency", "Margin", read_only=1, in_list_view=1),
+	f("margin_pct", "Percent", "Margin %", read_only=1, in_list_view=1),
+	f("profit_share_pct", "Percent", "Share of Profit %", read_only=1),
+	f("profit_class", "Data", "Class", read_only=1, in_list_view=1, description="A makes 80% of the profit, B the next 15%, C the rest, L loses money."),
+	f("rank", "Int", "Rank", read_only=1),
+	f("qty", "Float", "Quantity", read_only=1),
+], istable=1)
+
+doctype("Stock Health Row", [
+	f("item_code", "Link", "Item", options="Item", read_only=1, in_list_view=1),
+	f("qty", "Float", "Quantity", read_only=1, in_list_view=1),
+	f("value", "Currency", "Value", read_only=1, in_list_view=1),
+	f("days_since_move", "Int", "Days Without Movement", read_only=1, in_list_view=1),
+	f("cover_days", "Float", "Days of Cover", read_only=1),
+	f("health", "Data", "Condition", read_only=1, in_list_view=1),
+], istable=1)
+
+doctype("Profitability Analysis", [
+	f("company", "Link", "Company", options="Company", reqd=1),
+	f("from_date", "Date", "From", reqd=1),
+	f("to_date", "Date", "To", reqd=1),
+	col("cb1"),
+	f("group_by", "Select", "Analyse By", options="Item\nCustomer\nItem Group", default="Item"),
+	f("slow_days", "Int", "Slow After (days)", default=90),
+	f("dead_days", "Int", "Dead After (days)", default=180),
+	sec("sb_r", "Profitability"),
+	f("rows", "Table", "Profitability", options="Profit Row"),
+	f("total_revenue", "Currency", "Total Revenue", read_only=1),
+	f("total_margin", "Currency", "Total Margin", read_only=1),
+	sec("sb_s", "Stock Health"),
+	f("stock_rows", "Table", "Stock Health", options="Stock Health Row"),
+	f("tied_up", "Currency", "Money Tied Up in Dead, Slow and Overstocked Items", read_only=1),
+	*result_block(),
+], autoname="format:PRF-.YYYY.-.#####", icon="fa fa-pie-chart", perms=PERMS)
+
+doctype("Pricing Analysis", [
+	f("company", "Link", "Company", options="Company", reqd=1),
+	f("item_code", "Link", "Item", options="Item", reqd=1),
+	f("cost", "Currency", "Unit Cost"),
+	f("current_price", "Currency", "Current Price"),
+	f("current_qty", "Float", "Current Quantity per Month"),
+	col("cb1"),
+	f("elasticity", "Float", "Price Elasticity", description="1.5 means a 1% higher price loses 1.5% of the volume. Load Data estimates it from your sales history when the price has varied enough."),
+	f("elasticity_note", "Data", "Elasticity Source", read_only=1),
+	f("model", "Select", "Demand Model", options="Constant elasticity\nLinear demand", default="Constant elasticity"),
+	f("min_price", "Currency", "Lowest Price Allowed"),
+	f("max_price", "Currency", "Highest Price Allowed"),
+	f("capacity", "Float", "Capacity per Month"),
+	f("discount_pct", "Percent", "Discount to Test %"),
+	sec("sb_o", "Outcome"),
+	f("best_price", "Currency", "Best Price", read_only=1),
+	f("expected_qty", "Float", "Expected Quantity per Month", read_only=1),
+	f("expected_profit", "Currency", "Expected Profit per Month", read_only=1),
+	col("cb_o"),
+	f("current_profit", "Currency", "Profit per Month Today", read_only=1),
+	f("profit_gain", "Currency", "Gain per Month", read_only=1),
+	sec("sb_d", "Discount Test"),
+	f("required_uplift_pct", "Percent", "Extra Volume Needed to Break Even %", read_only=1),
+	f("discount_expected_qty", "Float", "Expected Quantity at This Discount", read_only=1),
+	f("discount_profit_change", "Currency", "Expected Profit Change per Month", read_only=1),
+	*result_block(),
+], autoname="format:PRC-.YYYY.-.#####", icon="fa fa-tags", perms=PERMS)
+
+# ------------------------------------------------------------------ decision review
+doctype("Review Row", [
+	f("plan", "Data", "Plan", read_only=1, in_list_view=1),
+	f("item_code", "Link", "Item", options="Item", read_only=1, in_list_view=1),
+	f("supplier", "Data", "Supplier", read_only=1),
+	f("expected", "Float", "Expected", read_only=1, in_list_view=1),
+	f("actual", "Float", "What Happened", read_only=1, in_list_view=1),
+	f("error", "Float", "Difference", read_only=1, in_list_view=1),
+	f("error_pct", "Percent", "Difference %", read_only=1, in_list_view=1),
+], istable=1)
+
+doctype("Decision Review", [
+	f("company", "Link", "Company", options="Company", reqd=1),
+	f("plan_type", "Select", "Plans to Check", options="Reorder Plan\nProduct Mix Plan\nSupplier Allocation Plan", reqd=1, default="Reorder Plan",
+		description="Reorder: forecast vs the demand that followed. Product mix: planned vs produced. Supplier allocation: planned price vs the purchase price paid."),
+	col("cb1"),
+	f("from_date", "Date", "Plans Solved From", reqd=1),
+	f("to_date", "Date", "Plans Solved To", reqd=1),
+	sec("sb_r", "Comparison"),
+	f("rows", "Table", "Comparison", options="Review Row"),
+	sec("sb_a", "Accuracy"),
+	f("comparisons", "Int", "Comparisons", read_only=1),
+	f("wape", "Percent", "Average Error %", read_only=1, description="Total absolute error as a share of what actually happened."),
+	f("bias", "Percent", "Bias %", read_only=1, description="Positive: the plans expected too much. Negative: too little."),
+	f("tracking_signal", "Float", "Tracking Signal", read_only=1, description="Beyond about +/-4 the plans are drifting one way."),
+	f("verdict", "Data", "Verdict", read_only=1),
+	*result_block(),
+], autoname="format:REV-.YYYY.-.#####", icon="fa fa-check-square-o", perms=PERMS)
+
 
 
 def build():

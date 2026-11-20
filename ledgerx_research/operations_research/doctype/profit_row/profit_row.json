@@ -1,0 +1,92 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "group_name",
+  "revenue",
+  "cost",
+  "margin",
+  "margin_pct",
+  "profit_share_pct",
+  "profit_class",
+  "rank",
+  "qty"
+ ],
+ "fields": [
+  {
+   "fieldname": "group_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "revenue",
+   "fieldtype": "Currency",
+   "label": "Revenue",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "label": "Cost",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "margin",
+   "fieldtype": "Currency",
+   "label": "Margin",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "margin_pct",
+   "fieldtype": "Percent",
+   "label": "Margin %",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "profit_share_pct",
+   "fieldtype": "Percent",
+   "label": "Share of Profit %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profit_class",
+   "fieldtype": "Data",
+   "label": "Class",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "A makes 80% of the profit, B the next 15%, C the rest, L loses money."
+  },
+  {
+   "fieldname": "rank",
+   "fieldtype": "Int",
+   "label": "Rank",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Quantity",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Profit Row",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "istable": 1,
+ "allow_rename": 0
+}

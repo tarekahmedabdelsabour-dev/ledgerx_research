@@ -4,8 +4,8 @@ import os
 import uuid
 
 BASE = os.path.join(os.path.dirname(__file__), "..", "ledgerx_research")
-TS = "2026-11-19 07:00:00.000000"  # raise this whenever the workspace changes: migrate only re-reads a file that is newer than the saved one
-PLANS = ["Product Mix Plan", "Reorder Plan", "Distribution Plan", "Route Plan", "Schedule Plan", "Supplier Allocation Plan"]
+TS = "2026-11-20 07:00:00.000000"  # raise this whenever the workspace changes: migrate only re-reads a file that is newer than the saved one
+PLANS = ["Product Mix Plan", "Reorder Plan", "Distribution Plan", "Route Plan", "Schedule Plan", "Supplier Allocation Plan", "Break Even Analysis"]
 CARDS = [(f"{p}s Needing Attention" if not p.endswith("s") else p, p, [[p, "status", "=", "Needs Attention"]], "Count", None) for p in PLANS]
 CARDS += [("Solved Plans This Month", "Product Mix Plan", [["Product Mix Plan", "status", "=", "Solved"], ["Product Mix Plan", "solved_on", "Timespan", "this month"]], "Count", None)]
 CHARTS = [(f"{p} by Status", p, "Donut", "group", {"by": "status"}) for p in ("Product Mix Plan", "Reorder Plan", "Supplier Allocation Plan")]
@@ -14,6 +14,12 @@ GROUPS = [
 		("Product Mix Plan", "DocType", "Product Mix Plan", "operations_research"), ("Reorder Plan", "DocType", "Reorder Plan", "package-search"),
 		("Distribution Plan", "DocType", "Distribution Plan", "truck"), ("Route Plan", "DocType", "Route Plan", "route"),
 		("Schedule Plan", "DocType", "Schedule Plan", "calendar-range"), ("Supplier Allocation Plan", "DocType", "Supplier Allocation Plan", "handshake")]),
+	("Finance and Investment", "banknote", 0, [
+		("Break Even Analysis", "DocType", "Break Even Analysis", "scale"), ("Investment Analysis", "DocType", "Investment Analysis", "trending-up"),
+		("Make or Buy Analysis", "DocType", "Make or Buy Analysis", "split"), ("Lease or Buy Analysis", "DocType", "Lease or Buy Analysis", "key-round")]),
+	("Profit and Pricing", "pie-chart", 0, [
+		("Profitability Analysis", "DocType", "Profitability Analysis", "pie-chart"), ("Pricing Analysis", "DocType", "Pricing Analysis", "tags")]),
+	("Review", "check-square", 0, [("Decision Review", "DocType", "Decision Review", "check-check")]),
 	("Drafts Created", "file-pen", 0, [
 		("Production Plan", "DocType", "Production Plan", "calendar-range"), ("Material Request", "DocType", "Material Request", "package-search"),
 		("Purchase Order", "DocType", "Purchase Order", "shopping-cart"), ("Stock Entry", "DocType", "Stock Entry", "package")]),
@@ -23,7 +29,7 @@ GROUPS = [
 		("Address", "DocType", "Address", "map-pin")]),
 	("Setup", "settings", 1, [("OR Settings", "DocType", "OR Settings", "settings")]),
 ]
-TOP = ["Product Mix Plan", "Reorder Plan", "Route Plan", "Supplier Allocation Plan"]
+TOP = ["Product Mix Plan", "Reorder Plan", "Break Even Analysis", "Investment Analysis"]
 
 
 def write(path, data):

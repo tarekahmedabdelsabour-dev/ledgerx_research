@@ -1,11 +1,19 @@
 // Buttons shared by every Operations Research plan: Load Data, Solve, Create Draft.
 (function () {
 	const PLANS = {
-		"Product Mix Plan": { load: true, draft: "production_plan", draftLabel: __("Create Production Plan (draft)"), draftDoctype: "Production Plan" },
+		"Product Mix Plan": { load: true, draft: "production_plan", draftLabel: __("Create Production Plan (draft)"), draftDoctype: "Production Plan",
+			extra: [{ label: __("What-if"), method: "what_if", needsSolved: true }, { label: __("Risk Simulation"), method: "simulate_risk", needsSolved: true }] },
 		"Reorder Plan": { load: true, draft: "material_request", draftLabel: __("Create Material Request (draft)"), draftDoctype: "Material Request" },
 		"Distribution Plan": { load: true, draft: "stock_entry", draftLabel: __("Create Stock Entry (draft)"), draftDoctype: "Stock Entry" },
 		"Route Plan": { load: true },
 		"Schedule Plan": { load: true },
+		"Break Even Analysis": { load: true },
+		"Investment Analysis": {},
+		"Make or Buy Analysis": { load: true },
+		"Lease or Buy Analysis": {},
+		"Profitability Analysis": { load: true, extra: [{ label: __("Check Stock Health"), method: "check_stock" }] },
+		"Pricing Analysis": { load: true },
+		"Decision Review": { load: true },
 		"Supplier Allocation Plan": { load: true, draft: "purchase_orders", draftLabel: __("Create Purchase Orders (drafts)"), draftDoctype: "Purchase Order", multi: true },
 	};
 
@@ -22,6 +30,10 @@
 				frm.add_custom_button(__("Solve"), () => run(frm, "solve", __("Solving...")).then(() => frappe.show_alert({ message: __("Done"), indicator: "green" })), __("Plan"));
 				frm.change_custom_button_type(__("Solve"), __("Plan"), "primary");
 				const ok = ["Solved", "Needs Attention"].includes(frm.doc.status) && frm.doc.verified;
+				(cfg.extra || []).forEach((x) => {
+					if (x.needsSolved && !ok) return;
+					frm.add_custom_button(x.label, () => run(frm, x.method, __("Working...")), __("Plan"));
+				});
 				if (cfg.draft && ok && !frm.doc[cfg.draft]) {
 					frm.add_custom_button(cfg.draftLabel, () => {
 						const go = () => frm.call({ method: "create_draft", doc: frm.doc, freeze: true }).then((r) => {

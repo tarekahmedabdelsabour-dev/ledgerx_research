@@ -1,0 +1,226 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "project_name",
+  "company",
+  "cb1",
+  "discount_rate_pct",
+  "risk_sd_pct",
+  "sb_c",
+  "cash_flows",
+  "sb_o",
+  "npv",
+  "irr_pct",
+  "profitability_index",
+  "cb_o",
+  "payback_years",
+  "discounted_payback_years",
+  "decision",
+  "sb_k",
+  "loss_probability_pct",
+  "npv_p5",
+  "npv_p95",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "label": "Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "discount_rate_pct",
+   "fieldtype": "Percent",
+   "label": "Required Return per Year %",
+   "default": 10,
+   "reqd": 1,
+   "description": "The return you could get elsewhere with the same risk."
+  },
+  {
+   "fieldname": "risk_sd_pct",
+   "fieldtype": "Percent",
+   "label": "How Much Can Future Cash Vary %",
+   "default": 0
+  },
+  {
+   "fieldname": "sb_c",
+   "fieldtype": "Section Break",
+   "label": "Cash Flows"
+  },
+  {
+   "fieldname": "cash_flows",
+   "fieldtype": "Table",
+   "label": "Cash Flows",
+   "options": "Investment Cash Flow"
+  },
+  {
+   "fieldname": "sb_o",
+   "fieldtype": "Section Break",
+   "label": "Appraisal"
+  },
+  {
+   "fieldname": "npv",
+   "fieldtype": "Currency",
+   "label": "Net Present Value",
+   "read_only": 1,
+   "description": "Positive: the project earns more than the required return."
+  },
+  {
+   "fieldname": "irr_pct",
+   "fieldtype": "Percent",
+   "label": "Internal Rate of Return %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profitability_index",
+   "fieldtype": "Float",
+   "label": "Profitability Index",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payback_years",
+   "fieldtype": "Float",
+   "label": "Payback (years)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "discounted_payback_years",
+   "fieldtype": "Float",
+   "label": "Discounted Payback (years)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "decision",
+   "fieldtype": "Data",
+   "label": "Decision",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_k",
+   "fieldtype": "Section Break",
+   "label": "Risk"
+  },
+  {
+   "fieldname": "loss_probability_pct",
+   "fieldtype": "Percent",
+   "label": "Chance NPV Is Negative %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "npv_p5",
+   "fieldtype": "Currency",
+   "label": "Worst Realistic NPV (5%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "npv_p95",
+   "fieldtype": "Currency",
+   "label": "Best Realistic NPV (95%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Investment Analysis",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:INV-.YYYY.-.#####",
+ "icon": "fa fa-line-chart",
+ "allow_rename": 0
+}

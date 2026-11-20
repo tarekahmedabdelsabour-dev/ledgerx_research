@@ -1,0 +1,208 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "item_code",
+  "annual_volume",
+  "sb_m",
+  "make_fixed",
+  "make_variable",
+  "sb_b",
+  "buy_fixed",
+  "buy_price",
+  "sb_o",
+  "make_cost",
+  "buy_cost",
+  "cheaper",
+  "cb_o",
+  "saving",
+  "indifference_volume",
+  "rule",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "description": "Optional: Load Data fills the making cost from the default BOM and the buying price from the price list."
+  },
+  {
+   "fieldname": "annual_volume",
+   "fieldtype": "Float",
+   "label": "Yearly Volume",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_m",
+   "fieldtype": "Section Break",
+   "label": "Make"
+  },
+  {
+   "fieldname": "make_fixed",
+   "fieldtype": "Currency",
+   "label": "Fixed Cost of Making per Year"
+  },
+  {
+   "fieldname": "make_variable",
+   "fieldtype": "Currency",
+   "label": "Making Cost per Unit"
+  },
+  {
+   "fieldname": "sb_b",
+   "fieldtype": "Section Break",
+   "label": "Buy"
+  },
+  {
+   "fieldname": "buy_fixed",
+   "fieldtype": "Currency",
+   "label": "Fixed Cost of Buying per Year"
+  },
+  {
+   "fieldname": "buy_price",
+   "fieldtype": "Currency",
+   "label": "Buying Price per Unit"
+  },
+  {
+   "fieldname": "sb_o",
+   "fieldtype": "Section Break",
+   "label": "Outcome"
+  },
+  {
+   "fieldname": "make_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost If Made",
+   "read_only": 1
+  },
+  {
+   "fieldname": "buy_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost If Bought",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cheaper",
+   "fieldtype": "Data",
+   "label": "Cheaper Option",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "saving",
+   "fieldtype": "Currency",
+   "label": "Saving per Year",
+   "read_only": 1
+  },
+  {
+   "fieldname": "indifference_volume",
+   "fieldtype": "Float",
+   "label": "Volume Where Both Cost the Same",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rule",
+   "fieldtype": "Data",
+   "label": "Rule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Make or Buy Analysis",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:MOB-.YYYY.-.#####",
+ "icon": "fa fa-exchange",
+ "allow_rename": 0
+}

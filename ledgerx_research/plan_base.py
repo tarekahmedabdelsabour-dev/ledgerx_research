@@ -9,12 +9,12 @@ from .bridge import html_summary
 LAYOUT = {"Section Break", "Column Break", "Tab Break", "HTML", "Button", "Heading"}
 
 
-def _signature(doc):
+def _signature(doc, ignore=()):
 	"""Values of every field the user types (read-only result fields excluded), child rows included."""
 	meta = frappe.get_meta(doc.doctype)
 	sig = []
 	for df in meta.fields:
-		if df.fieldtype in LAYOUT or df.read_only or df.hidden and df.fieldtype != "Code":
+		if df.fieldtype in LAYOUT or df.read_only or df.hidden and df.fieldtype != "Code" or df.fieldname in ignore:
 			continue
 		if df.fieldtype in ("Table", "Table MultiSelect"):
 			cm = frappe.get_meta(df.options)
@@ -28,12 +28,14 @@ def _signature(doc):
 class PlanDocument(Document):
 	# the result fields every subclass clears when the inputs change
 	RESULT_TABLES = ()
+	# inputs of side analyses (what-if, risk): changing them must not invalidate the main result
+	IGNORE_INPUTS = ()
 
 	def validate(self):
 		if self.flags.solving or self.is_new():
 			return
 		before = self.get_doc_before_save()
-		if before and _signature(before) != _signature(self) and self.status != "Draft":
+		if before and _signature(before, self.IGNORE_INPUTS) != _signature(self, self.IGNORE_INPUTS) and self.status != "Draft":
 			self.status = "Draft"
 			self.verified = 0
 			self.summary_html = html_summary(_("Inputs changed"), False, [_("Press Solve again: the earlier result no longer matches the data.")], [])

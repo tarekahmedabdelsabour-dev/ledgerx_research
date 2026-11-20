@@ -9,7 +9,9 @@
   "available",
   "used",
   "slack",
-  "shadow_price"
+  "shadow_price",
+  "range_low",
+  "range_high"
  ],
  "fields": [
   {
@@ -52,6 +54,19 @@
    "read_only": 1,
    "in_list_view": 1,
    "description": "How much the total margin would rise if you had one more unit of this resource: the real bottleneck shows the highest number."
+  },
+  {
+   "fieldname": "range_low",
+   "fieldtype": "Float",
+   "label": "Can Fall To",
+   "read_only": 1,
+   "description": "The value of one more unit holds while the available amount stays between these two numbers."
+  },
+  {
+   "fieldname": "range_high",
+   "fieldtype": "Float",
+   "label": "Can Rise To",
+   "read_only": 1
   }
  ],
  "links": [],

@@ -1,0 +1,291 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "from_date",
+  "to_date",
+  "cb1",
+  "target_profit",
+  "capacity_units",
+  "risk_sd_pct",
+  "sb_f",
+  "fixed_costs",
+  "sb_p",
+  "products",
+  "sb_b",
+  "total_fixed",
+  "break_even_units",
+  "break_even_revenue",
+  "cash_break_even_units",
+  "cb_b",
+  "target_units",
+  "target_revenue",
+  "margin_of_safety_pct",
+  "operating_leverage",
+  "expected_profit",
+  "sb_k",
+  "loss_probability_pct",
+  "profit_p5",
+  "profit_p50",
+  "profit_p95",
+  "sb_s",
+  "sensitivity",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "History From"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "History To"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_profit",
+   "fieldtype": "Currency",
+   "label": "Target Profit"
+  },
+  {
+   "fieldname": "capacity_units",
+   "fieldtype": "Float",
+   "label": "Capacity (units)"
+  },
+  {
+   "fieldname": "risk_sd_pct",
+   "fieldtype": "Percent",
+   "label": "How Much Can Numbers Vary %",
+   "default": 10
+  },
+  {
+   "fieldname": "sb_f",
+   "fieldtype": "Section Break",
+   "label": "Fixed Costs for the Period"
+  },
+  {
+   "fieldname": "fixed_costs",
+   "fieldtype": "Table",
+   "label": "Fixed Costs",
+   "options": "BE Fixed Cost"
+  },
+  {
+   "fieldname": "sb_p",
+   "fieldtype": "Section Break",
+   "label": "Products"
+  },
+  {
+   "fieldname": "products",
+   "fieldtype": "Table",
+   "label": "Products",
+   "options": "BE Product"
+  },
+  {
+   "fieldname": "sb_b",
+   "fieldtype": "Section Break",
+   "label": "Break-even"
+  },
+  {
+   "fieldname": "total_fixed",
+   "fieldtype": "Currency",
+   "label": "Total Fixed Costs",
+   "read_only": 1
+  },
+  {
+   "fieldname": "break_even_units",
+   "fieldtype": "Float",
+   "label": "Break-even Units",
+   "read_only": 1
+  },
+  {
+   "fieldname": "break_even_revenue",
+   "fieldtype": "Currency",
+   "label": "Break-even Revenue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cash_break_even_units",
+   "fieldtype": "Float",
+   "label": "Cash Break-even Units",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_b",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_units",
+   "fieldtype": "Float",
+   "label": "Units for the Target Profit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "target_revenue",
+   "fieldtype": "Currency",
+   "label": "Revenue for the Target Profit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "margin_of_safety_pct",
+   "fieldtype": "Percent",
+   "label": "Margin of Safety %",
+   "read_only": 1,
+   "description": "How far sales can fall before the period makes a loss."
+  },
+  {
+   "fieldname": "operating_leverage",
+   "fieldtype": "Float",
+   "label": "Operating Leverage",
+   "read_only": 1,
+   "description": "A 1% change in sales changes profit by this many percent."
+  },
+  {
+   "fieldname": "expected_profit",
+   "fieldtype": "Currency",
+   "label": "Profit at Expected Sales",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_k",
+   "fieldtype": "Section Break",
+   "label": "Risk"
+  },
+  {
+   "fieldname": "loss_probability_pct",
+   "fieldtype": "Percent",
+   "label": "Chance of a Loss %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profit_p5",
+   "fieldtype": "Currency",
+   "label": "Worst Realistic Profit (5%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profit_p50",
+   "fieldtype": "Currency",
+   "label": "Typical Profit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profit_p95",
+   "fieldtype": "Currency",
+   "label": "Best Realistic Profit (95%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_s",
+   "fieldtype": "Section Break",
+   "label": "What If"
+  },
+  {
+   "fieldname": "sensitivity",
+   "fieldtype": "Table",
+   "label": "Sensitivity",
+   "options": "BE Sensitivity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Break Even Analysis",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:BEA-.YYYY.-.#####",
+ "icon": "fa fa-balance-scale",
+ "allow_rename": 0
+}

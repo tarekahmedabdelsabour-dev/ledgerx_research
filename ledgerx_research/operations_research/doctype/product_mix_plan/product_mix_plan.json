@@ -16,6 +16,17 @@
   "sb_o",
   "objective",
   "production_plan",
+  "sb_w",
+  "scenarios",
+  "scenario_results",
+  "risk_sd_pct",
+  "risk_draws",
+  "cb_w",
+  "risk_p5",
+  "risk_p50",
+  "risk_p95",
+  "risk_keep_pct",
+  "risk_regret",
   "sb_res",
   "status",
   "cb_r",
@@ -91,6 +102,71 @@
    "fieldtype": "Link",
    "label": "Production Plan",
    "options": "Production Plan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_w",
+   "fieldtype": "Section Break",
+   "label": "What-if and Risk"
+  },
+  {
+   "fieldname": "scenarios",
+   "fieldtype": "Table",
+   "label": "Scenarios",
+   "options": "Mix Scenario",
+   "description": "Try a change (more of a material, a price drop...) and press What-if to see the new best plan."
+  },
+  {
+   "fieldname": "scenario_results",
+   "fieldtype": "Table",
+   "label": "Scenario Results",
+   "options": "Mix Scenario Result",
+   "read_only": 1
+  },
+  {
+   "fieldname": "risk_sd_pct",
+   "fieldtype": "Percent",
+   "label": "How Much Can Numbers Vary %",
+   "default": 10
+  },
+  {
+   "fieldname": "risk_draws",
+   "fieldtype": "Int",
+   "label": "Simulations",
+   "default": 300
+  },
+  {
+   "fieldname": "cb_w",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "risk_p5",
+   "fieldtype": "Currency",
+   "label": "Worst Realistic Margin (5%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "risk_p50",
+   "fieldtype": "Currency",
+   "label": "Typical Margin",
+   "read_only": 1
+  },
+  {
+   "fieldname": "risk_p95",
+   "fieldtype": "Currency",
+   "label": "Best Realistic Margin (95%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "risk_keep_pct",
+   "fieldtype": "Percent",
+   "label": "Plan Still Possible In % of Cases",
+   "read_only": 1
+  },
+  {
+   "fieldname": "risk_regret",
+   "fieldtype": "Currency",
+   "label": "Average Loss From Not Re-planning",
    "read_only": 1
   },
   {

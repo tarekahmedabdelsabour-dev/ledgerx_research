@@ -1,0 +1,255 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "item_code",
+  "cost",
+  "current_price",
+  "current_qty",
+  "cb1",
+  "elasticity",
+  "elasticity_note",
+  "model",
+  "min_price",
+  "max_price",
+  "capacity",
+  "discount_pct",
+  "sb_o",
+  "best_price",
+  "expected_qty",
+  "expected_profit",
+  "cb_o",
+  "current_profit",
+  "profit_gain",
+  "sb_d",
+  "required_uplift_pct",
+  "discount_expected_qty",
+  "discount_profit_change",
+  "sb_res",
+  "status",
+  "cb_r",
+  "verified",
+  "solved_on",
+  "summary_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "label": "Unit Cost"
+  },
+  {
+   "fieldname": "current_price",
+   "fieldtype": "Currency",
+   "label": "Current Price"
+  },
+  {
+   "fieldname": "current_qty",
+   "fieldtype": "Float",
+   "label": "Current Quantity per Month"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "elasticity",
+   "fieldtype": "Float",
+   "label": "Price Elasticity",
+   "description": "1.5 means a 1% higher price loses 1.5% of the volume. Load Data estimates it from your sales history when the price has varied enough."
+  },
+  {
+   "fieldname": "elasticity_note",
+   "fieldtype": "Data",
+   "label": "Elasticity Source",
+   "read_only": 1
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Select",
+   "label": "Demand Model",
+   "options": "Constant elasticity\nLinear demand",
+   "default": "Constant elasticity"
+  },
+  {
+   "fieldname": "min_price",
+   "fieldtype": "Currency",
+   "label": "Lowest Price Allowed"
+  },
+  {
+   "fieldname": "max_price",
+   "fieldtype": "Currency",
+   "label": "Highest Price Allowed"
+  },
+  {
+   "fieldname": "capacity",
+   "fieldtype": "Float",
+   "label": "Capacity per Month"
+  },
+  {
+   "fieldname": "discount_pct",
+   "fieldtype": "Percent",
+   "label": "Discount to Test %"
+  },
+  {
+   "fieldname": "sb_o",
+   "fieldtype": "Section Break",
+   "label": "Outcome"
+  },
+  {
+   "fieldname": "best_price",
+   "fieldtype": "Currency",
+   "label": "Best Price",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected_qty",
+   "fieldtype": "Float",
+   "label": "Expected Quantity per Month",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected_profit",
+   "fieldtype": "Currency",
+   "label": "Expected Profit per Month",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "current_profit",
+   "fieldtype": "Currency",
+   "label": "Profit per Month Today",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profit_gain",
+   "fieldtype": "Currency",
+   "label": "Gain per Month",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_d",
+   "fieldtype": "Section Break",
+   "label": "Discount Test"
+  },
+  {
+   "fieldname": "required_uplift_pct",
+   "fieldtype": "Percent",
+   "label": "Extra Volume Needed to Break Even %",
+   "read_only": 1
+  },
+  {
+   "fieldname": "discount_expected_qty",
+   "fieldtype": "Float",
+   "label": "Expected Quantity at This Discount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "discount_profit_change",
+   "fieldtype": "Currency",
+   "label": "Expected Profit Change per Month",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_res",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSolved\nInfeasible\nNeeds Attention",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Independently Verified",
+   "read_only": 1,
+   "description": "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate."
+  },
+  {
+   "fieldname": "solved_on",
+   "fieldtype": "Datetime",
+   "label": "Solved On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "Text Editor",
+   "label": "Summary",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Pricing Analysis",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Research Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Research Analyst",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "autoname": "format:PRC-.YYYY.-.#####",
+ "icon": "fa fa-tags",
+ "allow_rename": 0
+}

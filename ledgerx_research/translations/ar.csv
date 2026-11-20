@@ -1,17 +1,31 @@
+ (weak), (ضعيف)
+(none),(لا شيء)
 (re-checked by separate code),(أُعيد فحصه بواسطة كود منفصل)
 0 = no limit,0 = بلا حد
 0 = no limit.,0 = بلا حد.
 0 = no limit. Offers without a score are kept.,0 = بلا حد. تُبقى العروض التي ليس لها درجة.
+0 = now.,0 = الآن.
+1.5 means a 1% higher price loses 1.5% of the volume. Load Data estimates it from your sales history when the price has varied enough.,1.5 تعني أن ارتفاع السعر بنسبة 1% يفقد 1.5% من الحجم. يقدّرها تحميل البيانات من سجل مبيعاتك عندما يتغير السعر بما يكفي.
+A,A
+A 1% change in sales changes profit by this many percent.,تغيّر المبيعات بنسبة 1% يغيّر الربح بهذه النسبة المئوية.
+"A dead item had no movement for {0} days, a slow one for {1} days; overstocked means more than a year of demand on hand.",الصنف الراكد جدًا لم تكن له حركة منذ {0} يومًا، والبطيء منذ {1} يومًا؛ والمخزون الزائد يعني وجود أكثر من طلب سنة كاملة في المخزون.
+A discount of {0}% removes the whole margin.,خصم بنسبة {0}% يلغي الهامش بالكامل.
+"A makes 80% of the profit, B the next 15%, C the rest, L loses money.",A يحقق 80% من الربح، وB الـ15% التالية، وC الباقي، وL يخسر.
 A product has no limit at all: add a demand limit or a resource it uses.,هناك منتج بلا أي حد: أضف حدًا للطلب أو مورد يستخدمه.
 A warehouse name when you want a Stock Entry draft.,اسم مستودع عند الرغبة في مسودة قيد مخزون.
 ABC,تصنيف ABC
 Above Lower Bound %,فوق الحد الأدنى %
+Accept: it earns more than the required return,قبول: يحقق عائدًا أعلى من العائد المطلوب
+Account,الحساب
+Accuracy,الدقة
+Add at least one product.,أضف منتجًا واحدًا على الأقل.
 Add items or press Load Data.,أضف أصنافًا أو اضغط تحميل البيانات.
 Add needs and offers or press Load Data.,أضف الاحتياجات والعروض أو اضغط تحميل البيانات.
 Add operations or press Load Data.,أضف عمليات أو اضغط تحميل البيانات.
 Add products or press Load Data.,أضف منتجات أو اضغط تحميل البيانات.
 Add sources and destinations or press Load Data.,أضف المصادر والوجهات أو اضغط تحميل البيانات.
 Add stops or press Load Data.,أضف نقاط توقف أو اضغط تحميل البيانات.
+Add the cash flows.,أضف التدفقات النقدية.
 Address,العنوان
 All the quantity goes to {0} and no other supplier can replace it under the same limits.,كل الكمية تذهب إلى {0} ولا يمكن لأي مورد آخر أن يحل محله ضمن الحدود نفسها.
 "All the quantity goes to {0}. If it cannot deliver, the next best plan costs {1} more.",كل الكمية تذهب إلى {0}. إذا تعذر عليه التوريد، فإن أفضل خطة بديلة تكلف {1} أكثر.
@@ -21,39 +35,116 @@ Allocation Need,احتياج التوزيع
 Allocation Offer,عرض التوزيع
 Allocation Result,نتيجة التوزيع
 Allow Unmet Demand,السماح بطلب غير مغطى
+Also sets the sales mix between products.,يحدد أيضًا تشكيلة المبيعات بين المنتجات.
 Amount,المبلغ
+Amount for the Period,المبلغ للفترة
+Analyse By,تحليل حسب
+Appraisal,التقييم
+Asset,الأصل
+At the expected sales the period makes a loss.,عند المبيعات المتوقعة تحقق الفترة خسارة.
+At this price and cost mix every unit loses money: no volume breaks even.,عند هذا السعر وهذه التكاليف كل وحدة تخسر: لا يوجد حجم يحقق نقطة التعادل.
 Available,المتاح
 Available Quantity,الكمية المتاحة
+Average Error %,متوسط الخطأ %
+Average Loss From Not Re-planning,متوسط الخسارة الناتجة عن عدم إعادة التخطيط
+B,B
+BE Fixed Cost,التكلفة الثابتة لنقطة التعادل
+BE Product,منتج نقطة التعادل
+BE Sensitivity,حساسية نقطة التعادل
 BOM,قائمة المواد
 Best Dispatch Rule,أفضل قاعدة إسناد
+Best Price,أفضل سعر
+Best Realistic Margin (95%),أفضل هامش واقعي (95%)
+Best Realistic NPV (95%),أفضل صافي قيمة حالية واقعي (95%)
+Best Realistic Profit (95%),أفضل ربح واقعي (95%)
 Best dispatch rule: {0}. Total lateness {1} hours.,أفضل قاعدة إسناد: {0}. إجمالي التأخير {1} ساعة.
+Best price {0} (now {1}): profit per month changes by {2},أفضل سعر {0} (الحالي {1}): يتغير الربح الشهري بمقدار {2}
+Beyond about +/-4 the plans are drifting one way.,بعد حوالي ±4 تميل الخطط في اتجاه واحد.
+Bias %,الانحياز %
 Bottleneck: {0} (one more unit adds {1} to the margin),عنق الزجاجة: {0} (قيمة وحدة إضافية تضيف {1} إلى الهامش)
+Break Even Analysis,تحليل نقطة التعادل
+Break-even,نقطة التعادل
+Break-even Revenue,إيراد نقطة التعادل
+Break-even Units,وحدات نقطة التعادل
+"Break-even: {0} units, revenue {1}",نقطة التعادل: {0} وحدة، الإيراد {1}
 Budget,الميزانية
+Buy,شراء
+Buying Price per Unit,سعر الشراء لكل وحدة
+Buying is cheaper above this volume,الشراء أرخص فوق هذا الحجم
+Buying: Equivalent Yearly Cost,الشراء: التكلفة السنوية المكافئة
+C,C
+Can Fall To,يمكن أن ينخفض إلى
+Can Rise To,يمكن أن يرتفع إلى
 Can Supply (max),أقصى كمية يمكن توريدها
+Capacity (units),الطاقة الإنتاجية (وحدات)
 Capacity and quality score are empty: fill them where you know them (0 = no limit).,الطاقة الإنتاجية ودرجة الجودة فارغتان: املأهما حيث تعرفهما (0 = بلا حد).
+Capacity per Month,الطاقة الإنتاجية شهريًا
+Cash Break-even Units,وحدات التعادل النقدي
+Cash Flow,التدفق النقدي
+Cash Flows,التدفقات النقدية
+Chance NPV Is Negative %,احتمال أن يكون صافي القيمة الحالية سالبًا %
+Chance of a Loss %,احتمال الخسارة %
+Change,التغيير
+Change %,نسبة التغيير %
 Charged once for every supplier that gets an order; pushes the plan to consolidate.,تُحتسب مرة واحدة لكل مورد يتلقى أمرًا؛ وتدفع الخطة إلى التجميع في عدد أقل من الموردين.
+Cheaper Option,الخيار الأرخص
+Check Stock Health,فحص سلامة المخزون
+Choose the history period.,اختر فترة السجل.
 Choose the item first.,اختر الصنف أولًا.
+Choose what to analyse by.,اختر أساس التحليل.
+Class,الفئة
 Company,الشركة
+Compares the forecast of next month's demand with the demand of the 30 days that followed.,يقارن تنبؤ طلب الشهر القادم بالطلب الفعلي خلال الـ30 يومًا التالية.
+Compares the planned price with the average price of purchase orders placed with the same supplier after the plan.,يقارن السعر المخطط بمتوسط سعر أوامر الشراء الصادرة لنفس المورد بعد الخطة.
+Compares the planned quantity with the quantity produced in the planning days that followed.,يقارن الكمية المخططة بالكمية المنتجة في أيام التخطيط التالية.
+Comparison,المقارنة
+Comparisons,المقارنات
+Condition,الشرط
+Constant elasticity,مرونة ثابتة
 Converts hours of work into calendar time in the schedule.,تحوّل ساعات العمل إلى وقت تقويمي في الجدول.
+Cost,التكلفة
+"Cost = the stock cost at the time of sale. Overheads, delivery and returns' handling are not included.",التكلفة = تكلفة المخزون وقت البيع. لا تشمل المصروفات العامة ولا التوصيل ولا معالجة المرتجعات.
+Cost of Buying (today's money),تكلفة الشراء (بقيمة اليوم)
+Cost of Leasing (today's money),تكلفة التأجير (بقيمة اليوم)
 Cost of Placing One Order,تكلفة إصدار أمر واحد
 Cost per Extra Supplier Used,تكلفة كل مورد إضافي
 Cost per Unit,التكلفة لكل وحدة
 Cost per Unit per km,التكلفة لكل وحدة لكل كم
+"Cost, price and monthly quantity were read from the last 12 months. Check the elasticity, then press Solve.",تمت قراءة التكلفة والسعر والكمية الشهرية من آخر 12 شهرًا. راجع مرونة الطلب ثم اضغط حل.
+"Costs read for {0}. Add the yearly volume and the fixed costs, then press Solve.",تمت قراءة التكاليف لـ {0}. أضف الحجم السنوي والتكاليف الثابتة ثم اضغط حل.
+Could not be estimated from history: enter your own figure,تعذر تقديرها من السجل: أدخل رقمك الخاص
 Create Material Request (draft),إنشاء طلب مواد (مسودة)
 Create Production Plan (draft),إنشاء خطة إنتاج (مسودة)
 Create Purchase Orders (drafts),إنشاء أوامر شراء (مسودات)
 Create Stock Entry (draft),إنشاء قيد مخزون (مسودة)
+Current Price,السعر الحالي
+Current Quantity per Month,الكمية الحالية شهريًا
 Customer,العميل
 Daily Demand Std Dev,الانحراف المعياري للطلب اليومي
 Data loaded,تم تحميل البيانات
+Days Without Movement,أيام بلا حركة
+Days of Cover,أيام التغطية
+Dead,راكد جدًا
+Dead After (days),راكد جدًا بعد (أيام)
+Decision,القرار
+Decision Review,مراجعة القرارات
+Decision review,مراجعة القرارات
 Decisions,القرارات
 Default Company,الشركة الافتراضية
 Default Lead Time (days),مدة التوريد الافتراضية (أيام)
+Demand Model,نموذج الطلب
+"Demand is not elastic enough (elasticity {0} is not above 1): there is no profit-maximising price, the highest allowed price is shown.",الطلب ليس مرنًا بما يكفي (مرونة الطلب {0} ليست أعلى من 1): لا يوجد سعر يعظّم الربح، ويُعرض أعلى سعر مسموح.
 Depot,المستودع الرئيسي للانطلاق
 Depot Latitude,خط عرض نقطة الانطلاق
 Depot Longitude,خط طول نقطة الانطلاق
 Destination,الوجهة
 Destinations,الوجهات
+Difference,الفرق
+Difference %,نسبة الفرق %
+Discount Rate per Year %,معدل الخصم سنويًا %
+Discount Test,اختبار الخصم
+Discount to Test %,الخصم المراد اختباره %
+Discounted Payback (years),فترة الاسترداد المخصومة (سنوات)
 Distance Above Lower Bound %,المسافة فوق الحد الأدنى %
 "Distances are straight-line (as the crow flies), not road distances.",المسافات بخط مستقيم (كما يطير الغراب) وليست مسافات الطرق.
 Distribution,التوزيع
@@ -66,22 +157,61 @@ Draft created: {0}. Review it and submit it yourself.,تم إنشاء المسو
 Drafts Created,المسودات المنشأة
 Due,الاستحقاق
 Economic Order Qty,كمية الطلب الاقتصادية
+Elasticity Source,مصدر المرونة
+Empty,فارغ
 Empty or 0 = no limit.,فارغ أو 0 = بلا حد.
 End,النهاية
+Enter how much the numbers can vary (%).,أدخل مدى إمكانية تغير الأرقام (%).
+Enter the current price and quantity.,أدخل السعر والكمية الحاليين.
+Enter the life of the asset in years.,أدخل العمر الإنتاجي للأصل بالسنوات.
+Enter the price elasticity (for example 1.5: a 1% higher price loses 1.5% of the volume).,أدخل مرونة الطلب السعرية (مثلًا 1.5: ارتفاع السعر 1% يفقد 1.5% من الحجم).
+Enter the yearly volume.,أدخل الحجم السنوي.
+Equal,متساوٍ
+"Estimated from {0} months, fit R2 {1}{2}",مقدّرة من {0} أشهر، معامل التحديد R2 {1}{2}
 Exact Route Order up to (stops),ترتيب المسار الدقيق حتى (نقاط التوقف)
+Expected,المتوقع
+Expected Profit Change per Month,التغير المتوقع في الربح شهريًا
+Expected Profit per Month,الربح المتوقع شهريًا
+Expected Quantity,الكمية المتوقعة
+Expected Quantity at This Discount,الكمية المتوقعة عند هذا الخصم
+Expected Quantity per Month,الكمية المتوقعة شهريًا
+Extra Volume Needed to Break Even %,الحجم الإضافي اللازم لبلوغ نقطة التعادل %
+Finance and Investment,التمويل والاستثمار
 Finish Time of the Last Order,وقت انتهاء آخر أمر
+Fixed Cost,التكلفة الثابتة
+Fixed Cost of Buying per Year,التكلفة الثابتة للشراء سنويًا
+Fixed Cost of Making per Year,التكلفة الثابتة للتصنيع سنويًا
+Fixed Costs,التكاليف الثابتة
+Fixed Costs for the Period,التكاليف الثابتة للفترة
+Fixed costs,التكاليف الثابتة
 Forecast Method,طريقة التنبؤ
 From,من
+Gain per Month,المكسب شهريًا
+Healthy,سليم
+Highest Price Allowed,أعلى سعر مسموح
 History (days),السجل (أيام)
+History From,السجل من
+History To,السجل إلى
 Holding Cost per Year %,تكلفة الاحتفاظ بالمخزون سنويًا %
 Home,الرئيسية
 Hours = operation time x remaining share of the order quantity. Each workstation does one job at a time.,الساعات = زمن العملية × النسبة المتبقية من كمية الأمر. كل محطة عمل تنفذ مهمة واحدة في كل مرة.
+How Much Can Future Cash Vary %,مدى تغير التدفقات النقدية المستقبلية %
+How Much Can Numbers Vary %,مدى تغير الأرقام %
+How far sales can fall before the period makes a loss.,مقدار ما يمكن أن تنخفض به المبيعات قبل أن تحقق الفترة خسارة.
 How much the total margin would rise if you had one more unit of this resource: the real bottleneck shows the highest number.,مقدار الارتفاع في إجمالي الهامش لو توفرت وحدة إضافية من هذا المورد: عنق الزجاجة الحقيقي يظهر أعلى رقم.
+If You Buy,إذا اشتريت
+If You Lease,إذا أجّرت
+In {0}% of the draws the current plan would no longer fit the resources: re-plan when availability drops.,في {0}% من المحاكاة لن تناسب الخطة الحالية الموارد: أعد التخطيط عند انخفاض المتاح.
 Independently Verified,تم التحقق باستقلالية
 Infeasible,غير ممكن
 Inputs changed,تغيرت المدخلات
 Inputs changed after the last result: press Solve again.,تغيرت المدخلات بعد آخر نتيجة: اضغط حل مرة أخرى.
+Internal Rate of Return %,معدل العائد الداخلي %
+Investment,الاستثمار
+Investment Analysis,تحليل الاستثمار
+Investment Cash Flow,التدفق النقدي للاستثمار
 Item,صنف
+Item Group,مجموعة الأصناف
 Item Name,اسم الصنف
 Item Price,سعر الصنف
 Items,الأصناف
@@ -90,35 +220,74 @@ Lane Costs,تكاليف المسارات
 Lane Costs (optional),تكاليف المسارات (اختياري)
 Latitude,خط العرض
 Lead Time (days),مدة التوريد (أيام)
+Lease,التأجير
+Lease Years,سنوات التأجير
+Lease or Buy Analysis,تحليل الشراء أم التأجير
+Lease or buy,الشراء أم التأجير
+Leasing: Equivalent Yearly Cost,التأجير: التكلفة السنوية المكافئة
 Leave empty for all warehouses of the company.,اتركه فارغًا لكل مستودعات الشركة.
+Leave empty to use the years of use.,اتركه فارغًا لاستخدام سنوات الاستخدام.
 Left Over,المتبقي
 Less than 6 months of history: forecasts and safety stock are rough.,السجل أقل من 6 أشهر: التنبؤات ومخزون الأمان تقريبية.
+Linear demand,طلب خطي
 Load,الحمولة
 Load Data,تحميل البيانات
 Longest Lead Time (days),أطول مدة توريد (أيام)
 Longitude,خط الطول
 Lower Bound (hours),الحد الأدنى (ساعات)
 Lower Bound km,الحد الأدنى (كم)
+Lowest Price Allowed,أدنى سعر مسموح
 Lowest Quality Score %,أدنى درجة جودة %
+Make,تصنيع
+Make or Buy Analysis,تحليل التصنيع أم الشراء
+Make or buy,التصنيع أم الشراء
+Making Cost per Unit,تكلفة التصنيع لكل وحدة
+Making is cheaper above this volume,التصنيع أرخص فوق هذا الحجم
+Margin,الهامش
+Margin %,الهامش %
 Margin = selling price - BOM cost. Material available = stock on hand (incoming purchases are not counted). Edit any number before solving.,الهامش = سعر البيع - تكلفة قائمة المواد. المواد المتاحة = المخزون الحالي (المشتريات القادمة غير محسوبة). عدّل أي رقم قبل الحل.
+Margin Can Fall To,يمكن أن ينخفض الهامش إلى
+Margin Can Rise To,يمكن أن يرتفع الهامش إلى
+Margin of Safety %,هامش الأمان %
+Margin of safety {0}%: sales can fall that far before the period makes a loss.,هامش الأمان {0}%: يمكن أن تنخفض المبيعات بهذا القدر قبل أن تحقق الفترة خسارة.
 Margin per Unit,الهامش لكل وحدة
+Margins and available resources each vary by about {0}% (normal spread) in {1} draws; every draw is solved again from scratch. Fixed seed: the same input gives the same answer.,تتغير الهوامش والموارد المتاحة بنحو {0}% لكل منها (توزيع طبيعي) في {1} محاكاة؛ وتُحل كل محاكاة من جديد تمامًا. بذرة ثابتة: المدخلات نفسها تعطي النتيجة نفسها.
 Material,مادة
 Material Request,طلب مواد
+Max Quantity,الكمية القصوى
 Max Share of One Supplier %,أقصى حصة لمورد واحد %
 Maximum Quantity (demand),الكمية القصوى (الطلب)
+Min Quantity,الكمية الدنيا
 Minimise,تقليل
 Minimum Order,الحد الأدنى للطلب
 Minimum Quantity,الكمية الدنيا
 Mix Product,منتج التشكيلة
 Mix Resource,مورد التشكيلة
+Mix Scenario,سيناريو التشكيلة
+Mix Scenario Result,نتيجة سيناريو التشكيلة
+"Money Tied Up in Dead, Slow and Overstocked Items",الأموال المجمدة في أصناف راكدة جدًا وبطيئة وزائدة
+Money out is negative.,الأموال الخارجة بالسالب.
+"Money tied up in dead, slow and overstocked items: {0}",الأموال المجمدة في أصناف راكدة جدًا وبطيئة وزائدة: {0}
 NOT VERIFIED,لم يتم التحقق
+Name,الاسم
 Needed only to create a Stock Entry draft between warehouses.,مطلوب فقط لإنشاء مسودة قيد مخزون بين المستودعات.
 Needs,الاحتياجات
 Needs Attention,يحتاج إلى انتباه
+Net Present Value,صافي القيمة الحالية
+Net present value {0},صافي القيمة الحالية {0}
 Next Month Forecast,تنبؤ الشهر القادم
+No active default BOM: enter the making cost.,لا توجد قائمة مواد افتراضية فعّالة: أدخل تكلفة التصنيع.
 No allocation satisfies every limit: relax a limit or add offers.,لا يوجد توزيع يحقق كل الحدود: خفف أحد الحدود أو أضف عروضًا.
 No buying Item Price with a supplier exists for these items.,لا يوجد سعر شراء لصنف مع مورد لهذه الأصناف.
+No buying price found: enter it.,لم يتم العثور على سعر شراء: أدخله.
+No buying price: the buy option costs nothing.,لا يوجد سعر شراء: خيار الشراء بلا تكلفة.
 No cost and no location for {0} -> {1}: this lane is not used.,لا توجد تكلفة ولا موقع لـ {0} -> {1}: لن يُستخدم هذا المسار.
+No data,لا توجد بيانات
+No earlier plan is old enough to be checked yet.,لا توجد خطة سابقة مضى عليها وقت كافٍ لفحصها بعد.
+No expected quantities: the mix between products is assumed equal.,لا توجد كميات متوقعة: يُفترض تساوي التشكيلة بين المنتجات.
+"No fixed costs entered: every sale is profit, so the break-even is zero.",لم تُدخل تكاليف ثابتة: كل عملية بيع ربح، لذا تكون نقطة التعادل صفرًا.
+No internal rate of return exists for these cash flows.,لا يوجد معدل عائد داخلي لهذه التدفقات النقدية.
+No making cost per unit: the make option is only its fixed cost.,لا توجد تكلفة تصنيع لكل وحدة: خيار التصنيع هو تكلفته الثابتة فقط.
 No offer fits the limits for {0}.,لا يوجد عرض يناسب الحدود لـ {0}.
 No open transfer requests for this item: add destinations by hand.,لا توجد طلبات نقل مفتوحة لهذا الصنف: أضف الوجهات يدويًا.
 No open work order.,لا يوجد أمر عمل مفتوح.
@@ -129,12 +298,18 @@ No plan found.,لم يتم العثور على خطة.
 No product with an active default BOM and open sales orders was found.,لم يتم العثور على منتج له قائمة مواد افتراضية فعّالة وأوامر بيع مفتوحة.
 No product with an active default BOM was found.,لم يتم العثور على منتج له قائمة مواد افتراضية فعّالة.
 No product with an active default BOM{0} was found.,لم يتم العثور على منتج له قائمة مواد افتراضية فعالة{0}.
+No sales found in the period.,لم يتم العثور على مبيعات في الفترة.
+No sales in the chosen period.,لا توجد مبيعات في الفترة المختارة.
+No sales of this item in the last 12 months.,لا توجد مبيعات لهذا الصنف في آخر 12 شهرًا.
 No sales order is waiting for delivery.,لا يوجد أمر بيع في انتظار التسليم.
+No stock found.,لم يتم العثور على مخزون.
 No stock movement in the chosen period.,لا توجد حركة مخزون في الفترة المختارة.
 No stop has a location.,لا توجد نقطة توقف لها موقع.
+No unit cost: the best price will look much too low.,لا توجد تكلفة وحدة: سيبدو أفضل سعر أقل بكثير من الواقع.
 No warehouse found.,لم يتم العثور على مستودع.
 No warehouse holds this item.,لا يوجد مستودع يحتوي على هذا الصنف.
 Not Allowed,غير مسموح
+Note,ملاحظة
 Nothing needs to be ordered now.,لا يوجد ما يلزم طلبه الآن.
 Nothing to schedule.,لا يوجد ما يمكن جدولته.
 OR Settings,إعدادات بحوث العمليات
@@ -142,36 +317,71 @@ Offers,العروض
 Offers are in different currencies ({0}): convert them before solving.,العروض بعملات مختلفة ({0}): حوّلها قبل الحل.
 On Hand,في المخزون
 On Order,قيد الطلب
+One option is cheaper at every volume: there is no switching point.,أحد الخيارين أرخص عند كل حجم: لا توجد نقطة تحول.
 One stop needs more than a vehicle can carry: {0},نقطة توقف تحتاج أكثر مما تستطيع مركبة حمله: {0}
+Only the 50 items with the highest sales are included.,يشمل التحليل فقط الأصناف الـ50 الأعلى مبيعًا.
+Only the first 2000 groups are analysed.,يتم تحليل أول 2000 مجموعة فقط.
 Only the {0} items with the highest movement are planned.,يتم التخطيط فقط لأكثر {0} صنفًا حركة.
+Only {0} comparisons: the verdict is not yet solid.,{0} مقارنات فقط: الحكم ليس متينًا بعد.
+Operating Leverage,الرافعة التشغيلية
+Operating leverage {0}: a 1% change in sales changes profit by about {0}%.,الرافعة التشغيلية {0}: تغيّر المبيعات بنسبة 1% يغيّر الربح بنحو {0}%.
 Operation,عملية
 Operations,العمليات
 Operations Research,بحوث العمليات
+Optional: Load Data fills the amount from this account for the period.,اختياري: تحميل البيانات يملأ المبلغ من هذا الحساب للفترة.
+Optional: Load Data fills the making cost from the default BOM and the buying price from the price list.,اختياري: تحميل البيانات يملأ تكلفة التصنيع من قائمة المواد الافتراضية وسعر الشراء من قائمة الأسعار.
 Order,الأمر
 Order Now,اطلب الآن
 Outcome,الناتج
+Overstocked,مخزون زائد
+Paid in Cash,مدفوع نقدًا
+Payback (years),فترة الاسترداد (سنوات)
+Payments are counted at the end of each year; tax effects and inflation are not included.,تُحتسب الدفعات في نهاية كل سنة؛ ولا تشمل الآثار الضريبية ولا التضخم.
 Plan,الخطة
 Plan Destination,وجهة الخطة
 Plan Flow,حركة الخطة
 Plan Lane,مسار الخطة
 Plan Source,مصدر الخطة
+Plan Still Possible In % of Cases,نسبة الحالات التي تبقى فيها الخطة ممكنة %
 Planning Days,أيام التخطيط
+Plans Solved From,الخطط المحلولة من
+Plans Solved To,الخطط المحلولة إلى
+Plans to Check,الخطط المطلوب فحصها
 Policy: order a whole economic quantity whenever stock on hand plus on order falls to the reorder point.,السياسة: اطلب كمية اقتصادية كاملة كلما انخفض المخزون الحالي مع المطلوب إلى نقطة إعادة الطلب.
+Positive: the plans expected too much. Negative: too little.,موجب: توقعت الخطط أكثر من اللازم. سالب: أقل من اللازم.
+Positive: the project earns more than the required return.,موجب: يحقق المشروع عائدًا أعلى من العائد المطلوب.
 Press Solve again: the earlier result no longer matches the data.,اضغط حل مرة أخرى: النتيجة السابقة لم تعد تطابق البيانات.
 Price,السعر
+Price Elasticity,مرونة الطلب السعرية
+Pricing,التسعير
+Pricing Analysis,تحليل التسعير
 Product Mix Plan,خطة تشكيلة الإنتاج
 Product Mix Plan by Status,خطط تشكيلة الإنتاج حسب الحالة
 Product Mix Plans Needing Attention,خطط تشكيلة الإنتاج التي تحتاج إلى انتباه
 Product mix,تشكيلة الإنتاج
 Production Plan,خطة الإنتاج
 Products,المنتجات
+Products That Change,المنتجات المتغيرة
+Profit Row,سطر الربح
+Profit and Pricing,الربح والتسعير
+Profit at Expected Sales,الربح عند المبيعات المتوقعة
+Profit per Month Today,الربح الشهري حاليًا
+Profitability,الربحية
+Profitability Analysis,تحليل الربحية
+Profitability Index,مؤشر الربحية
+Project,المشروع
 Purchase Order,أمر شراء
 Purchase Order Drafts,مسودات أوامر الشراء
+Purchase Price,سعر الشراء
 Quality Score %,درجة الجودة %
 Quantity,الكمية
+Ranges are shown for the first {0} only.,تُعرض النطاقات لأول {0} فقط.
+Rank,الترتيب
 Read before using,اقرأ قبل الاستخدام
 Reading your data...,جارٍ قراءة بياناتك...
 Recommended Quantity,الكمية الموصى بها
+Reject: it earns less than the required return,رفض: يحقق عائدًا أقل من العائد المطلوب
+Reliable,موثوق
 Remaining Hours,الساعات المتبقية
 Reorder Item,صنف إعادة الطلب
 Reorder Plan,خطة إعادة الطلب
@@ -179,11 +389,22 @@ Reorder Plan by Status,خطط إعادة الطلب حسب الحالة
 Reorder Plans Needing Attention,خطط إعادة الطلب التي تحتاج إلى انتباه
 Reorder Point,نقطة إعادة الطلب
 Reorder plan,خطة إعادة الطلب
+Reorder: forecast vs the demand that followed. Product mix: planned vs produced. Supplier allocation: planned price vs the purchase price paid.,إعادة الطلب: التنبؤ مقابل الطلب الذي تلاه. تشكيلة الإنتاج: المخطط مقابل المنتج فعليًا. توزيع الموردين: السعر المخطط مقابل سعر الشراء المدفوع.
 Required Quantity,الكمية المطلوبة
+Required Return per Year %,العائد المطلوب سنويًا %
 Resource,المورد
 Resource Use per Unit,استهلاك المورد لكل وحدة
 Resources,الموارد
 Result,النتيجة
+Returns are netted against sales.,تُخصم المرتجعات من المبيعات.
+Revenue,الإيراد
+Revenue for the Target Profit,الإيراد اللازم للربح المستهدف
+Review,المراجعة
+Review Row,سطر المراجعة
+Risk,المخاطر
+Risk Simulation,محاكاة المخاطر
+"Risk simulation: each future cash flow varies by about {0}% (normal spread), 2000 trials, fixed seed.",محاكاة المخاطر: يتغير كل تدفق نقدي مستقبلي بنحو {0}% (توزيع طبيعي)، 2000 محاولة، بذرة ثابتة.
+"Risk simulation: prices, costs and volume vary by about {0}% (normal spread), 2000 trials, fixed seed so the same input gives the same answer.",محاكاة المخاطر: تتغير الأسعار والتكاليف والحجم بنحو {0}% (توزيع طبيعي)، 2000 محاولة، بذرة ثابتة ليعطي المدخل نفسه النتيجة نفسها.
 Route,مسار
 Route Leg,جزء من المسار
 Route Load,حمولة المسار
@@ -193,8 +414,18 @@ Route Stop,نقطة توقف المسار
 Route km,كم المسار
 Route {0} has more than 12 stops: its stop order is improved but not proven the shortest.,المسار {0} فيه أكثر من 12 نقطة توقف: تم تحسين ترتيب التوقف لكن لم يثبت أنه الأقصر.
 Routes,المسارات
+Rows with the same name are applied together.,تُطبَّق الصفوف التي لها الاسم نفسه معًا.
+Rule,القاعدة
 Safety Stock,مخزون الأمان
 Sales Order,أمر بيع
+Sales volume,حجم المبيعات
+Saving (today's money),الوفر (بقيمة اليوم)
+Saving per Year,الوفر سنويًا
+Scenario,السيناريو
+Scenario Results,نتائج السيناريوهات
+Scenario refers to something that is not in the plan: {0},السيناريو يشير إلى شيء غير موجود في الخطة: {0}
+Scenario {0} has no valid plan (a minimum quantity cannot be met).,السيناريو {0} ليس له خطة صالحة (تعذر تحقيق كمية دنيا).
+Scenarios,السيناريوهات
 Schedule,جدولة
 Schedule From,الجدولة من
 Schedule Operation,عملية الجدولة
@@ -202,12 +433,19 @@ Schedule Plan,خطة الجدولة
 Schedule Plans Needing Attention,خطط الجدولة التي تحتاج إلى انتباه
 Schedule Row,سطر الجدولة
 Selling Price,سعر البيع
+Sensitivity,تحليل الحساسية
 Sequence,التسلسل
 Service Level %,مستوى الخدمة %
 Setup,الإعداد
+Share of Profit %,حصة الربح %
 Shipping Plan,خطة الشحن
+Simulations,المحاكاة
+Slow,بطيء
+Slow After (days),بطيء بعد (أيام)
 Solve,حل
+Solve the plan first.,قم بحل الخطة أولًا.
 Solve the plan first. A plan that is not verified cannot create documents.,قم بحل الخطة أولًا. الخطة التي لم يتم التحقق منها لا يمكنها إنشاء مستندات.
+Solve the plan first: it has no valid solution.,قم بحل الخطة أولًا: ليس لها حل صالح.
 Solved,تم الحل
 Solved On,تاريخ الحل
 Solved Plans This Month,الخطط المحلولة هذا الشهر
@@ -220,6 +458,9 @@ Sources,المصادر
 Start,بدء
 Status,الحالة
 Stock Entry,قيد مخزون
+Stock Health,سلامة المخزون
+Stock Health Row,سطر سلامة المخزون
+Stock health,سلامة المخزون
 Stop,نقطة توقف
 Stops,نقاط التوقف
 Summary,الملخص
@@ -228,66 +469,138 @@ Supplier Allocation Plan,خطة توزيع الموردين
 Supplier Allocation Plan by Status,خطط توزيع الموردين حسب الحالة
 Supplier Allocation Plans Needing Attention,خطط توزيع الموردين التي تحتاج إلى انتباه
 Supplier allocation,توزيع الموردين
+Target Profit,الربح المستهدف
+The BOM cost includes materials and operations at their standard rates. Add the fixed yearly costs of each option yourself.,تشمل تكلفة قائمة المواد المواد والعمليات بأسعارها القياسية. أضف بنفسك التكاليف الثابتة السنوية لكل خيار.
+The best price is at the limit you set.,أفضل سعر عند الحد الذي حددته.
+The bottleneck keeps its value while the resource stays between 'Can Fall To' and 'Can Rise To'.,يحتفظ عنق الزجاجة بقيمته ما دام المورد بين «يمكن أن ينخفض إلى» و«يمكن أن يرتفع إلى».
+"The cash flows change sign more than once, so there are several internal rates of return: rely on the net present value.",تغيّر التدفقات النقدية إشارتها أكثر من مرة، لذا توجد عدة معدلات عائد داخلي: اعتمد على صافي القيمة الحالية.
+The elasticity could not be estimated from history ({0}): the value you entered is a guess.,تعذر تقدير المرونة من السجل ({0}): القيمة التي أدخلتها تخمين.
+The elasticity estimated from history is weak (R2 {0}): treat the answer as a guide.,المرونة المقدّرة من السجل ضعيفة (R2 {0}): اعتبر الإجابة مجرد إرشاد.
+The elasticity is assumed constant around today's price: do not extend the answer far from it.,يُفترض أن المرونة ثابتة حول سعر اليوم: لا تمدد الإجابة بعيدًا عنه.
+The inputs do not describe a valid demand.,المدخلات لا تصف طلبًا صالحًا.
+The investment is not paid back within the years entered.,لا يُسترد الاستثمار خلال السنوات المدخلة.
 The minimum quantities cannot be met with the available resources.,لا يمكن تحقيق الكميات الدنيا بالموارد المتاحة.
 The plan has no flow between existing warehouses.,لا توجد في الخطة حركة بين المستودعات القائمة.
 The plan has no quantity to order.,لا توجد في الخطة كمية للطلب.
 The plan has no quantity to produce.,لا توجد في الخطة كمية للإنتاج.
+The plan stays the best one while the margin stays between these two numbers.,تبقى الخطة هي الأفضل ما دام الهامش بين هذين الرقمين.
+The plans were consistently too high.,كانت الخطط مرتفعة باستمرار.
+The plans were consistently too low.,كانت الخطط منخفضة باستمرار.
+The plans were usable but off by a clear margin: keep a safety buffer.,كانت الخطط صالحة لكنها مختلفة بفارق واضح: احتفظ بهامش أمان.
+"The resource name, or the item code of the product.",اسم المورد، أو كود الصنف للمنتج.
+The return you could get elsewhere with the same risk.,العائد الذي يمكنك الحصول عليه في مكان آخر بنفس المخاطر.
 The schedule is {0}% above the theoretical minimum; the real optimum lies between the two.,الجدول أعلى من الحد الأدنى النظري بنسبة {0}%؛ والأمثل الفعلي يقع بين الاثنين.
 "The solution was re-checked by separate code: every constraint holds and, for linear problems, optimality is proven by a duality certificate.",أُعيد فحص الحل بواسطة كود منفصل: جميع القيود محققة، وفي المسائل الخطية يثبت الأمثل بشهادة ثنائية.
 The solver could not finish.,تعذر على المحلل إتمام الحل.
+The value of one more unit holds while the available amount stays between these two numbers.,تبقى قيمة الوحدة الإضافية ما دام المقدار المتاح بين هذين الرقمين.
+The volume needed for the target is above the capacity.,الحجم اللازم للهدف أعلى من الطاقة الإنتاجية.
+These plans were far from what happened: check the data they were based on before trusting new ones.,كانت هذه الخطط بعيدة عما حدث: افحص البيانات التي بُنيت عليها قبل الوثوق بخطط جديدة.
 This plan has notes to read first (see the summary). Create the draft anyway?,هذه الخطة بها ملاحظات يجب قراءتها أولًا (راجع الملخص). هل تريد إنشاء المسودة على أي حال؟
 To,إلى
 Total Cost,التكلفة الإجمالية
+Total Cost If Bought,إجمالي التكلفة عند الشراء
+Total Cost If Made,إجمالي التكلفة عند التصنيع
+Total Fixed Costs,إجمالي التكاليف الثابتة
 Total Lateness,إجمالي التأخير
 Total Lateness (hours),إجمالي التأخير (ساعات)
 Total Margin,إجمالي الهامش
+Total Revenue,إجمالي الإيراد
 Total Shipping Cost,إجمالي تكلفة الشحن
 Total Working Hours Needed,إجمالي ساعات العمل المطلوبة
+Total absolute error as a share of what actually happened.,إجمالي الخطأ المطلق كنسبة مما حدث فعلًا.
 Total cost {0} across {1} suppliers,التكلفة الإجمالية {0} عبر {1} من الموردين
 Total km,إجمالي الكيلومترات
 Total margin {0},إجمالي الهامش {0}
+Total margin {0} on revenue {1},إجمالي الهامش {0} على إيراد {1}
+"Total margin: typically {0}, between {1} and {2} in 9 cases out of 10.",إجمالي الهامش: عادةً {0}، وبين {1} و{2} في 9 حالات من كل 10.
 Total shipping cost {0},إجمالي تكلفة الشحن {0}
+Tracking Signal,إشارة التتبع
+"Try a change (more of a material, a price drop...) and press What-if to see the new best plan.",جرّب تغييرًا (مزيدًا من مادة، خفض سعر...) واضغط ماذا لو لرؤية أفضل خطة جديدة.
+Typical Margin,الهامش المعتاد
+Typical Profit,الربح المعتاد
 UOM,وحدة القياس
 Unit Cost,تكلفة الوحدة
+Units for the Target Profit,الوحدات اللازمة للربح المستهدف
+Unreliable,غير موثوق
+Untick for depreciation and other non-cash costs.,ألغِ التحديد للإهلاك والتكاليف غير النقدية الأخرى.
+Usable with a buffer,صالح مع هامش أمان
 Used,المستخدم
 Used for every lane that has no cost in the table below.,تُستخدم لكل مسار ليس له تكلفة في الجدول أدناه.
+Value,القيمة
+Value at the End,القيمة في النهاية
 Value of One More Unit,قيمة وحدة إضافية
+Variable Cost per Unit,التكلفة المتغيرة لكل وحدة
+Variable cost,التكلفة المتغيرة
+"Variable cost = the stock cost at the time of sale. Add direct labour, commissions and delivery per unit if they exist.",التكلفة المتغيرة = تكلفة المخزون وقت البيع. أضف العمالة المباشرة والعمولات والتوصيل لكل وحدة إن وُجدت.
 Vehicle Capacity,سعة المركبة
 Vehicles Available,المركبات المتاحة
 Vehicles Used,المركبات المستخدمة
+Verdict,الحكم
+"Verdict: {0}. Average error {1}%, bias {2}%.",الحكم: {0}. متوسط الخطأ {1}%، والانحياز {2}%.
+Volume Where Both Cost the Same,الحجم الذي يتساوى عنده الخياران في التكلفة
 Warehouse,المستودع
+What Changes,ما الذي يتغير
+What Happened,ما حدث
+What If,ماذا لو
+What-if,ماذا لو
+What-if and Risk,ماذا لو والمخاطر
 Whole Units Only,وحدات صحيحة فقط
+Whole-unit plan: ranges are not shown (they exist only for the continuous plan).,خطة بوحدات صحيحة: لا تُعرض النطاقات (فهي موجودة فقط للخطة المتصلة).
 Whole-unit plan: values of extra resource units are not shown.,خطة بوحدات صحيحة: لا تُعرض قيم وحدات الموارد الإضافية.
 Work Order,أمر العمل
 Working Hours per Day,ساعات العمل في اليوم
 Working days are counted as consecutive calendar days: weekends and holidays are not skipped.,تُحتسب أيام العمل كأيام تقويمية متتالية: لا يتم استبعاد عطلات نهاية الأسبوع والإجازات.
+Working...,جارٍ العمل...
 Workstation,محطة العمل
 Workstation Hours,ساعات محطة العمل
 Workstation capacity = daily working hours x these days.,طاقة محطة العمل = ساعات العمل اليومية × هذه الأيام.
+Worst Realistic Margin (5%),أسوأ هامش واقعي (5%)
+Worst Realistic NPV (5%),أسوأ صافي قيمة حالية واقعي (5%)
+Worst Realistic Profit (5%),أسوأ ربح واقعي (5%)
+Year,السنة
+Year 0 is not an outflow: check the signs (money out is negative).,السنة 0 ليست مبلغًا خارجًا: افحص الإشارات (الأموال الخارجة بالسالب).
 Yearly Demand,الطلب السنوي
+Yearly Extra Cost While Leasing,تكلفة إضافية سنوية أثناء التأجير
+Yearly Lease Payment,دفعة التأجير السنوية
+"Yearly Running Cost (maintenance, insurance)",تكلفة التشغيل السنوية (صيانة، تأمين)
+Yearly Volume,الحجم السنوي
+Years of Use,سنوات الاستخدام
+Years without a cash flow are counted as zero: {0},السنوات بلا تدفق نقدي تُحتسب صفرًا: {0}
 high error: treat as a rough guide,نسبة الخطأ مرتفعة: اعتبره تقديرًا تقريبيًا فقط
 history too short: simple average,السجل قصير جدًا: تم استخدام المتوسط البسيط
 verified,تم التحقق
 "{0} / {1}: no workstation, left out.",{0} / {1}: لا توجد محطة عمل، تم الاستبعاد.
 "{0} / {1}: the price is per {2}, not per stock unit: check it.",{0} / {1}: السعر لكل {2} وليس لكل وحدة مخزون: تحقق منه.
+{0} comparisons. Press Solve.,{0} مقارنات. اضغط حل.
 "{0} deliveries waiting. Enter the depot position and the vehicle capacity, then press Solve.",{0} عمليات تسليم في الانتظار. أدخل موقع نقطة الانطلاق وسعة المركبة ثم اضغط حل.
+{0} fixed cost amounts were read from the ledger for the same period.,تمت قراءة {0} مبالغ تكاليف ثابتة من دفتر الأستاذ للفترة نفسها.
 {0} has no resource use and no demand limit: the plan has no upper end.,{0} ليس له استهلاك موارد ولا حد للطلب: الخطة بلا حد أعلى.
+{0} is cheaper by {1} a year,{0} أرخص بمقدار {1} في السنة
+{0} is cheaper by {1} in today's money,{0} أرخص بمقدار {1} بقيمة اليوم
 "{0} items needed, {1} offers. Press Solve.",{0} أصناف مطلوبة، و{1} عروض. اضغط حل.
 {0} items with stock movement. Press Solve.,{0} أصناف عليها حركة مخزون. اضغط حل.
+{0} lose money in this period.,{0} تخسر في هذه الفترة.
 {0} of {1} items need an order now.,{0} من {1} أصناف تحتاج إلى طلب الآن.
 {0} operations on open work orders. Press Solve.,{0} عمليات على أوامر عمل مفتوحة. اضغط حل.
+{0} plans are too recent to be checked yet.,{0} خطط حديثة جدًا لفحصها بعد.
 "{0} products and {1} resources. Review the numbers, then press Solve.",{0} منتجات و{1} موارد. راجع الأرقام ثم اضغط حل.
+"{0} products. Add the fixed costs of the same period, then press Solve.",{0} منتجات. أضف التكاليف الثابتة للفترة نفسها ثم اضغط حل.
+{0} rows. Press Solve.,{0} صفوف. اضغط حل.
+{0} scenarios solved again from scratch.,تم حل {0} سيناريوهات من جديد تمامًا.
 {0} shipments,{0} شحنات
 {0} sources and {1} destinations. Press Solve.,{0} مصادر و{1} وجهات. اضغط حل.
 "{0} uses {1} which is not in the resource list, so it is treated as unlimited.",{0} يستخدم {1} وهو غير موجود في قائمة الموارد، لذلك يُعامل على أنه غير محدود.
 {0} vehicles are needed.,المطلوب {0} مركبات.
 "{0} vehicles, {1} km in total",{0} مركبات، و{1} كم في المجموع
 "{0}: margin is not positive, so it will not be produced.",{0}: الهامش غير موجب، لذلك لن يتم إنتاجه.
+"{0}: no cost recorded on the sales, so its margin may be overstated.",{0}: لا توجد تكلفة مسجلة على المبيعات، لذا قد يكون هامشه مبالغًا فيه.
 "{0}: no cost, so the economic quantity cannot be computed.",{0}: لا توجد تكلفة، لذلك لا يمكن حساب الكمية الاقتصادية.
 "{0}: no lead time on the item, used {1} days.",{0}: لا توجد مدة توريد للصنف، تم استخدام {1} يومًا.
 "{0}: no location, left out.",{0}: لا يوجد موقع، تم الاستبعاد.
 {0}: no selling price found: set one before trusting the plan.,{0}: لم يتم العثور على سعر بيع: حدد سعرًا قبل الاعتماد على الخطة.
+"{0}: no variable cost found, so its contribution may look better than it is.",{0}: لم توجد تكلفة متغيرة، لذا قد يبدو هامش مساهمته أفضل مما هو عليه.
 "{0}: no working hours set, 8 hours a day assumed.",{0}: لم تُحدد ساعات عمل، تم افتراض 8 ساعات في اليوم.
 "{0}: operation {1} has no workstation, so its time is not limited.",{0}: العملية {1} ليس لها محطة عمل، لذلك لا يُحدّ وقتها.
+{0}: the price does not cover the variable cost.,{0}: السعر لا يغطي التكلفة المتغيرة.
 {0}: {1},{0}: {1}
 {0}: {1} cannot be supplied.,{0}: لا يمكن توريد {1}.

@@ -13,6 +13,8 @@
   "min_qty",
   "max_qty",
   "plan_qty",
+  "margin_low",
+  "margin_high",
   "usage_json"
  ],
  "fields": [
@@ -74,6 +76,19 @@
    "label": "Recommended Quantity",
    "read_only": 1,
    "in_list_view": 1
+  },
+  {
+   "fieldname": "margin_low",
+   "fieldtype": "Float",
+   "label": "Margin Can Fall To",
+   "read_only": 1,
+   "description": "The plan stays the best one while the margin stays between these two numbers."
+  },
+  {
+   "fieldname": "margin_high",
+   "fieldtype": "Float",
+   "label": "Margin Can Rise To",
+   "read_only": 1
   },
   {
    "fieldname": "usage_json",

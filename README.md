@@ -12,6 +12,14 @@ buttons make draft documents that a person reviews and submits.
 | Route Plan | Delivery routes by vehicle capacity | Savings heuristic + exact order for up to 12 stops, lower bound and gap | none |
 | Schedule Plan | Order of operations of open work orders | Best of 5 dispatch rules, lower bound and gap | none |
 | Supplier Allocation Plan | Split a purchase need across suppliers | Exact MILP (capacity, MOQ, share, lead time, quality, budget) | Purchase Orders |
+| Break Even Analysis | Units and revenue to cover fixed costs, target profit, margin of safety, risk of a loss | Closed form + sensitivity + seeded Monte Carlo | none |
+| Investment Analysis | Is a project worth it | NPV, IRR (all roots), payback, profitability index, NPV risk | none |
+| Make or Buy / Lease or Buy | Cheaper option and the switching point | Cost curves, present value | none |
+| Profitability / Pricing | Who makes or loses money, best price, cost of a discount, dead stock | Pareto classes, elasticity fit, price optimum checked by grid search | none |
+| Decision Review | How right were earlier plans | WAPE, bias, tracking signal | none |
+
+Product Mix Plan also has **What-if** (scenarios re-solved from scratch, ranges where a bottleneck or margin stays valid)
+and **Risk Simulation** (re-optimised draws with a fixed seed).
 
 ## How correct is it?
 * Every result is re-checked by separate code before it is flagged **verified**: constraints hold, and for linear problems an
@@ -19,7 +27,7 @@ buttons make draft documents that a person reviews and submits.
 * Product mix, supplier allocation and shipping are solved exactly: optimal **for the data and the model**.
 * Routes and scheduling are heuristics: the result shows a lower bound and the gap, it does not claim to be optimal.
 * A model is a simplification and wrong input gives a wrong answer: the "Read before using" list shows what was assumed.
-* The pure-logic part has 68 automated tests (textbook problems, brute-force and independent-oracle comparisons).
+* The pure-logic part has 113 automated tests (textbook problems, brute-force and independent-oracle comparisons).
   Database reads and draft creation need a real site and are not covered by those tests.
 
 ## Requirements

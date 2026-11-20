@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "plan",
+  "item_code",
+  "supplier",
+  "expected",
+  "actual",
+  "error",
+  "error_pct"
+ ],
+ "fields": [
+  {
+   "fieldname": "plan",
+   "fieldtype": "Data",
+   "label": "Plan",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Data",
+   "label": "Supplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected",
+   "fieldtype": "Float",
+   "label": "Expected",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "actual",
+   "fieldtype": "Float",
+   "label": "What Happened",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Float",
+   "label": "Difference",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "error_pct",
+   "fieldtype": "Percent",
+   "label": "Difference %",
+   "read_only": 1,
+   "in_list_view": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Review Row",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "istable": 1,
+ "allow_rename": 0
+}

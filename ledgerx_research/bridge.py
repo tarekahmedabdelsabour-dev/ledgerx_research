@@ -144,8 +144,9 @@ def run_distribution(sources, dests, lanes, cost_per_km, allow_shortage=True):
 
 
 # --------------------------------------------------------------------------- routes
-def run_routes(depot, stops, capacity, vehicles=0):
-	"""depot: (lat, lng); stops: [{stop, lat, lng, demand}]"""
+def run_routes(depot, stops, capacity, vehicles=0, fleet=None):
+	"""depot: (lat, lng); stops: [{stop, lat, lng, demand}]. fleet: [{id, capacity, cost_per_km}] for a mixed fleet (then `capacity`
+	and `vehicles` are ignored and the cheapest way to use these vehicles is planned)."""
 	warnings = []
 	good = []
 	for s in stops:
@@ -155,21 +156,28 @@ def run_routes(depot, stops, capacity, vehicles=0):
 			good.append({"id": s["stop"], "lat": num(s["lat"]), "lng": num(s["lng"]), "demand": num(s.get("demand"))})
 	if not good:
 		return {"status": INFEASIBLE, "verified": True, "warnings": warnings + [_("No stop has a location.")], "legs": []}
-	out = tr.routes(depot, good, num(capacity), int(vehicles) or None)
+	fleet = [v for v in (fleet or []) if num(v.get("capacity")) > 0]
+	if fleet:
+		out = tr.routes_fleet(depot, good, fleet)
+		if any(num(v.get("cost_per_km")) <= 0 for v in fleet):
+			warnings.append(_("Some vehicles have no cost per km, so they look free: fill it in."))
+	else:
+		out = tr.routes(depot, good, num(capacity), int(vehicles) or None)
 	if out["status"] == "infeasible":
 		reason = {"demand_exceeds_capacity": _("One stop needs more than a vehicle can carry: {0}").format(", ".join(map(str, out.get("stops", [])))),
-			"not_enough_vehicles": _("{0} vehicles are needed.").format(out.get("needed"))}.get(out.get("reason"), _("No plan found."))
+			"not_enough_vehicles": _("The available vehicles cannot carry everything.") if fleet else _("{0} vehicles are needed.").format(out.get("needed")),
+			"no_vehicle": _("No vehicle has a capacity.")}.get(out.get("reason"), _("No plan found."))
 		return {"status": INFEASIBLE, "verified": True, "warnings": warnings + [reason], "legs": []}
 	legs = []
 	for k, r in enumerate(out["routes"], 1):
 		for seq, sid in enumerate(r["stops"], 1):
-			legs.append({"route_no": k, "sequence": seq, "stop": sid, "route_load": r["load"], "route_km": r["km"]})
+			legs.append({"route_no": k, "sequence": seq, "stop": sid, "route_load": r["load"], "route_km": r["km"], "vehicle": r.get("vehicle", ""), "route_cost": r.get("cost", 0.0)})
 		if not r["exact_order"]:
 			warnings.append(_("Route {0} has more than 12 stops: its stop order is improved but not proven the shortest.").format(k))
 	real = list(warnings)
 	warnings.append(_("Distances are straight-line (as the crow flies), not road distances."))
 	return {"status": _status(True, out.get("verified"), real), "verified": bool(out.get("verified")), "warnings": warnings, "legs": legs, "total_km": out["total_km"],
-		"lower_bound_km": out["lower_bound_km"], "gap_pct": out["gap_pct"], "vehicles_used": out["vehicles_used"]}
+		"lower_bound_km": out["lower_bound_km"], "gap_pct": out["gap_pct"], "vehicles_used": out["vehicles_used"], "total_cost": out.get("total_cost", 0.0), "exact": out.get("exact", False)}
 
 
 # --------------------------------------------------------------------------- schedule

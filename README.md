@@ -18,6 +18,8 @@ buttons make draft documents that a person reviews and submits.
 | Profitability / Pricing | Who makes or loses money, best price, cost of a discount, dead stock | Pareto classes, elasticity fit, price optimum checked by grid search | none |
 | Decision Review | How right were earlier plans | WAPE, bias, tracking signal | none |
 
+Connected to other apps: **Fleet** (vehicles, payload and cost per km into Route Plan; draft Fleet Trips), **Assets** (Lease or Buy template, depreciation in Break Even) and **CRM** (probability-weighted deal quantities in Reorder and Product Mix plans).
+
 Product Mix Plan also has **What-if** (scenarios re-solved from scratch, ranges where a bottleneck or margin stays valid)
 and **Risk Simulation** (re-optimised draws with a fixed seed).
 
@@ -27,7 +29,7 @@ and **Risk Simulation** (re-optimised draws with a fixed seed).
 * Product mix, supplier allocation and shipping are solved exactly: optimal **for the data and the model**.
 * Routes and scheduling are heuristics: the result shows a lower bound and the gap, it does not claim to be optimal.
 * A model is a simplification and wrong input gives a wrong answer: the "Read before using" list shows what was assumed.
-* The pure-logic part has 113 automated tests (textbook problems, brute-force and independent-oracle comparisons).
+* The pure-logic part has 121 automated tests (textbook problems, brute-force and independent-oracle comparisons).
   Database reads and draft creation need a real site and are not covered by those tests.
 
 ## Requirements

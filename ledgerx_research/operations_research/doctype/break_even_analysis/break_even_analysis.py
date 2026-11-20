@@ -15,6 +15,11 @@ class BreakEvenAnalysis(PlanDocument):
 			frappe.throw(_("Choose the history period."))
 		fixed = [{"cost_name": r.cost_name, "account": r.account, "amount": r.amount, "is_cash": r.is_cash} for r in self.fixed_costs]
 		products, fixed, warnings = data.load_breakeven(self.company, self.from_date, self.to_date, fixed)
+		if self.include_depreciation:
+			label = _("Depreciation (assets)")
+			amount, w = data.depreciation_of_period(self.company, self.from_date, self.to_date)
+			warnings.extend(w)
+			fixed = [r for r in fixed if r["cost_name"] != label] + [{"cost_name": label, "account": None, "amount": amount, "is_cash": 0}]
 		self.flags.solving = True
 		self.set("products", products)
 		self.set("fixed_costs", fixed)

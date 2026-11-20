@@ -175,3 +175,93 @@ class TestRouting(unittest.TestCase):
 
 if __name__ == "__main__":
 	unittest.main()
+
+
+class FleetRoutes(unittest.TestCase):
+	def stops(self, demands):
+		return [{"id": f"s{i}", "lat": 30 + 0.05 * i, "lng": 31 + 0.03 * (i % 3), "demand": d} for i, d in enumerate(demands)]
+
+	def test_every_stop_once_and_fits(self):
+		import ledgerx_research.engine.transport as t
+		stops = self.stops([40, 30, 20, 10, 25])
+		fleet = [{"id": "big", "capacity": 80, "cost_per_km": 3}, {"id": "mid", "capacity": 50, "cost_per_km": 2}, {"id": "small", "capacity": 30, "cost_per_km": 1}]
+		r = t.routes_fleet((30.0, 31.0), stops, fleet)
+		self.assertTrue(r["verified"])
+		seen = sorted(s for rt in r["routes"] for s in rt["stops"])
+		self.assertEqual(seen, sorted(s["id"] for s in stops))
+		self.assertEqual(len({rt["vehicle"] for rt in r["routes"]}), len(r["routes"]))
+		for rt in r["routes"]:
+			self.assertLessEqual(rt["load"], rt["capacity"])
+
+	def test_assignment_is_optimal_by_brute_force(self):
+		import itertools
+		import ledgerx_research.engine.transport as t
+		stops = self.stops([45, 45, 20, 20])
+		fleet = [{"id": "a", "capacity": 60, "cost_per_km": 5}, {"id": "b", "capacity": 60, "cost_per_km": 1}, {"id": "c", "capacity": 40, "cost_per_km": 2}, {"id": "d", "capacity": 100, "cost_per_km": 4}]
+		r = t.routes_fleet((30.0, 31.0), stops, fleet)
+		routes = r["routes"]
+		best = min(sum(routes[i]["km"] * fleet[j]["cost_per_km"] for i, j in enumerate(p))
+			for p in itertools.permutations(range(len(fleet)), len(routes)) if all(routes[i]["load"] <= fleet[j]["capacity"] + 1e-9 for i, j in enumerate(p)))
+		self.assertAlmostEqual(r["total_cost"], best, places=6)
+
+	def test_cheap_small_vehicles_preferred_when_they_fit(self):
+		import ledgerx_research.engine.transport as t
+		stops = self.stops([10, 10, 10])
+		fleet = [{"id": "big", "capacity": 100, "cost_per_km": 9}, {"id": "small", "capacity": 40, "cost_per_km": 1}]
+		r = t.routes_fleet((30.0, 31.0), stops, fleet)
+		self.assertEqual([rt["vehicle"] for rt in r["routes"]], ["small"])
+
+	def test_infeasible_cases(self):
+		import ledgerx_research.engine.transport as t
+		self.assertEqual(t.routes_fleet((30.0, 31.0), self.stops([500]), [{"id": "a", "capacity": 100, "cost_per_km": 1}])["reason"], "demand_exceeds_capacity")
+		self.assertEqual(t.routes_fleet((30.0, 31.0), self.stops([60, 60, 60]), [{"id": "a", "capacity": 100, "cost_per_km": 1}])["reason"], "not_enough_vehicles")
+		self.assertEqual(t.routes_fleet((30.0, 31.0), self.stops([1]), [])["reason"], "no_vehicle")
+
+
+class FleetExactAndHeuristic(unittest.TestCase):
+	def make(self, n, seed):
+		rnd = random.Random(seed)
+		return [{"id": f"s{i}", "lat": 30 + rnd.random() * 0.3, "lng": 31 + rnd.random() * 0.3, "demand": rnd.randint(5, 30)} for i in range(n)]
+
+	def test_exact_equals_brute_force(self):
+		stops = self.make(5, 1)
+		fleet = [{"id": "a", "capacity": 50, "cost_per_km": 3}, {"id": "b", "capacity": 40, "cost_per_km": 1}, {"id": "c", "capacity": 70, "cost_per_km": 2}]
+		depot = (30.15, 31.15)
+		r = T.routes_fleet(depot, stops, fleet)
+		self.assertTrue(r["exact"] and r["verified"])
+		pts = [depot] + [(s["lat"], s["lng"]) for s in stops]
+		d = lambda i, j: T.haversine(pts[i], pts[j])
+
+		def tour(group):
+			if not group:
+				return 0.0
+			return min(d(0, p[0] + 1) + sum(d(p[i] + 1, p[i + 1] + 1) for i in range(len(p) - 1)) + d(p[-1] + 1, 0) for p in itertools.permutations(group))
+		best = float("inf")
+		for assign in itertools.product(range(len(fleet)), repeat=len(stops)):
+			groups = [[k for k, v in enumerate(assign) if v == j] for j in range(len(fleet))]
+			if any(sum(stops[k]["demand"] for k in g) > fleet[j]["capacity"] for j, g in enumerate(groups)):
+				continue
+			best = min(best, sum(fleet[j]["cost_per_km"] * tour(g) for j, g in enumerate(groups)))
+		self.assertAlmostEqual(r["total_cost"], best, places=6)
+
+	def test_heuristic_valid_and_not_better_than_exact(self):
+		stops = self.make(10, 7)
+		fleet = [{"id": "a", "capacity": 80, "cost_per_km": 3}, {"id": "b", "capacity": 60, "cost_per_km": 2}, {"id": "c", "capacity": 60, "cost_per_km": 1.5}, {"id": "d", "capacity": 120, "cost_per_km": 4}]
+		exact = T.routes_fleet((30.15, 31.15), stops, fleet)
+		T_old = T.EXACT_FLEET_STOPS
+		try:
+			T.EXACT_FLEET_STOPS = 5  # force the heuristic on the same instance
+			heur = T.routes_fleet((30.15, 31.15), stops, fleet)
+		finally:
+			T.EXACT_FLEET_STOPS = T_old
+		self.assertTrue(exact["exact"] and not heur["exact"])
+		self.assertTrue(heur["verified"])
+		self.assertGreaterEqual(heur["total_cost"], exact["total_cost"] - 1e-6)
+		self.assertLessEqual(heur["total_cost"], exact["total_cost"] * 1.5)  # sanity: not absurdly worse
+
+	def test_heuristic_handles_14_stops(self):
+		stops = self.make(14, 3)
+		fleet = [{"id": "a", "capacity": 120, "cost_per_km": 3}, {"id": "b", "capacity": 90, "cost_per_km": 2}, {"id": "c", "capacity": 60, "cost_per_km": 1}, {"id": "e", "capacity": 200, "cost_per_km": 4}]
+		r = T.routes_fleet((30.15, 31.15), stops, fleet)
+		self.assertTrue(r["verified"])
+		self.assertEqual(sorted(x for rt in r["routes"] for x in rt["stops"]), sorted(s["id"] for s in stops))

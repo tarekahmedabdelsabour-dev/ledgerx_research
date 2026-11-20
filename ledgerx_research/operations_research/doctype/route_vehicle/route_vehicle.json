@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "vehicle",
+  "driver",
+  "capacity",
+  "cost_per_km"
+ ],
+ "fields": [
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Data",
+   "label": "Vehicle",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Data",
+   "label": "Driver",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "capacity",
+   "fieldtype": "Float",
+   "label": "Capacity",
+   "in_list_view": 1,
+   "description": "In the same unit as the load of the stops."
+  },
+  {
+   "fieldname": "cost_per_km",
+   "fieldtype": "Currency",
+   "label": "Cost per km",
+   "in_list_view": 1,
+   "description": "Load Data reads fuel and maintenance from the fleet records of the last 12 months."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Operations Research",
+ "name": "Route Vehicle",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "istable": 1,
+ "allow_rename": 0
+}

@@ -8,7 +8,9 @@
   "sequence",
   "stop",
   "route_load",
-  "route_km"
+  "route_km",
+  "vehicle",
+  "route_cost"
  ],
  "fields": [
   {
@@ -45,6 +47,19 @@
    "label": "Route km",
    "read_only": 1,
    "in_list_view": 1
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Data",
+   "label": "Vehicle",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "route_cost",
+   "fieldtype": "Currency",
+   "label": "Route Cost",
+   "read_only": 1
   }
  ],
  "links": [],

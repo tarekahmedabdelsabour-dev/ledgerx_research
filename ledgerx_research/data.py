@@ -48,7 +48,7 @@ def _working_hours_per_day(workstation):
 	return total
 
 
-def load_mix(company, planning_days, cap_by_orders):
+def load_mix(company, planning_days, cap_by_orders, include_crm=False):
 	warnings = []
 	demand = {}
 	for r in frappe.db.sql(
@@ -57,6 +57,12 @@ def load_mix(company, planning_days, cap_by_orders):
 		where so.docstatus = 1 and so.company = %s and so.status not in ('Closed', 'Completed', 'Cancelled', 'On Hold')
 		group by soi.item_code having sum(soi.qty - soi.delivered_qty) > 0""", (company,), as_dict=True):
 		demand[r.item_code] = (flt(r.q), flt(r.rate))
+	if include_crm:
+		pipe, w = crm_pipeline(int(planning_days))
+		warnings.extend(w)
+		for it, q in pipe.items():
+			old = demand.get(it, (0.0, 0.0))
+			demand[it] = (old[0] + q, old[1])
 	boms = frappe.get_all("BOM", filters={"docstatus": 1, "is_active": 1, "is_default": 1, "company": company}, fields=["name", "item", "quantity", "total_cost"])
 	products, uses, ws_names = [], {}, set()
 	for b in boms:
@@ -125,7 +131,7 @@ def make_production_plan(doc):
 
 
 # ----------------------------------------------------------------------------------- reorder
-def load_reorder(company, warehouse, lookback_days, default_lead_days):
+def load_reorder(company, warehouse, lookback_days, default_lead_days, include_crm=False, horizon_days=90):
 	from .bridge import demand_stats
 	warnings = []
 	whs = company_warehouses(company, warehouse)
@@ -142,6 +148,12 @@ def load_reorder(company, warehouse, lookback_days, default_lead_days):
 	daily = defaultdict(dict)
 	for r in rows:
 		daily[r.item_code][str(r.d)] = flt(r.q)
+	pipe = {}
+	if include_crm:
+		pipe, w = crm_pipeline(int(horizon_days))
+		warnings.extend(w)
+		for c in pipe:
+			daily.setdefault(c, {})
 	codes = sorted(daily, key=lambda c: -sum(daily[c].values()))
 	if len(codes) > MAX_ITEMS:
 		warnings.append(_("Only the {0} items with the highest movement are planned.").format(MAX_ITEMS))
@@ -161,7 +173,7 @@ def load_reorder(company, warehouse, lookback_days, default_lead_days):
 		st = demand_stats(daily[c], lookback_days)
 		cost = flt(m.valuation_rate) or flt(m.last_purchase_rate) or flt(m.standard_rate)
 		out.append({"item_code": c, "annual_demand": st["annual_demand"], "daily_sd": st["daily_sd"], "lead_days": int(m.lead_time_days or 0), "unit_cost": cost,
-			"on_hand": bins[c][0], "on_order": bins[c][1], "moq": flt(m.min_order_qty), "monthly": st["monthly"]})
+			"on_hand": bins[c][0], "on_order": bins[c][1], "moq": flt(m.min_order_qty), "monthly": st["monthly"], "pipeline_qty": flt(pipe.get(c))})
 	if int(lookback_days) < 180:
 		warnings.append(_("Less than 6 months of history: forecasts and safety stock are rough."))
 	return out, warnings
@@ -225,10 +237,12 @@ def make_stock_entry(doc):
 
 
 # ----------------------------------------------------------------------------------- routes
-def load_routes(company):
+def load_routes(company, load_basis="Quantity"):
 	warnings = []
+	weight = load_basis == "Weight (kg)"
+	expr = "sum((soi.qty - soi.delivered_qty) * ifnull(soi.weight_per_unit, 0))" if weight else "sum(soi.qty - soi.delivered_qty)"
 	rows = frappe.db.sql(
-		"""select so.name, so.customer, so.customer_name, so.shipping_address_name, so.customer_address, sum(soi.qty - soi.delivered_qty) q
+		f"""select so.name, so.customer, so.customer_name, so.shipping_address_name, so.customer_address, {expr} q
 		from `tabSales Order` so join `tabSales Order Item` soi on soi.parent = so.name
 		where so.docstatus = 1 and so.company = %s and so.status in ('To Deliver and Bill', 'To Deliver')
 		group by so.name having sum(soi.qty - soi.delivered_qty) > 0 order by so.delivery_date""", (company,), as_dict=True)
@@ -242,7 +256,49 @@ def load_routes(company):
 		warnings.append(_("No sales order is waiting for delivery."))
 	if any(not (s["lat"] or s["lng"]) for s in stops):
 		warnings.append(_("Some customers have no latitude/longitude on their Address: they will be left out until you fill them."))
+	if weight and any(not s["demand"] for s in stops):
+		warnings.append(_("Some orders have no item weight, so their load is zero: fill the weight on the items."))
 	return stops, warnings
+
+
+def load_fleet(company):
+	"""Active vehicles with their payload and a cost per km from the fleet records of the last 12 months (fuel + completed work orders)."""
+	warnings = []
+	if not frappe.db.exists("DocType", "Vehicle"):
+		return [], [_("No vehicle records were found: add the vehicles by hand.")]
+	meta = frappe.get_meta("Vehicle")
+	filters = {}
+	if meta.has_field("company"):
+		filters["company"] = company
+	if meta.has_field("fleet_status"):
+		filters["fleet_status"] = "Active"
+	fields = ["name"] + [f for f in ("payload_kg", "current_driver", "license_plate") if meta.has_field(f)]
+	vehicles = frappe.get_all("Vehicle", filters=filters, fields=fields, limit_page_length=0)
+	since = add_days(nowdate(), -365)
+	cost, dist = defaultdict(float), defaultdict(float)
+	if frappe.db.exists("DocType", "Fuel Log"):
+		for r in frappe.db.sql("select vehicle, sum(amount) a, sum(distance) d from `tabFuel Log` where docstatus = 1 and posting_date >= %s group by vehicle", (since,), as_dict=True):
+			cost[r.vehicle] += flt(r.a)
+			dist[r.vehicle] += flt(r.d)
+	if frappe.db.exists("DocType", "Fleet Work Order"):
+		for r in frappe.db.sql("select vehicle, sum(total_cost) c from `tabFleet Work Order` where docstatus = 1 and completion_date >= %s group by vehicle", (since,), as_dict=True):
+			cost[r.vehicle] += flt(r.c)
+	out = []
+	weak = 0
+	for v in vehicles:
+		d = dist.get(v.name, 0.0)
+		cpk = cost.get(v.name, 0.0) / d if d > 0 else 0.0
+		if d < 500:
+			weak += 1
+		out.append({"vehicle": v.get("license_plate") or v.name, "driver": v.get("current_driver") or "", "capacity": flt(v.get("payload_kg")), "cost_per_km": cpk})
+	if not out:
+		warnings.append(_("No active vehicle found."))
+	if weak:
+		warnings.append(_("{0} vehicles have less than 500 km of fuel records in the last 12 months: their cost per km is weak or empty, check it.").format(weak))
+	if any(not v["capacity"] for v in out):
+		warnings.append(_("Some vehicles have no payload: fill the capacity."))
+	warnings.append(_("Cost per km = fuel + completed maintenance of the last 12 months, divided by the distance in the fuel records. Driver pay, insurance and depreciation are not included."))
+	return out, warnings
 
 
 # ----------------------------------------------------------------------------------- schedule
@@ -510,3 +566,130 @@ def load_review(company, plan_type, from_date, to_date):
 	else:
 		warnings.append(_("Compares the planned quantity with the quantity produced in the planning days that followed."))
 	return rows, warnings
+
+
+# ----------------------------------------------------------------------------------- CRM pipeline
+def crm_pipeline(horizon_days):
+	"""Quantity per item expected from open CRM deals closing within the horizon, weighted by the probability of each deal."""
+	warnings = []
+	if not frappe.db.exists("DocType", "CRM Deal"):
+		return {}, [_("The CRM app is not installed: no deals were added.")]
+	meta = frappe.get_meta("CRM Deal")
+	if not meta.has_field("products"):
+		return {}, [_("CRM deals have no product list: no deals were added.")]
+	child = meta.get_field("products").options
+	cm = frappe.get_meta(child)
+	code_f = next((f for f in ("product_code", "item_code") if cm.has_field(f)), None)
+	if not (code_f and cm.has_field("qty")):
+		return {}, [_("The product list of CRM deals has no item code and quantity: no deals were added.")]
+	date_f = next((f for f in ("expected_closure_date", "close_date") if meta.has_field(f)), None)
+	prob_f = "probability" if meta.has_field("probability") else None
+	status = {}
+	if frappe.db.exists("DocType", "CRM Deal Status"):
+		sm = frappe.get_meta("CRM Deal Status")
+		for st in frappe.get_all("CRM Deal Status", fields=["name"] + [f for f in ("type", "probability") if sm.has_field(f)], limit_page_length=0):
+			status[st.name] = st
+	default_p = flt(frappe.db.get_single_value("OR Settings", "crm_default_probability")) or 30.0
+	today = getdate(nowdate())
+	end = getdate(add_days(nowdate(), int(horizon_days)))
+	deals = frappe.get_all("CRM Deal", fields=["name", "status"] + ([date_f] if date_f else []) + ([prob_f] if prob_f else []), limit_page_length=0)
+	use, no_date, guessed = {}, 0, 0
+	for d in deals:
+		st = status.get(d.status)
+		kind = (st.get("type") if st else None) or d.status
+		if kind in ("Won", "Lost"):
+			continue
+		if date_f:
+			cd = d.get(date_f)
+			if cd:
+				if not (today <= getdate(cd) <= end):
+					continue
+			else:
+				no_date += 1
+		p = flt(d.get(prob_f)) if prob_f else 0.0
+		if not p and st and flt(st.get("probability")):
+			p = flt(st.get("probability"))
+		if not p:
+			p, guessed = default_p, guessed + 1
+		use[d.name] = p / 100.0
+	out = defaultdict(float)
+	if use:
+		for r in frappe.get_all(child, filters={"parent": ["in", list(use)], "parenttype": "CRM Deal"}, fields=["parent", code_f, "qty"], limit_page_length=0):
+			if r.get(code_f) and frappe.db.exists("Item", r.get(code_f)):
+				out[r.get(code_f)] += flt(r.qty) * use[r.parent]
+	if not use:
+		warnings.append(_("No open deal closes within the horizon."))
+	if guessed:
+		warnings.append(_("{0} deals have no probability: {1}% was assumed (change it in OR Settings).").format(guessed, f"{default_p:g}"))
+	if no_date:
+		warnings.append(_("{0} deals have no closing date and were counted.").format(no_date))
+	warnings.append(_("Deal quantities are weighted by probability: they are expectations, not orders."))
+	return dict(out), warnings
+
+
+# ----------------------------------------------------------------------------------- assets
+def load_asset(asset):
+	"""Price, value at the end, life and book value of an existing asset, to use as the template of a lease-or-buy comparison."""
+	warnings = []
+	a = frappe.db.get_value("Asset", asset, ["asset_name", "gross_purchase_amount", "value_after_depreciation"], as_dict=True)
+	if not a:
+		frappe.throw(_("Asset not found."))
+	fb = frappe.get_all("Asset Finance Book", filters={"parent": asset}, fields=["expected_value_after_useful_life", "total_number_of_depreciations", "frequency_of_depreciation"], limit=1)
+	res = {"name": a.asset_name or asset, "price": flt(a.gross_purchase_amount), "book_value": flt(a.value_after_depreciation), "residual": 0.0, "life_years": 0, "dep_year": 0.0, "remaining": 0.0}
+	if fb:
+		f0 = fb[0]
+		res["residual"] = flt(f0.expected_value_after_useful_life)
+		months = flt(f0.total_number_of_depreciations) * (flt(f0.frequency_of_depreciation) or 12)
+		res["life_years"] = int(round(months / 12.0))
+		if months:
+			res["dep_year"] = (res["price"] - res["residual"]) / (months / 12.0)
+			res["remaining"] = max(res["book_value"] - res["residual"], 0.0) / res["dep_year"] if res["dep_year"] else 0.0
+	else:
+		warnings.append(_("The asset has no depreciation settings: enter the value at the end and the years yourself."))
+	warnings.append(_("The book value is shown for information. The comparison uses the cost of a new asset, because depreciation is not a cash flow."))
+	return res, warnings
+
+
+def depreciation_of_period(company, from_date, to_date):
+	"""Scheduled depreciation of the active schedules of the company in the period."""
+	try:
+		r = frappe.db.sql(
+			"""select sum(ds.depreciation_amount) from `tabDepreciation Schedule` ds join `tabAsset Depreciation Schedule` ads on ads.name = ds.parent
+			where ads.company = %s and ads.status = 'Active' and ds.schedule_date between %s and %s""", (company, from_date, to_date))
+		return flt(r[0][0]) if r and r[0][0] else 0.0, []
+	except Exception:
+		frappe.log_error(title="ledgerx_research: depreciation read failed")
+		return 0.0, [_("Asset depreciation could not be read: add it by hand.")]
+
+
+def make_fleet_trips(doc):
+	"""One draft Fleet Trip per planned route (needs the fleet app)."""
+	if not frappe.db.exists("DocType", "Fleet Trip"):
+		frappe.throw(_("The fleet app is not installed."))
+	by = {}
+	for leg in doc.legs:
+		by.setdefault(leg.route_no, []).append(leg)
+	if not by:
+		frappe.throw(_("The plan has no route."))
+	names = []
+	for no, legs in sorted(by.items()):
+		legs.sort(key=lambda r: r.sequence)
+		vehicle = legs[0].vehicle
+		vname = frappe.db.get_value("Vehicle", {"license_plate": vehicle}, "name") or (vehicle if frappe.db.exists("Vehicle", vehicle) else None)
+		trip = frappe.new_doc("Fleet Trip")
+		trip.trip_type = "Internal"
+		trip.company = doc.company
+		trip.status = "Planned"
+		if vname:
+			trip.vehicle = vname
+			trip.driver = frappe.db.get_value("Vehicle", vname, "current_driver") if frappe.get_meta("Vehicle").has_field("current_driver") else None
+		trip.origin = doc.depot_name or _("Depot")
+		trip.destination = legs[-1].stop
+		trip.distance = int(round(flt(legs[0].route_km)))
+		if doc.load_basis == "Weight (kg)":
+			trip.cargo_weight_kg = flt(legs[0].route_load)
+		trip.cargo_description = _("Route {0} of {1}: {2}").format(no, doc.name, " > ".join(l.stop for l in legs))
+		trip.flags.ignore_mandatory = True
+		trip.insert()
+		names.append(trip.name)
+	return names

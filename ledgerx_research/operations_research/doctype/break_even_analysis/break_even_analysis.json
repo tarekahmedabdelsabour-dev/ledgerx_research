@@ -11,6 +11,7 @@
   "target_profit",
   "capacity_units",
   "risk_sd_pct",
+  "include_depreciation",
   "sb_f",
   "fixed_costs",
   "sb_p",
@@ -77,6 +78,12 @@
    "fieldtype": "Percent",
    "label": "How Much Can Numbers Vary %",
    "default": 10
+  },
+  {
+   "fieldname": "include_depreciation",
+   "fieldtype": "Check",
+   "label": "Add Asset Depreciation of the Period",
+   "description": "Load Data adds the scheduled depreciation of the assets as a non-cash fixed cost."
   },
   {
    "fieldname": "sb_f",

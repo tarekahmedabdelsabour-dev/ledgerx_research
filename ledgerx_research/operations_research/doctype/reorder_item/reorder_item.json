@@ -8,6 +8,7 @@
   "item_name",
   "abc",
   "annual_demand",
+  "pipeline_qty",
   "daily_sd",
   "lead_days",
   "unit_cost",
@@ -49,6 +50,12 @@
    "fieldtype": "Float",
    "label": "Yearly Demand",
    "in_list_view": 1
+  },
+  {
+   "fieldname": "pipeline_qty",
+   "fieldtype": "Float",
+   "label": "Expected From CRM Deals",
+   "description": "Quantity weighted by deal probability for the deals closing within the CRM horizon; added to the yearly demand as a yearly rate."
   },
   {
    "fieldname": "daily_sd",

@@ -8,6 +8,21 @@ from ledgerx_research.plan_base import PlanDocument
 
 class LeaseorBuyAnalysis(PlanDocument):
 	@frappe.whitelist()
+	def load_data(self):
+		if not self.asset_ref:
+			frappe.throw(_("Choose the existing asset first."))
+		a, warnings = data.load_asset(self.asset_ref)
+		self.flags.solving = True
+		self.asset = self.asset or a["name"]
+		self.price, self.residual, self.book_value, self.remaining_years, self.depreciation_per_year = a["price"], a["residual"], a["book_value"], a["remaining"], a["dep_year"]
+		if a["life_years"]:
+			self.life_years = a["life_years"]
+		self.status, self.verified = "Draft", 0
+		self.summary_html = bridge.html_summary(_("Data loaded"), False, [_("Price, value at the end and life were read from the asset. Add the lease terms and the running cost, then press Solve.")], warnings)
+		self.save()
+		return 1
+
+	@frappe.whitelist()
 	def solve(self):
 		def run():
 			res = bridge_decisions.run_lease_or_buy(self.price, self.residual, self.life_years, self.rate_pct, self.yearly_cost_own, self.lease_payment, self.lease_years, self.lease_cost_extra)

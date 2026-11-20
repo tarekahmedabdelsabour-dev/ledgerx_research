@@ -9,8 +9,11 @@
   "depot_lat",
   "depot_lng",
   "cb1",
+  "load_basis",
   "vehicle_capacity",
   "max_vehicles",
+  "sb_v",
+  "vehicles",
   "sb_s",
   "stops",
   "sb_o",
@@ -19,6 +22,8 @@
   "lower_bound_km",
   "gap_pct",
   "vehicles_used",
+  "total_cost",
+  "fleet_trips",
   "sb_res",
   "status",
   "cb_r",
@@ -58,16 +63,36 @@
    "fieldtype": "Column Break"
   },
   {
+   "fieldname": "load_basis",
+   "fieldtype": "Select",
+   "label": "Load Measured In",
+   "options": "Quantity\nWeight (kg)",
+   "default": "Quantity",
+   "description": "Choose Weight when the vehicles are listed with their payload in kg."
+  },
+  {
    "fieldname": "vehicle_capacity",
    "fieldtype": "Float",
    "label": "Vehicle Capacity",
-   "reqd": 1
+   "description": "For identical vehicles. Ignored when the vehicle list below is filled."
   },
   {
    "fieldname": "max_vehicles",
    "fieldtype": "Int",
    "label": "Vehicles Available",
-   "description": "0 = no limit."
+   "description": "0 = no limit. Ignored when the vehicle list below is filled."
+  },
+  {
+   "fieldname": "sb_v",
+   "fieldtype": "Section Break",
+   "label": "Vehicles (optional)"
+  },
+  {
+   "fieldname": "vehicles",
+   "fieldtype": "Table",
+   "label": "Vehicles",
+   "options": "Route Vehicle",
+   "description": "Different vehicles with their own capacity and cost per km: the plan uses the cheapest ones that fit."
   },
   {
    "fieldname": "sb_s",
@@ -114,6 +139,18 @@
    "fieldname": "vehicles_used",
    "fieldtype": "Int",
    "label": "Vehicles Used",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "fleet_trips",
+   "fieldtype": "Small Text",
+   "label": "Fleet Trip Drafts",
    "read_only": 1
   },
   {

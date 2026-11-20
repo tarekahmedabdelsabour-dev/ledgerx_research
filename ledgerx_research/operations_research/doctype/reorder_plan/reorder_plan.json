@@ -12,6 +12,8 @@
   "holding_rate_pct",
   "order_cost",
   "default_lead_days",
+  "include_crm",
+  "crm_horizon_days",
   "sb_i",
   "items",
   "sb_o",
@@ -71,6 +73,18 @@
    "fieldtype": "Int",
    "label": "Default Lead Time (days)",
    "default": 7
+  },
+  {
+   "fieldname": "include_crm",
+   "fieldtype": "Check",
+   "label": "Add Expected Demand From CRM Deals"
+  },
+  {
+   "fieldname": "crm_horizon_days",
+   "fieldtype": "Int",
+   "label": "CRM Horizon (days)",
+   "default": 90,
+   "depends_on": "include_crm"
   },
   {
    "fieldname": "sb_i",

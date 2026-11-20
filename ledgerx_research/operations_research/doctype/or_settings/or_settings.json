@@ -9,7 +9,8 @@
   "default_order_cost",
   "default_lead_days",
   "service_level_pct",
-  "max_stops_exact"
+  "max_stops_exact",
+  "crm_default_probability"
  ],
  "fields": [
   {
@@ -48,6 +49,13 @@
    "label": "Exact Route Order up to (stops)",
    "default": 12,
    "read_only": 1
+  },
+  {
+   "fieldname": "crm_default_probability",
+   "fieldtype": "Percent",
+   "label": "Default Deal Probability %",
+   "default": 30,
+   "description": "Used for CRM deals that have no probability of their own."
   }
  ],
  "links": [],

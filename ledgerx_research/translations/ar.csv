@@ -3,6 +3,7 @@
 (re-checked by separate code),(أُعيد فحصه بواسطة كود منفصل)
 0 = no limit,0 = بلا حد
 0 = no limit.,0 = بلا حد.
+0 = no limit. Ignored when the vehicle list below is filled.,0 = بلا حد. يُتجاهل عند تعبئة قائمة المركبات أدناه.
 0 = no limit. Offers without a score are kept.,0 = بلا حد. تُبقى العروض التي ليس لها درجة.
 0 = now.,0 = الآن.
 1.5 means a 1% higher price loses 1.5% of the volume. Load Data estimates it from your sales history when the price has varied enough.,1.5 تعني أن ارتفاع السعر بنسبة 1% يفقد 1.5% من الحجم. يقدّرها تحميل البيانات من سجل مبيعاتك عندما يتغير السعر بما يكفي.
@@ -18,6 +19,8 @@ Above Lower Bound %,فوق الحد الأدنى %
 Accept: it earns more than the required return,قبول: يحقق عائدًا أعلى من العائد المطلوب
 Account,الحساب
 Accuracy,الدقة
+Add Asset Depreciation of the Period,إضافة إهلاك الأصول للفترة
+Add Expected Demand From CRM Deals,إضافة الطلب المتوقع من صفقات علاقة العملاء (CRM)
 Add at least one product.,أضف منتجًا واحدًا على الأقل.
 Add items or press Load Data.,أضف أصنافًا أو اضغط تحميل البيانات.
 Add needs and offers or press Load Data.,أضف الاحتياجات والعروض أو اضغط تحميل البيانات.
@@ -41,6 +44,8 @@ Amount for the Period,المبلغ للفترة
 Analyse By,تحليل حسب
 Appraisal,التقييم
 Asset,الأصل
+Asset depreciation could not be read: add it by hand.,تعذّرت قراءة إهلاك الأصل: أضفه يدويًا.
+Asset not found.,لم يتم العثور على الأصل.
 At the expected sales the period makes a loss.,عند المبيعات المتوقعة تحقق الفترة خسارة.
 At this price and cost mix every unit loses money: no volume breaks even.,عند هذا السعر وهذه التكاليف كل وحدة تخسر: لا يوجد حجم يحقق نقطة التعادل.
 Available,المتاح
@@ -61,6 +66,7 @@ Best dispatch rule: {0}. Total lateness {1} hours.,أفضل قاعدة إسنا�
 Best price {0} (now {1}): profit per month changes by {2},أفضل سعر {0} (الحالي {1}): يتغير الربح الشهري بمقدار {2}
 Beyond about +/-4 the plans are drifting one way.,بعد حوالي ±4 تميل الخطط في اتجاه واحد.
 Bias %,الانحياز %
+Book Value Today,القيمة الدفترية اليوم
 Bottleneck: {0} (one more unit adds {1} to the margin),عنق الزجاجة: {0} (قيمة وحدة إضافية تضيف {1} إلى الهامش)
 Break Even Analysis,تحليل نقطة التعادل
 Break-even,نقطة التعادل
@@ -73,9 +79,12 @@ Buying Price per Unit,سعر الشراء لكل وحدة
 Buying is cheaper above this volume,الشراء أرخص فوق هذا الحجم
 Buying: Equivalent Yearly Cost,الشراء: التكلفة السنوية المكافئة
 C,C
+CRM Horizon (days),الأفق الزمني لعلاقة العملاء (CRM) (أيام)
+CRM deals have no product list: no deals were added.,صفقات علاقة العملاء (CRM) ليس لها قائمة منتجات: لم تُضف أي صفقات.
 Can Fall To,يمكن أن ينخفض إلى
 Can Rise To,يمكن أن يرتفع إلى
 Can Supply (max),أقصى كمية يمكن توريدها
+Capacity,السعة
 Capacity (units),الطاقة الإنتاجية (وحدات)
 Capacity and quality score are empty: fill them where you know them (0 = no limit).,الطاقة الإنتاجية ودرجة الجودة فارغتان: املأهما حيث تعرفهما (0 = بلا حد).
 Capacity per Month,الطاقة الإنتاجية شهريًا
@@ -89,6 +98,8 @@ Change %,نسبة التغيير %
 Charged once for every supplier that gets an order; pushes the plan to consolidate.,تُحتسب مرة واحدة لكل مورد يتلقى أمرًا؛ وتدفع الخطة إلى التجميع في عدد أقل من الموردين.
 Cheaper Option,الخيار الأرخص
 Check Stock Health,فحص سلامة المخزون
+Choose Weight when the vehicles are listed with their payload in kg.,اختر الوزن عندما تُدرج المركبات مع حمولتها بالكيلوجرام.
+Choose the existing asset first.,اختر الأصل الحالي أولًا.
 Choose the history period.,اختر فترة السجل.
 Choose the item first.,اختر الصنف أولًا.
 Choose what to analyse by.,اختر أساس التحليل.
@@ -110,9 +121,12 @@ Cost of Placing One Order,تكلفة إصدار أمر واحد
 Cost per Extra Supplier Used,تكلفة كل مورد إضافي
 Cost per Unit,التكلفة لكل وحدة
 Cost per Unit per km,التكلفة لكل وحدة لكل كم
+Cost per km,التكلفة لكل كم
+"Cost per km = fuel + completed maintenance of the last 12 months, divided by the distance in the fuel records. Driver pay, insurance and depreciation are not included.",التكلفة لكل كم = الوقود + الصيانة المكتملة خلال آخر 12 شهرًا، مقسومة على المسافة في سجلات الوقود. لا تشمل أجر السائق والتأمين والإهلاك.
 "Cost, price and monthly quantity were read from the last 12 months. Check the elasticity, then press Solve.",تمت قراءة التكلفة والسعر والكمية الشهرية من آخر 12 شهرًا. راجع مرونة الطلب ثم اضغط حل.
 "Costs read for {0}. Add the yearly volume and the fixed costs, then press Solve.",تمت قراءة التكاليف لـ {0}. أضف الحجم السنوي والتكاليف الثابتة ثم اضغط حل.
 Could not be estimated from history: enter your own figure,تعذر تقديرها من السجل: أدخل رقمك الخاص
+Create Fleet Trips (drafts),إنشاء رحلات أسطول (مسودات)
 Create Material Request (draft),إنشاء طلب مواد (مسودة)
 Create Production Plan (draft),إنشاء خطة إنتاج (مسودة)
 Create Purchase Orders (drafts),إنشاء أوامر شراء (مسودات)
@@ -126,21 +140,27 @@ Days Without Movement,أيام بلا حركة
 Days of Cover,أيام التغطية
 Dead,راكد جدًا
 Dead After (days),راكد جدًا بعد (أيام)
+"Deal quantities are weighted by probability: they are expectations, not orders.",كميات الصفقات مرجّحة بالاحتمالية: فهي توقعات وليست أوامر.
+Deals closing within the planning days count in proportion to their probability.,الصفقات التي تُغلق خلال أيام التخطيط تُحتسب بنسبة احتماليتها.
 Decision,القرار
 Decision Review,مراجعة القرارات
 Decision review,مراجعة القرارات
 Decisions,القرارات
 Default Company,الشركة الافتراضية
+Default Deal Probability %,الاحتمالية الافتراضية للصفقة %
 Default Lead Time (days),مدة التوريد الافتراضية (أيام)
 Demand Model,نموذج الطلب
 "Demand is not elastic enough (elasticity {0} is not above 1): there is no profit-maximising price, the highest allowed price is shown.",الطلب ليس مرنًا بما يكفي (مرونة الطلب {0} ليست أعلى من 1): لا يوجد سعر يعظّم الربح، ويُعرض أعلى سعر مسموح.
 Depot,المستودع الرئيسي للانطلاق
 Depot Latitude,خط عرض نقطة الانطلاق
 Depot Longitude,خط طول نقطة الانطلاق
+Depreciation (assets),الإهلاك (الأصول)
+Depreciation per Year,الإهلاك السنوي
 Destination,الوجهة
 Destinations,الوجهات
 Difference,الفرق
 Difference %,نسبة الفرق %
+Different vehicles with their own capacity and cost per km: the plan uses the cheapest ones that fit.,مركبات مختلفة لكل منها سعتها وتكلفتها لكل كم: تستخدم الخطة الأرخص منها التي تناسب الحمولة.
 Discount Rate per Year %,معدل الخصم سنويًا %
 Discount Test,اختبار الخصم
 Discount to Test %,الخصم المراد اختباره %
@@ -155,6 +175,7 @@ Done,تم
 Draft,مسودة
 Draft created: {0}. Review it and submit it yourself.,تم إنشاء المسودة: {0}. راجعها واعتمدها بنفسك.
 Drafts Created,المسودات المنشأة
+Driver,السائق
 Due,الاستحقاق
 Economic Order Qty,كمية الطلب الاقتصادية
 Elasticity Source,مصدر المرونة
@@ -165,11 +186,15 @@ Enter how much the numbers can vary (%).,أدخل مدى إمكانية تغير
 Enter the current price and quantity.,أدخل السعر والكمية الحاليين.
 Enter the life of the asset in years.,أدخل العمر الإنتاجي للأصل بالسنوات.
 Enter the price elasticity (for example 1.5: a 1% higher price loses 1.5% of the volume).,أدخل مرونة الطلب السعرية (مثلًا 1.5: ارتفاع السعر 1% يفقد 1.5% من الحجم).
+Enter the vehicle capacity or list the vehicles.,أدخل سعة المركبة أو أدرج المركبات.
 Enter the yearly volume.,أدخل الحجم السنوي.
 Equal,متساوٍ
 "Estimated from {0} months, fit R2 {1}{2}",مقدّرة من {0} أشهر، معامل التحديد R2 {1}{2}
 Exact Route Order up to (stops),ترتيب المسار الدقيق حتى (نقاط التوقف)
+Existing Asset,الأصل الحالي
+Existing Asset (information),الأصل الحالي (للمعلومات)
 Expected,المتوقع
+Expected From CRM Deals,المتوقع من صفقات علاقة العملاء (CRM)
 Expected Profit Change per Month,التغير المتوقع في الربح شهريًا
 Expected Profit per Month,الربح المتوقع شهريًا
 Expected Quantity,الكمية المتوقعة
@@ -184,6 +209,8 @@ Fixed Cost of Making per Year,التكلفة الثابتة للتصنيع سن�
 Fixed Costs,التكاليف الثابتة
 Fixed Costs for the Period,التكاليف الثابتة للفترة
 Fixed costs,التكاليف الثابتة
+Fleet Trip Drafts,مسودات رحلات الأسطول
+For identical vehicles. Ignored when the vehicle list below is filled.,للمركبات المتماثلة. يُتجاهل عند تعبئة قائمة المركبات أدناه.
 Forecast Method,طريقة التنبؤ
 From,من
 Gain per Month,المكسب شهريًا
@@ -201,6 +228,7 @@ How far sales can fall before the period makes a loss.,مقدار ما يمكن 
 How much the total margin would rise if you had one more unit of this resource: the real bottleneck shows the highest number.,مقدار الارتفاع في إجمالي الهامش لو توفرت وحدة إضافية من هذا المورد: عنق الزجاجة الحقيقي يظهر أعلى رقم.
 If You Buy,إذا اشتريت
 If You Lease,إذا أجّرت
+In the same unit as the load of the stops.,بالوحدة نفسها المستخدمة لحمولة نقاط التوقف.
 In {0}% of the draws the current plan would no longer fit the resources: re-plan when availability drops.,في {0}% من المحاكاة لن تناسب الخطة الحالية الموارد: أعد التخطيط عند انخفاض المتاح.
 Independently Verified,تم التحقق باستقلالية
 Infeasible,غير ممكن
@@ -230,8 +258,13 @@ Leave empty to use the years of use.,اتركه فارغًا لاستخدام س
 Left Over,المتبقي
 Less than 6 months of history: forecasts and safety stock are rough.,السجل أقل من 6 أشهر: التنبؤات ومخزون الأمان تقريبية.
 Linear demand,طلب خطي
+List the vehicles first: a trip needs a vehicle.,أدرج المركبات أولًا: فالرحلة تحتاج إلى مركبة.
 Load,الحمولة
 Load Data,تحميل البيانات
+Load Data adds the scheduled depreciation of the assets as a non-cash fixed cost.,يضيف تحميل البيانات الإهلاك المجدول للأصول كتكلفة ثابتة غير نقدية.
+Load Data reads fuel and maintenance from the fleet records of the last 12 months.,يقرأ تحميل البيانات الوقود والصيانة من سجلات الأسطول لآخر 12 شهرًا.
+Load Measured In,وحدة قياس الحمولة
+Load Vehicles,تحميل المركبات
 Longest Lead Time (days),أطول مدة توريد (أيام)
 Longitude,خط الطول
 Lower Bound (hours),الحد الأدنى (ساعات)
@@ -277,6 +310,7 @@ Net Present Value,صافي القيمة الحالية
 Net present value {0},صافي القيمة الحالية {0}
 Next Month Forecast,تنبؤ الشهر القادم
 No active default BOM: enter the making cost.,لا توجد قائمة مواد افتراضية فعّالة: أدخل تكلفة التصنيع.
+No active vehicle found.,لم يتم العثور على مركبة نشطة.
 No allocation satisfies every limit: relax a limit or add offers.,لا يوجد توزيع يحقق كل الحدود: خفف أحد الحدود أو أضف عروضًا.
 No buying Item Price with a supplier exists for these items.,لا يوجد سعر شراء لصنف مع مورد لهذه الأصناف.
 No buying price found: enter it.,لم يتم العثور على سعر شراء: أدخله.
@@ -289,6 +323,7 @@ No expected quantities: the mix between products is assumed equal.,لا توجد
 No internal rate of return exists for these cash flows.,لا يوجد معدل عائد داخلي لهذه التدفقات النقدية.
 No making cost per unit: the make option is only its fixed cost.,لا توجد تكلفة تصنيع لكل وحدة: خيار التصنيع هو تكلفته الثابتة فقط.
 No offer fits the limits for {0}.,لا يوجد عرض يناسب الحدود لـ {0}.
+No open deal closes within the horizon.,لا توجد صفقة مفتوحة تُغلق خلال الأفق الزمني.
 No open transfer requests for this item: add destinations by hand.,لا توجد طلبات نقل مفتوحة لهذا الصنف: أضف الوجهات يدويًا.
 No open work order.,لا يوجد أمر عمل مفتوح.
 No pending purchase requests.,لا توجد طلبات شراء معلقة.
@@ -306,6 +341,8 @@ No stock found.,لم يتم العثور على مخزون.
 No stock movement in the chosen period.,لا توجد حركة مخزون في الفترة المختارة.
 No stop has a location.,لا توجد نقطة توقف لها موقع.
 No unit cost: the best price will look much too low.,لا توجد تكلفة وحدة: سيبدو أفضل سعر أقل بكثير من الواقع.
+No vehicle has a capacity.,لا توجد مركبة لها سعة.
+No vehicle records were found: add the vehicles by hand.,لم يتم العثور على سجلات مركبات: أضف المركبات يدويًا.
 No warehouse found.,لم يتم العثور على مستودع.
 No warehouse holds this item.,لا يوجد مستودع يحتوي على هذا الصنف.
 Not Allowed,غير مسموح
@@ -330,6 +367,7 @@ Operations,العمليات
 Operations Research,بحوث العمليات
 Optional: Load Data fills the amount from this account for the period.,اختياري: تحميل البيانات يملأ المبلغ من هذا الحساب للفترة.
 Optional: Load Data fills the making cost from the default BOM and the buying price from the price list.,اختياري: تحميل البيانات يملأ تكلفة التصنيع من قائمة المواد الافتراضية وسعر الشراء من قائمة الأسعار.
+"Optional: Load Data takes the price, value at the end and life from it, and shows its book value.",اختياري: يأخذ تحميل البيانات منه السعر والقيمة في النهاية والعمر، ويعرض قيمته الدفترية.
 Order,الأمر
 Order Now,اطلب الآن
 Outcome,الناتج
@@ -353,6 +391,7 @@ Positive: the project earns more than the required return.,موجب: يحقق ا
 Press Solve again: the earlier result no longer matches the data.,اضغط حل مرة أخرى: النتيجة السابقة لم تعد تطابق البيانات.
 Price,السعر
 Price Elasticity,مرونة الطلب السعرية
+"Price, value at the end and life were read from the asset. Add the lease terms and the running cost, then press Solve.",تمت قراءة السعر والقيمة في النهاية والعمر من الأصل. أضف شروط التأجير وتكلفة التشغيل، ثم اضغط حل.
 Pricing,التسعير
 Pricing Analysis,تحليل التسعير
 Product Mix Plan,خطة تشكيلة الإنتاج
@@ -375,6 +414,7 @@ Purchase Order Drafts,مسودات أوامر الشراء
 Purchase Price,سعر الشراء
 Quality Score %,درجة الجودة %
 Quantity,الكمية
+Quantity weighted by deal probability for the deals closing within the CRM horizon; added to the yearly demand as a yearly rate.,الكمية مرجّحة باحتمالية الصفقة للصفقات التي تُغلق خلال الأفق الزمني لعلاقة العملاء (CRM)؛ وتُضاف إلى الطلب السنوي كمعدل سنوي.
 Ranges are shown for the first {0} only.,تُعرض النطاقات لأول {0} فقط.
 Rank,الترتيب
 Read before using,اقرأ قبل الاستخدام
@@ -382,6 +422,7 @@ Reading your data...,جارٍ قراءة بياناتك...
 Recommended Quantity,الكمية الموصى بها
 Reject: it earns less than the required return,رفض: يحقق عائدًا أقل من العائد المطلوب
 Reliable,موثوق
+Remaining Depreciation Years,سنوات الإهلاك المتبقية
 Remaining Hours,الساعات المتبقية
 Reorder Item,صنف إعادة الطلب
 Reorder Plan,خطة إعادة الطلب
@@ -406,16 +447,20 @@ Risk Simulation,محاكاة المخاطر
 "Risk simulation: each future cash flow varies by about {0}% (normal spread), 2000 trials, fixed seed.",محاكاة المخاطر: يتغير كل تدفق نقدي مستقبلي بنحو {0}% (توزيع طبيعي)، 2000 محاولة، بذرة ثابتة.
 "Risk simulation: prices, costs and volume vary by about {0}% (normal spread), 2000 trials, fixed seed so the same input gives the same answer.",محاكاة المخاطر: تتغير الأسعار والتكاليف والحجم بنحو {0}% (توزيع طبيعي)، 2000 محاولة، بذرة ثابتة ليعطي المدخل نفسه النتيجة نفسها.
 Route,مسار
+Route Cost,تكلفة المسار
 Route Leg,جزء من المسار
 Route Load,حمولة المسار
 Route Plan,خطة المسار
 Route Plans Needing Attention,خطط المسارات التي تحتاج إلى انتباه
 Route Stop,نقطة توقف المسار
+Route Vehicle,مركبة المسار
 Route km,كم المسار
 Route {0} has more than 12 stops: its stop order is improved but not proven the shortest.,المسار {0} فيه أكثر من 12 نقطة توقف: تم تحسين ترتيب التوقف لكن لم يثبت أنه الأقصر.
+Route {0} of {1}: {2},المسار {0} من {1}: {2}
 Routes,المسارات
 Rows with the same name are applied together.,تُطبَّق الصفوف التي لها الاسم نفسه معًا.
 Rule,القاعدة
+Running cost {0},تكلفة التشغيل {0}
 Safety Stock,مخزون الأمان
 Sales Order,أمر بيع
 Sales volume,حجم المبيعات
@@ -449,8 +494,12 @@ Solve the plan first: it has no valid solution.,قم بحل الخطة أولً�
 Solved,تم الحل
 Solved On,تاريخ الحل
 Solved Plans This Month,الخطط المحلولة هذا الشهر
+Solved exactly: no cheaper plan exists for these vehicles.,تم الحل بدقة: لا توجد خطة أرخص لهذه المركبات.
 Solving...,جارٍ الحل...
 Some customers have no latitude/longitude on their Address: they will be left out until you fill them.,بعض العملاء ليس لديهم خط عرض/خط طول في عنوانهم: سيتم استبعادهم حتى تستكمل البيانات.
+"Some orders have no item weight, so their load is zero: fill the weight on the items.",بعض الأوامر ليس لأصنافها وزن، لذا فحمولتها صفر: املأ الوزن في الأصناف.
+"Some vehicles have no cost per km, so they look free: fill it in.",بعض المركبات ليس لها تكلفة لكل كم، فتبدو مجانية: املأها.
+Some vehicles have no payload: fill the capacity.,بعض المركبات ليس لها حمولة: املأ السعة.
 Some warehouses have no latitude/longitude on a linked Address: give a lane cost for them or fill the coordinates.,بعض المستودعات ليس لها خط عرض/خط طول في عنوان مرتبط: حدد تكلفة مسار لها أو أكمل الإحداثيات.
 Source,المصدر
 Source Data,بيانات المصدر
@@ -471,22 +520,29 @@ Supplier Allocation Plans Needing Attention,خطط توزيع الموردين �
 Supplier allocation,توزيع الموردين
 Target Profit,الربح المستهدف
 The BOM cost includes materials and operations at their standard rates. Add the fixed yearly costs of each option yourself.,تشمل تكلفة قائمة المواد المواد والعمليات بأسعارها القياسية. أضف بنفسك التكاليف الثابتة السنوية لكل خيار.
+The CRM app is not installed: no deals were added.,تطبيق علاقة العملاء (CRM) غير مثبّت: لم تُضف أي صفقات.
+The asset has no depreciation settings: enter the value at the end and the years yourself.,ليس للأصل إعدادات إهلاك: أدخل القيمة في النهاية وعدد السنوات بنفسك.
+The available vehicles cannot carry everything.,المركبات المتاحة لا تستطيع حمل كل شيء.
 The best price is at the limit you set.,أفضل سعر عند الحد الذي حددته.
+"The book value is shown for information. The comparison uses the cost of a new asset, because depreciation is not a cash flow.",تُعرض القيمة الدفترية للعلم فقط. تستخدم المقارنة تكلفة أصل جديد، لأن الإهلاك ليس تدفقًا نقديًا.
 The bottleneck keeps its value while the resource stays between 'Can Fall To' and 'Can Rise To'.,يحتفظ عنق الزجاجة بقيمته ما دام المورد بين «يمكن أن ينخفض إلى» و«يمكن أن يرتفع إلى».
 "The cash flows change sign more than once, so there are several internal rates of return: rely on the net present value.",تغيّر التدفقات النقدية إشارتها أكثر من مرة، لذا توجد عدة معدلات عائد داخلي: اعتمد على صافي القيمة الحالية.
 The elasticity could not be estimated from history ({0}): the value you entered is a guess.,تعذر تقدير المرونة من السجل ({0}): القيمة التي أدخلتها تخمين.
 The elasticity estimated from history is weak (R2 {0}): treat the answer as a guide.,المرونة المقدّرة من السجل ضعيفة (R2 {0}): اعتبر الإجابة مجرد إرشاد.
 The elasticity is assumed constant around today's price: do not extend the answer far from it.,يُفترض أن المرونة ثابتة حول سعر اليوم: لا تمدد الإجابة بعيدًا عنه.
+The fleet app is not installed.,تطبيق الأسطول غير مثبّت.
 The inputs do not describe a valid demand.,المدخلات لا تصف طلبًا صالحًا.
 The investment is not paid back within the years entered.,لا يُسترد الاستثمار خلال السنوات المدخلة.
 The minimum quantities cannot be met with the available resources.,لا يمكن تحقيق الكميات الدنيا بالموارد المتاحة.
 The plan has no flow between existing warehouses.,لا توجد في الخطة حركة بين المستودعات القائمة.
 The plan has no quantity to order.,لا توجد في الخطة كمية للطلب.
 The plan has no quantity to produce.,لا توجد في الخطة كمية للإنتاج.
+The plan has no route.,ليس للخطة أي مسار.
 The plan stays the best one while the margin stays between these two numbers.,تبقى الخطة هي الأفضل ما دام الهامش بين هذين الرقمين.
 The plans were consistently too high.,كانت الخطط مرتفعة باستمرار.
 The plans were consistently too low.,كانت الخطط منخفضة باستمرار.
 The plans were usable but off by a clear margin: keep a safety buffer.,كانت الخطط صالحة لكنها مختلفة بفارق واضح: احتفظ بهامش أمان.
+The product list of CRM deals has no item code and quantity: no deals were added.,قائمة منتجات صفقات علاقة العملاء (CRM) ليس فيها رمز صنف وكمية: لم تُضف أي صفقات.
 "The resource name, or the item code of the product.",اسم المورد، أو كود الصنف للمنتج.
 The return you could get elsewhere with the same risk.,العائد الذي يمكنك الحصول عليه في مكان آخر بنفس المخاطر.
 The schedule is {0}% above the theoretical minimum; the real optimum lies between the two.,الجدول أعلى من الحد الأدنى النظري بنسبة {0}%؛ والأمثل الفعلي يقع بين الاثنين.
@@ -525,6 +581,7 @@ Unreliable,غير موثوق
 Untick for depreciation and other non-cash costs.,ألغِ التحديد للإهلاك والتكاليف غير النقدية الأخرى.
 Usable with a buffer,صالح مع هامش أمان
 Used,المستخدم
+Used for CRM deals that have no probability of their own.,تُستخدم لصفقات علاقة العملاء (CRM) التي ليس لها احتمالية خاصة بها.
 Used for every lane that has no cost in the table below.,تُستخدم لكل مسار ليس له تكلفة في الجدول أدناه.
 Value,القيمة
 Value at the End,القيمة في النهاية
@@ -532,13 +589,18 @@ Value of One More Unit,قيمة وحدة إضافية
 Variable Cost per Unit,التكلفة المتغيرة لكل وحدة
 Variable cost,التكلفة المتغيرة
 "Variable cost = the stock cost at the time of sale. Add direct labour, commissions and delivery per unit if they exist.",التكلفة المتغيرة = تكلفة المخزون وقت البيع. أضف العمالة المباشرة والعمولات والتوصيل لكل وحدة إن وُجدت.
+Vehicle,المركبة
 Vehicle Capacity,سعة المركبة
+Vehicles,المركبات
+Vehicles (optional),المركبات (اختياري)
 Vehicles Available,المركبات المتاحة
 Vehicles Used,المركبات المستخدمة
+Vehicles loaded,تم تحميل المركبات
 Verdict,الحكم
 "Verdict: {0}. Average error {1}%, bias {2}%.",الحكم: {0}. متوسط الخطأ {1}%، والانحياز {2}%.
 Volume Where Both Cost the Same,الحجم الذي يتساوى عنده الخياران في التكلفة
 Warehouse,المستودع
+Weight (kg),الوزن (كجم)
 What Changes,ما الذي يتغير
 What Happened,ما حدث
 What If,ماذا لو
@@ -572,11 +634,15 @@ verified,تم التحقق
 "{0} / {1}: no workstation, left out.",{0} / {1}: لا توجد محطة عمل، تم الاستبعاد.
 "{0} / {1}: the price is per {2}, not per stock unit: check it.",{0} / {1}: السعر لكل {2} وليس لكل وحدة مخزون: تحقق منه.
 {0} comparisons. Press Solve.,{0} مقارنات. اضغط حل.
+{0} deals have no closing date and were counted.,{0} صفقات ليس لها تاريخ إغلاق وتم احتسابها.
+{0} deals have no probability: {1}% was assumed (change it in OR Settings).,{0} صفقات ليس لها احتمالية: تم افتراض {1}% (غيّرها في إعدادات بحوث العمليات).
 "{0} deliveries waiting. Enter the depot position and the vehicle capacity, then press Solve.",{0} عمليات تسليم في الانتظار. أدخل موقع نقطة الانطلاق وسعة المركبة ثم اضغط حل.
+"{0} deliveries waiting. Enter the depot position and the vehicles, then press Solve.",{0} عمليات تسليم في الانتظار. أدخل موقع نقطة الانطلاق والمركبات، ثم اضغط حل.
 {0} fixed cost amounts were read from the ledger for the same period.,تمت قراءة {0} مبالغ تكاليف ثابتة من دفتر الأستاذ للفترة نفسها.
 {0} has no resource use and no demand limit: the plan has no upper end.,{0} ليس له استهلاك موارد ولا حد للطلب: الخطة بلا حد أعلى.
 {0} is cheaper by {1} a year,{0} أرخص بمقدار {1} في السنة
 {0} is cheaper by {1} in today's money,{0} أرخص بمقدار {1} بقيمة اليوم
+{0} items include expected demand from CRM deals.,{0} أصناف تتضمن طلبًا متوقعًا من صفقات علاقة العملاء (CRM).
 "{0} items needed, {1} offers. Press Solve.",{0} أصناف مطلوبة، و{1} عروض. اضغط حل.
 {0} items with stock movement. Press Solve.,{0} أصناف عليها حركة مخزون. اضغط حل.
 {0} lose money in this period.,{0} تخسر في هذه الفترة.
@@ -591,7 +657,9 @@ verified,تم التحقق
 {0} sources and {1} destinations. Press Solve.,{0} مصادر و{1} وجهات. اضغط حل.
 "{0} uses {1} which is not in the resource list, so it is treated as unlimited.",{0} يستخدم {1} وهو غير موجود في قائمة الموارد، لذلك يُعامل على أنه غير محدود.
 {0} vehicles are needed.,المطلوب {0} مركبات.
+"{0} vehicles have less than 500 km of fuel records in the last 12 months: their cost per km is weak or empty, check it.",{0} مركبات لديها أقل من 500 كم من سجلات الوقود خلال آخر 12 شهرًا: تكلفتها لكل كم ضعيفة أو فارغة، راجعها.
 "{0} vehicles, {1} km in total",{0} مركبات، و{1} كم في المجموع
+"{0} vehicles. Check the capacity and cost per km, then press Solve.",{0} مركبات. راجع السعة والتكلفة لكل كم، ثم اضغط حل.
 "{0}: margin is not positive, so it will not be produced.",{0}: الهامش غير موجب، لذلك لن يتم إنتاجه.
 "{0}: no cost recorded on the sales, so its margin may be overstated.",{0}: لا توجد تكلفة مسجلة على المبيعات، لذا قد يكون هامشه مبالغًا فيه.
 "{0}: no cost, so the economic quantity cannot be computed.",{0}: لا توجد تكلفة، لذلك لا يمكن حساب الكمية الاقتصادية.

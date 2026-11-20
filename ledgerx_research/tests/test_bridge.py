@@ -128,3 +128,16 @@ class Bridge(unittest.TestCase):
 
 if __name__ == "__main__":
 	unittest.main()
+
+
+class FleetBridge(unittest.TestCase):
+	def test_fleet_routes_through_bridge(self):
+		stops = [{"stop": f"c{i}", "lat": 30 + i * 0.05, "lng": 31 + (i % 2) * 0.05, "demand": 20} for i in range(5)]
+		fleet = [{"id": "V1", "capacity": 60, "cost_per_km": 2}, {"id": "V2", "capacity": 40, "cost_per_km": 1}]
+		r = b.run_routes((30.0, 31.0), stops, 0, 0, fleet)
+		self.assertTrue(r["verified"])
+		self.assertEqual(r["status"], "Solved")
+		self.assertTrue(all(l["vehicle"] in ("V1", "V2") for l in r["legs"]))
+		self.assertGreater(r["total_cost"], 0)
+		bad = b.run_routes((30.0, 31.0), stops, 0, 0, [{"id": "V", "capacity": 30, "cost_per_km": 1}])
+		self.assertEqual(bad["status"], "Infeasible")

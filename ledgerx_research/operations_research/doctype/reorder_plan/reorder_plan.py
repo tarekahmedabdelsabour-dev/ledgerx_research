@@ -9,10 +9,10 @@ from ledgerx_research.plan_base import PlanDocument
 class ReorderPlan(PlanDocument):
 	@frappe.whitelist()
 	def load_data(self):
-		items, warnings = data.load_reorder(self.company, self.warehouse, int(self.lookback_days or 365), int(self.default_lead_days or 7))
+		items, warnings = data.load_reorder(self.company, self.warehouse, int(self.lookback_days or 365), int(self.default_lead_days or 7), bool(self.include_crm), int(self.crm_horizon_days or 90))
 		self.flags.solving = True
 		self.set("items", [{"item_code": i["item_code"], "annual_demand": i["annual_demand"], "daily_sd": i["daily_sd"], "lead_days": i["lead_days"], "unit_cost": i["unit_cost"],
-			"on_hand": i["on_hand"], "on_order": i["on_order"]} for i in items])
+			"on_hand": i["on_hand"], "on_order": i["on_order"], "pipeline_qty": i.get("pipeline_qty", 0)} for i in items])
 		self._loaded = {i["item_code"]: i for i in items}
 		self.status, self.verified = "Draft", 0
 		self.summary_html = bridge.html_summary(_("Data loaded"), False, [_("{0} items with stock movement. Press Solve.").format(len(items))], warnings)
@@ -25,7 +25,7 @@ class ReorderPlan(PlanDocument):
 		cached = frappe.cache.get_value(f"lx_reorder_hist::{self.name}")
 		if cached:
 			return cached
-		items, _w = data.load_reorder(self.company, self.warehouse, int(self.lookback_days or 365), int(self.default_lead_days or 7))
+		items, _w = data.load_reorder(self.company, self.warehouse, int(self.lookback_days or 365), int(self.default_lead_days or 7), bool(self.include_crm), int(self.crm_horizon_days or 90))
 		return {i["item_code"]: i["monthly"] for i in items}
 
 	@frappe.whitelist()
@@ -34,7 +34,8 @@ class ReorderPlan(PlanDocument):
 			if not self.items:
 				frappe.throw(_("Add items or press Load Data."))
 			hist = self._history()
-			rows = [{"item_code": i.item_code, "annual_demand": i.annual_demand, "daily_sd": i.daily_sd, "lead_days": i.lead_days, "unit_cost": i.unit_cost,
+			horizon = int(self.crm_horizon_days or 90)
+			rows = [{"item_code": i.item_code, "annual_demand": flt(i.annual_demand) + (flt(i.pipeline_qty) * 365.0 / horizon if self.include_crm else 0.0), "daily_sd": i.daily_sd, "lead_days": i.lead_days, "unit_cost": i.unit_cost,
 				"on_hand": i.on_hand, "on_order": i.on_order, "moq": frappe.db.get_value("Item", i.item_code, "min_order_qty") or 0, "monthly": hist.get(i.item_code, [])} for i in self.items]
 			res = bridge.run_reorder(rows, {"service_level_pct": self.service_level_pct, "holding_rate_pct": self.holding_rate_pct, "order_cost": self.order_cost,
 				"default_lead_days": self.default_lead_days})
@@ -44,7 +45,8 @@ class ReorderPlan(PlanDocument):
 				i.abc, i.eoq, i.safety_stock, i.reorder_point, i.order_qty = r["abc"], r["eoq"], r["safety_stock"], r["reorder_point"], r["order_qty"]
 				i.lead_days, i.forecast_method, i.forecast_next = r["lead_days"], r["forecast_method"], r["forecast_next"]
 			n = sum(1 for i in self.items if flt(i.order_qty) > 0)
-			self.finish(res, _("Reorder plan"), [_("{0} of {1} items need an order now.").format(n, len(self.items)),
+			crm_items = sum(1 for i in self.items if self.include_crm and flt(i.pipeline_qty) > 0)
+			self.finish(res, _("Reorder plan"), ([_("{0} items include expected demand from CRM deals.").format(crm_items)] if crm_items else []) + [_("{0} of {1} items need an order now.").format(n, len(self.items)),
 				_("Policy: order a whole economic quantity whenever stock on hand plus on order falls to the reorder point.")])
 		return self.run_and_save(run)
 

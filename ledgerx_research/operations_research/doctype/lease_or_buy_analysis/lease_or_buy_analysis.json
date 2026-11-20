@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "asset",
+  "asset_ref",
   "rate_pct",
   "life_years",
   "sb_b",
@@ -15,6 +16,10 @@
   "lease_payment",
   "lease_years",
   "lease_cost_extra",
+  "sb_a",
+  "book_value",
+  "remaining_years",
+  "depreciation_per_year",
   "sb_o",
   "own_pv",
   "lease_pv",
@@ -36,6 +41,13 @@
    "fieldtype": "Data",
    "label": "Asset",
    "reqd": 1
+  },
+  {
+   "fieldname": "asset_ref",
+   "fieldtype": "Link",
+   "label": "Existing Asset",
+   "options": "Asset",
+   "description": "Optional: Load Data takes the price, value at the end and life from it, and shows its book value."
   },
   {
    "fieldname": "rate_pct",
@@ -90,6 +102,29 @@
    "fieldname": "lease_cost_extra",
    "fieldtype": "Currency",
    "label": "Yearly Extra Cost While Leasing"
+  },
+  {
+   "fieldname": "sb_a",
+   "fieldtype": "Section Break",
+   "label": "Existing Asset (information)"
+  },
+  {
+   "fieldname": "book_value",
+   "fieldtype": "Currency",
+   "label": "Book Value Today",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remaining_years",
+   "fieldtype": "Float",
+   "label": "Remaining Depreciation Years",
+   "read_only": 1
+  },
+  {
+   "fieldname": "depreciation_per_year",
+   "fieldtype": "Currency",
+   "label": "Depreciation per Year",
+   "read_only": 1
   },
   {
    "fieldname": "sb_o",

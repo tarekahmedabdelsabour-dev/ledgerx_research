@@ -14,7 +14,7 @@ class ProductMixPlan(PlanDocument):
 
 	@frappe.whitelist()
 	def load_data(self):
-		products, resources, warnings = data.load_mix(self.company, int(self.planning_days or 30), bool(self.cap_by_orders))
+		products, resources, warnings = data.load_mix(self.company, int(self.planning_days or 30), bool(self.cap_by_orders), bool(self.include_crm))
 		self.flags.solving = True
 		self.set("products", [{**{k: v for k, v in p.items() if k != "usage"}, "usage_json": json.dumps(p["usage"]), "margin": flt(p["price"]) - flt(p["unit_cost"])} for p in products])
 		self.set("resources", resources)

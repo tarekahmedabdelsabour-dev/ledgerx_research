@@ -68,6 +68,7 @@ doctype("OR Settings", [
 	f("default_lead_days", "Int", "Default Lead Time (days)", default=7),
 	f("service_level_pct", "Percent", "Service Level %", default=95),
 	f("max_stops_exact", "Int", "Exact Route Order up to (stops)", default=12, read_only=1),
+	f("crm_default_probability", "Percent", "Default Deal Probability %", default=30, description="Used for CRM deals that have no probability of their own."),
 ], issingle=1, icon="fa fa-calculator", perms=perms((MGR, "rw")))
 
 # ------------------------------------------------------------------ product mix
@@ -117,6 +118,7 @@ doctype("Product Mix Plan", [
 	col("cb1"),
 	f("whole_units", "Check", "Whole Units Only"),
 	f("cap_by_orders", "Check", "Do Not Produce More Than Open Sales Orders", default=1),
+	f("include_crm", "Check", "Add Expected Demand From CRM Deals", description="Deals closing within the planning days count in proportion to their probability."),
 	sec("sb_p", "Products"),
 	f("products", "Table", "Products", options="Mix Product"),
 	sec("sb_r", "Resources"),
@@ -144,6 +146,7 @@ doctype("Reorder Item", [
 	f("item_name", "Data", "Item Name", read_only=1, fetch_from="item_code.item_name"),
 	f("abc", "Select", "ABC", options="\nA\nB\nC", read_only=1, in_list_view=1),
 	f("annual_demand", "Float", "Yearly Demand", in_list_view=1),
+	f("pipeline_qty", "Float", "Expected From CRM Deals", description="Quantity weighted by deal probability for the deals closing within the CRM horizon; added to the yearly demand as a yearly rate."),
 	f("daily_sd", "Float", "Daily Demand Std Dev"),
 	f("lead_days", "Int", "Lead Time (days)"),
 	f("unit_cost", "Currency", "Unit Cost"),
@@ -166,6 +169,8 @@ doctype("Reorder Plan", [
 	f("holding_rate_pct", "Percent", "Holding Cost per Year %", default=20),
 	f("order_cost", "Currency", "Cost of Placing One Order", default=50),
 	f("default_lead_days", "Int", "Default Lead Time (days)", default=7),
+	f("include_crm", "Check", "Add Expected Demand From CRM Deals"),
+	f("crm_horizon_days", "Int", "CRM Horizon (days)", default=90, depends_on="include_crm"),
 	sec("sb_i", "Items"),
 	f("items", "Table", "Items", options="Reorder Item"),
 	sec("sb_o", "Outcome"),
@@ -231,12 +236,21 @@ doctype("Route Stop", [
 	f("demand", "Float", "Load", in_list_view=1),
 ], istable=1)
 
+doctype("Route Vehicle", [
+	f("vehicle", "Data", "Vehicle", reqd=1, in_list_view=1),
+	f("driver", "Data", "Driver", in_list_view=1),
+	f("capacity", "Float", "Capacity", in_list_view=1, description="In the same unit as the load of the stops."),
+	f("cost_per_km", "Currency", "Cost per km", in_list_view=1, description="Load Data reads fuel and maintenance from the fleet records of the last 12 months."),
+], istable=1)
+
 doctype("Route Leg", [
 	f("route_no", "Int", "Route", read_only=1, in_list_view=1),
 	f("sequence", "Int", "Order", read_only=1, in_list_view=1),
 	f("stop", "Data", "Stop", read_only=1, in_list_view=1),
 	f("route_load", "Float", "Route Load", read_only=1, in_list_view=1),
 	f("route_km", "Float", "Route km", read_only=1, in_list_view=1),
+	f("vehicle", "Data", "Vehicle", read_only=1, in_list_view=1),
+	f("route_cost", "Currency", "Route Cost", read_only=1),
 ], istable=1)
 
 doctype("Route Plan", [
@@ -245,8 +259,11 @@ doctype("Route Plan", [
 	f("depot_lat", "Float", "Depot Latitude", precision="6", reqd=1),
 	f("depot_lng", "Float", "Depot Longitude", precision="6", reqd=1),
 	col("cb1"),
-	f("vehicle_capacity", "Float", "Vehicle Capacity", reqd=1),
-	f("max_vehicles", "Int", "Vehicles Available", description="0 = no limit."),
+	f("load_basis", "Select", "Load Measured In", options="Quantity\nWeight (kg)", default="Quantity", description="Choose Weight when the vehicles are listed with their payload in kg."),
+	f("vehicle_capacity", "Float", "Vehicle Capacity", description="For identical vehicles. Ignored when the vehicle list below is filled."),
+	f("max_vehicles", "Int", "Vehicles Available", description="0 = no limit. Ignored when the vehicle list below is filled."),
+	sec("sb_v", "Vehicles (optional)"),
+	f("vehicles", "Table", "Vehicles", options="Route Vehicle", description="Different vehicles with their own capacity and cost per km: the plan uses the cheapest ones that fit."),
 	sec("sb_s", "Stops"),
 	f("stops", "Table", "Stops", options="Route Stop"),
 	sec("sb_o", "Routes"),
@@ -255,6 +272,8 @@ doctype("Route Plan", [
 	f("lower_bound_km", "Float", "Lower Bound km", read_only=1),
 	f("gap_pct", "Percent", "Distance Above Lower Bound %", read_only=1),
 	f("vehicles_used", "Int", "Vehicles Used", read_only=1),
+	f("total_cost", "Currency", "Total Cost", read_only=1),
+	f("fleet_trips", "Small Text", "Fleet Trip Drafts", read_only=1),
 	*result_block(),
 ], autoname="format:RTE-.YYYY.-.#####", icon="fa fa-road", perms=PERMS)
 
@@ -372,6 +391,7 @@ doctype("Break Even Analysis", [
 	f("target_profit", "Currency", "Target Profit"),
 	f("capacity_units", "Float", "Capacity (units)"),
 	f("risk_sd_pct", "Percent", "How Much Can Numbers Vary %", default=10),
+	f("include_depreciation", "Check", "Add Asset Depreciation of the Period", description="Load Data adds the scheduled depreciation of the assets as a non-cash fixed cost."),
 	sec("sb_f", "Fixed Costs for the Period"),
 	f("fixed_costs", "Table", "Fixed Costs", options="BE Fixed Cost"),
 	sec("sb_p", "Products"),
@@ -450,6 +470,7 @@ doctype("Make or Buy Analysis", [
 
 doctype("Lease or Buy Analysis", [
 	f("asset", "Data", "Asset", reqd=1),
+	f("asset_ref", "Link", "Existing Asset", options="Asset", description="Optional: Load Data takes the price, value at the end and life from it, and shows its book value."),
 	f("rate_pct", "Percent", "Discount Rate per Year %", default=10, reqd=1),
 	f("life_years", "Int", "Years of Use", reqd=1),
 	sec("sb_b", "If You Buy"),
@@ -460,6 +481,10 @@ doctype("Lease or Buy Analysis", [
 	f("lease_payment", "Currency", "Yearly Lease Payment"),
 	f("lease_years", "Int", "Lease Years", description="Leave empty to use the years of use."),
 	f("lease_cost_extra", "Currency", "Yearly Extra Cost While Leasing"),
+	sec("sb_a", "Existing Asset (information)"),
+	f("book_value", "Currency", "Book Value Today", read_only=1),
+	f("remaining_years", "Float", "Remaining Depreciation Years", read_only=1),
+	f("depreciation_per_year", "Currency", "Depreciation per Year", read_only=1),
 	sec("sb_o", "Outcome"),
 	f("own_pv", "Currency", "Cost of Buying (today's money)", read_only=1),
 	f("lease_pv", "Currency", "Cost of Leasing (today's money)", read_only=1),

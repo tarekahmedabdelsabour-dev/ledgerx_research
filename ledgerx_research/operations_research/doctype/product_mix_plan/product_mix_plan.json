@@ -9,6 +9,7 @@
   "cb1",
   "whole_units",
   "cap_by_orders",
+  "include_crm",
   "sb_p",
   "products",
   "sb_r",
@@ -63,6 +64,12 @@
    "fieldtype": "Check",
    "label": "Do Not Produce More Than Open Sales Orders",
    "default": 1
+  },
+  {
+   "fieldname": "include_crm",
+   "fieldtype": "Check",
+   "label": "Add Expected Demand From CRM Deals",
+   "description": "Deals closing within the planning days count in proportion to their probability."
   },
   {
    "fieldname": "sb_p",

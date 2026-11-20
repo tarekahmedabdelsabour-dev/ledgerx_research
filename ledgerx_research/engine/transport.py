@@ -163,7 +163,7 @@ def clarke_wright(dist, demand, capacity, max_routes=None):
 	where = {k: k for k in stops}
 	savings = sorted(((dist[0][i] + dist[0][j] - dist[i][j], i, j) for i, j in itertools.combinations(stops, 2)), reverse=True)
 	for s, i, j in savings:
-		if s <= 0:
+		if s < -1e-9:  # a merge that adds no distance is still taken: it saves a vehicle
 			break
 		ri, rj = where[i], where[j]
 		if ri == rj or load[ri] + load[rj] > capacity + 1e-9:
@@ -233,3 +233,182 @@ def _verify_routes(stops, capacity, out):
 			return False
 		seen += r["stops"]
 	return sorted(map(str, seen)) == sorted(str(s["id"]) for s in stops)
+
+
+EXACT_FLEET_STOPS = 10  # up to this many stops the mixed-fleet plan is solved exactly (dynamic programming over stop subsets)
+
+
+def _dist_matrix(depot, stops):
+	pts = [(depot[0], depot[1])] + [(s["lat"], s["lng"]) for s in stops]
+	n = len(pts)
+	return [[haversine(pts[i], pts[j]) if i != j else 0.0 for j in range(n)] for i in range(n)]
+
+
+def _fleet_exact(dist, stops, vs):
+	"""Optimal split of the stops among distinct vehicles and the optimal tour of each: minimises sum(cost_per_km x tour km)."""
+	n = len(stops)
+	INF = float("inf")
+	full = (1 << n) - 1
+	f = [[INF] * n for _ in range(1 << n)]
+	par = [[-1] * n for _ in range(1 << n)]
+	for j in range(n):
+		f[1 << j][j] = dist[0][j + 1]
+	for mask in range(1, 1 << n):
+		for j in range(n):
+			cur = f[mask][j]
+			if cur == INF:
+				continue
+			for k in range(n):
+				if mask >> k & 1:
+					continue
+				nm = mask | (1 << k)
+				v = cur + dist[j + 1][k + 1]
+				if v < f[nm][k]:
+					f[nm][k], par[nm][k] = v, j
+	tour, last = [0.0] * (1 << n), [-1] * (1 << n)
+	for mask in range(1, 1 << n):
+		best = (INF, -1)
+		for j in range(n):
+			if f[mask][j] < INF and f[mask][j] + dist[j + 1][0] < best[0]:
+				best = (f[mask][j] + dist[j + 1][0], j)
+		tour[mask], last[mask] = best
+	load = [0.0] * (1 << n)
+	for mask in range(1, 1 << n):
+		low = (mask & -mask).bit_length() - 1
+		load[mask] = load[mask & (mask - 1)] + num(stops[low].get("demand"))
+
+	def order_of(mask):
+		seq, j, m = [], last[mask], mask
+		while j != -1:
+			seq.append(j)
+			pj = par[m][j]
+			m ^= 1 << j
+			j = pj
+		return seq[::-1]
+	g = [INF] * (1 << n)
+	g[0] = 0.0
+	choice = []
+	for v in vs:
+		ng = list(g)
+		ch = [0] * (1 << n)
+		cap, cpk = num(v["capacity"]), num(v.get("cost_per_km"))
+		for mask in range(1, 1 << n):
+			sub = mask
+			while sub:
+				if load[sub] <= cap + 1e-9 and g[mask ^ sub] < INF:
+					val = g[mask ^ sub] + cpk * tour[sub]
+					if val < ng[mask] - 1e-12:
+						ng[mask], ch[mask] = val, sub
+				sub = (sub - 1) & mask
+		g = ng
+		choice.append(ch)
+	if g[full] == INF:
+		return None
+	routes_, mask = [], full
+	for idx in range(len(vs) - 1, -1, -1):
+		sub = choice[idx][mask]
+		if sub:
+			seq = order_of(sub)
+			routes_.append({"stops": [stops[k]["id"] for k in seq], "load": load[sub], "km": tour[sub], "exact_order": True, "vehicle": vs[idx]["id"],
+				"cost": tour[sub] * num(vs[idx].get("cost_per_km")), "capacity": num(vs[idx]["capacity"])})
+			mask ^= sub
+	return routes_[::-1], g[full]
+
+
+def _ffd_groups(stops, vs):
+	"""Fallback packing: stops by decreasing load into the largest vehicles first-fit. None when it does not fit."""
+	bins = [[num(v["capacity"]), []] for v in sorted(vs, key=lambda v: -num(v["capacity"]))]
+	for k, s in sorted(enumerate(stops), key=lambda ks: -num(ks[1].get("demand"))):
+		for b in bins:
+			if b[0] + 1e-9 >= num(s.get("demand")):
+				b[0] -= num(s.get("demand"))
+				b[1].append(k)
+				break
+		else:
+			return None
+	return [b[1] for b in bins if b[1]]
+
+
+def routes_fleet(depot, stops, vehicles):
+	"""Delivery routes for a mixed fleet. vehicles: [{id, capacity, cost_per_km}]; minimises sum(km x cost_per_km), one vehicle per route.
+	Up to EXACT_FLEET_STOPS stops: exact (optimal split and stop order). More stops: routes are built for each vehicle capacity and for a
+	first-fit packing, then given to different vehicles by an exact assignment; the cheapest feasible candidate wins and the result shows the
+	distance lower bound and the gap. Always returns `verified`."""
+	from scipy.optimize import linear_sum_assignment
+	import numpy as np
+
+	vs = [v for v in vehicles if num(v.get("capacity")) > 0]
+	if not vs:
+		return {"status": "infeasible", "reason": "no_vehicle", "verified": True}
+	biggest = max(num(v["capacity"]) for v in vs)
+	too_big = [s["id"] for s in stops if num(s.get("demand")) > biggest + 1e-9]
+	if too_big:
+		return {"status": "infeasible", "reason": "demand_exceeds_capacity", "stops": too_big, "verified": True}
+	if not stops:
+		return {"status": "empty", "routes": [], "total_km": 0.0, "total_cost": 0.0, "verified": True}
+	dist = _dist_matrix(depot, stops)
+	lb = _lower_bound(dist, len(stops) + 1)
+	if len(stops) <= EXACT_FLEET_STOPS:
+		ex = _fleet_exact(dist, stops, vs)
+		if ex is None:
+			return {"status": "infeasible", "reason": "not_enough_vehicles", "verified": True}
+		rts, total = ex
+		km = sum(r["km"] for r in rts)
+		out = {"status": "optimal", "routes": rts, "total_km": km, "total_cost": total, "lower_bound_km": lb, "gap_pct": (km / lb - 1) * 100 if lb > 0 else 0.0,
+			"vehicles_used": len(rts), "exact": True}
+		out["verified"] = _verify_fleet(stops, vs, out)
+		return out
+	cands = []
+	for cap in sorted({num(v["capacity"]) for v in vs}, reverse=True):
+		c = routes((depot[0], depot[1]), stops, cap)
+		if c["status"] != "infeasible":
+			cands.append([{"stops": r["stops"], "load": r["load"], "km": r["km"], "exact_order": r["exact_order"]} for r in c["routes"]])
+	groups = _ffd_groups(stops, vs)
+	if groups:
+		idx = {s["id"]: k + 1 for k, s in enumerate(stops)}
+		packed = []
+		for g_ in groups:
+			order = route_order(dist, [k + 1 for k in g_])
+			packed.append({"stops": [stops[k - 1]["id"] for k in order], "load": sum(num(stops[k - 1].get("demand")) for k in order), "km": tour_length(dist, order), "exact_order": len(order) <= 12})
+		cands.append(packed)
+	best, needed = None, 0
+	for rts in cands:
+		needed = max(needed, len(rts))
+		if len(rts) > len(vs):
+			continue
+		BIG = 1e12
+		cost = np.full((len(rts), len(vs)), BIG)
+		for i, r in enumerate(rts):
+			for j, v in enumerate(vs):
+				if r["load"] <= num(v["capacity"]) + 1e-9:
+					cost[i, j] = r["km"] * num(v.get("cost_per_km"))
+		rows, cols = linear_sum_assignment(cost)
+		if any(cost[i, j] >= BIG for i, j in zip(rows, cols)):
+			continue
+		total = float(sum(cost[i, j] for i, j in zip(rows, cols)))
+		if best is None or total < best[0] - 1e-9:
+			best = (total, rts, {int(i): int(j) for i, j in zip(rows, cols)})
+	if best is None:
+		return {"status": "infeasible", "reason": "not_enough_vehicles", "needed": needed or None, "verified": True}
+	total, rts, assign = best
+	out_routes = [{**r, "vehicle": vs[assign[i]]["id"], "cost": r["km"] * num(vs[assign[i]].get("cost_per_km")), "capacity": num(vs[assign[i]]["capacity"])} for i, r in enumerate(rts)]
+	km = sum(r["km"] for r in out_routes)
+	out = {"status": "optimal_order_heuristic_split", "routes": out_routes, "total_km": km, "total_cost": total, "lower_bound_km": lb, "gap_pct": (km / lb - 1) * 100 if lb > 0 else 0.0,
+		"vehicles_used": len(out_routes), "exact": False}
+	out["verified"] = _verify_fleet(stops, vs, out)
+	return out
+
+
+def _verify_fleet(stops, vehicles, out):
+	byv = {v["id"]: v for v in vehicles}
+	if sorted(map(str, (x for r in out["routes"] for x in r["stops"]))) != sorted(str(s["id"]) for s in stops):
+		return False
+	used = [r["vehicle"] for r in out["routes"]]
+	if len(set(used)) != len(used):
+		return False
+	for r in out["routes"]:
+		if r["load"] > num(byv[r["vehicle"]]["capacity"]) + 1e-9:
+			return False
+	if abs(sum(r["cost"] for r in out["routes"]) - out["total_cost"]) > 1e-6 * max(1.0, abs(out["total_cost"])):
+		return False
+	return True

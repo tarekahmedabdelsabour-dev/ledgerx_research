@@ -9,6 +9,7 @@
   "cb1",
   "cost_per_km",
   "allow_shortage",
+  "include_branch_needs",
   "sb_s",
   "sources",
   "sb_d",
@@ -57,6 +58,12 @@
    "fieldtype": "Check",
    "label": "Allow Unmet Demand",
    "default": 1
+  },
+  {
+   "fieldname": "include_branch_needs",
+   "fieldtype": "Check",
+   "label": "Add Needs of Pharmacy Branches",
+   "description": "Needs come from each branch's recent sales, its minimum level and its sellable stock. Needs the Pharmacy app."
   },
   {
    "fieldname": "sb_s",

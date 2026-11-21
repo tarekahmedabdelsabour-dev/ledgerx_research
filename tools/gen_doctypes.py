@@ -214,6 +214,7 @@ doctype("Distribution Plan", [
 	col("cb1"),
 	f("cost_per_km", "Currency", "Cost per Unit per km", default=1, description="Used for every lane that has no cost in the table below."),
 	f("allow_shortage", "Check", "Allow Unmet Demand", default=1),
+	f("include_branch_needs", "Check", "Add Needs of Pharmacy Branches", description="Needs come from each branch's recent sales, its minimum level and its sellable stock. Needs the Pharmacy app."),
 	sec("sb_s", "Sources"),
 	f("sources", "Table", "Sources", options="Plan Source"),
 	sec("sb_d", "Destinations"),

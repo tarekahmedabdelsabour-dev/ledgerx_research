@@ -672,3 +672,11 @@ verified,تم التحقق
 {0}: the price does not cover the variable cost.,{0}: السعر لا يغطي التكلفة المتغيرة.
 {0}: {1},{0}: {1}
 {0}: {1} cannot be supplied.,{0}: لا يمكن توريد {1}.
+Add Needs of Pharmacy Branches,أضف احتياجات فروع الصيدلية
+"Needs come from each branch's recent sales, its minimum level and its sellable stock. Needs the Pharmacy app.",الاحتياج يُحسب من مبيعات كل فرع الأخيرة وحده الأدنى ومخزونه القابل للبيع. يحتاج تطبيق الصيدليات.
+"{0} items hold expired batches ({1} units in total): they were taken out of the stock on hand.",{0} صنف فيه تشغيلات منتهية (إجمالي {1} وحدة): تم استبعادها من المخزون المتاح.
+{0} units in expired batches were left out of the available stock.,تم استبعاد {0} وحدة في تشغيلات منتهية من المخزون المتاح.
+"Needs of {0} pharmacy branches were added from their recent sales and minimum levels.",تمت إضافة احتياجات {0} فرع صيدلية من مبيعاتها الأخيرة وحدودها الدنيا.
+The Pharmacy app is not installed so no branch needs were added.,تطبيق الصيدليات غير مثبت فلم تُضف احتياجات الفروع.
+"The Pharmacy app is not installed, so no branch needs were added.",تطبيق الصيدليات غير مثبت فلم تُضف احتياجات الفروع.
+No active pharmacy branch (other than the central store) was found for this company.,لا يوجد فرع صيدلية نشط (غير المخزن المركزي) لهذه الشركة.

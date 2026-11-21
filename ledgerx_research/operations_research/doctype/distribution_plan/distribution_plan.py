@@ -12,7 +12,7 @@ class DistributionPlan(PlanDocument):
 	def load_data(self):
 		if not self.item_code:
 			frappe.throw(_("Choose the item first."))
-		s, d, warnings = data.load_distribution(self.company, self.item_code)
+		s, d, warnings = data.load_distribution(self.company, self.item_code, bool(self.include_branch_needs))
 		self.flags.solving = True
 		self.set("sources", s)
 		self.set("destinations", d)

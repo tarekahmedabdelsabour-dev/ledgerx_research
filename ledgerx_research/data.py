@@ -20,6 +20,19 @@ def company_warehouses(company, warehouse=None):
 	return frappe.get_all("Warehouse", filters={"company": company, "is_group": 0, "disabled": 0}, pluck="name")
 
 
+def expired_qty(whs, codes):
+	"""Quantity per (item, warehouse) held in batches that are already expired. Such stock cannot be sold or used, so plans must not count it as on hand."""
+	whs, codes = [w for w in whs if w], [c for c in codes if c]
+	if not whs or not codes or not frappe.db.table_exists("Serial and Batch Entry"):
+		return {}
+	rows = frappe.db.sql(
+		"""select b.item item_code, sbe.warehouse, sum(sbe.qty) q from `tabSerial and Batch Entry` sbe
+		join `tabStock Ledger Entry` sle on sle.serial_and_batch_bundle = sbe.parent join `tabBatch` b on b.name = sbe.batch_no
+		where sle.is_cancelled = 0 and sbe.warehouse in %(w)s and b.item in %(c)s and b.expiry_date < %(d)s group by b.item, sbe.warehouse having sum(sbe.qty) > 0""",
+		{"w": tuple(whs), "c": tuple(codes), "d": nowdate()}, as_dict=True)
+	return {(r.item_code, r.warehouse): flt(r.q) for r in rows}
+
+
 def coords_of(link_doctype, link_name):
 	"""Latitude/longitude from the first Address linked to the record that has them."""
 	rows = frappe.db.sql(
@@ -165,6 +178,17 @@ def load_reorder(company, warehouse, lookback_days, default_lead_days, include_c
 	for b in frappe.get_all("Bin", filters={"item_code": ["in", codes], "warehouse": ["in", whs]}, fields=["item_code", "actual_qty", "ordered_qty"]):
 		bins[b.item_code][0] += flt(b.actual_qty)
 		bins[b.item_code][1] += flt(b.ordered_qty)
+	# expired batches are not usable stock: leave them out of what is on hand
+	expired_total, expired_items = 0.0, 0
+	seen = set()
+	for (code, _wh), q in expired_qty(whs, codes).items():
+		bins[code][0] -= q
+		expired_total += q
+		if code not in seen:
+			seen.add(code)
+			expired_items += 1
+	if expired_items:
+		warnings.append(_("{0} items hold expired batches ({1} units in total): they were taken out of the stock on hand.").format(expired_items, flt(expired_total, 2)))
 	out = []
 	for c in codes:
 		m = meta.get(c)
@@ -173,7 +197,7 @@ def load_reorder(company, warehouse, lookback_days, default_lead_days, include_c
 		st = demand_stats(daily[c], lookback_days)
 		cost = flt(m.valuation_rate) or flt(m.last_purchase_rate) or flt(m.standard_rate)
 		out.append({"item_code": c, "annual_demand": st["annual_demand"], "daily_sd": st["daily_sd"], "lead_days": int(m.lead_time_days or 0), "unit_cost": cost,
-			"on_hand": bins[c][0], "on_order": bins[c][1], "moq": flt(m.min_order_qty), "monthly": st["monthly"], "pipeline_qty": flt(pipe.get(c))})
+			"on_hand": max(bins[c][0], 0.0), "on_order": bins[c][1], "moq": flt(m.min_order_qty), "monthly": st["monthly"], "pipeline_qty": flt(pipe.get(c))})
 	if int(lookback_days) < 180:
 		warnings.append(_("Less than 6 months of history: forecasts and safety stock are rough."))
 	return out, warnings
@@ -197,19 +221,64 @@ def make_material_request(doc, warehouse):
 
 
 # ----------------------------------------------------------------------------------- distribution
-def load_distribution(company, item_code):
+def branch_needs(company, item_code, wh_stock):
+	"""Needs of the pharmacy branches for one item, from their recent sales, minimum levels and usable stock. Returns (destinations, warnings).
+	Soft link: when the pharmacy app is not installed this returns nothing."""
+	if not frappe.db.exists("DocType", "Pharmacy Branch"):
+		return [], [_("The Pharmacy app is not installed, so no branch needs were added.")]
+	try:
+		from ledgerx_pharmacy import data as ph
+		from ledgerx_pharmacy.engine.replenish import order_qty
+	except ImportError:
+		return [], [_("The Pharmacy app is not installed, so no branch needs were added.")]
+	s = ph.settings()
+	cover, lookback = int(s.cover_days or 14), int(s.sales_lookback_days or 60)
+	branches = [b for b in frappe.get_all("Pharmacy Branch", filters={"active": 1, "company": company, "is_central": 0}, fields=["name", "warehouse"]) if b.warehouse]
+	if not branches:
+		return [], [_("No active pharmacy branch (other than the central store) was found for this company.")]
+	out = []
+	for b in branches:
+		have = wh_stock.get(b.warehouse, 0.0)
+		lv = frappe.db.get_value("Item Reorder", {"parent": item_code, "warehouse": b.warehouse}, "warehouse_reorder_level") or 0
+		daily = ph.daily_sales([b.warehouse], lookback).get(item_code, 0.0)
+		need = order_qty(have, 0.0, daily, cover, flt(lv), 0.0, 1.0)
+		if need > 0:
+			out.append({"location": b.warehouse, "demand": float(need)})
+	return out, []
+
+
+def load_distribution(company, item_code, include_branch_needs=False):
 	warnings = []
 	whs = company_warehouses(company)
 	sources, dests = [], []
-	for b in frappe.get_all("Bin", filters={"item_code": item_code, "warehouse": ["in", whs], "actual_qty": [">", 0]}, fields=["warehouse", "actual_qty"]):
-		lat, lng = coords_of("Warehouse", b.warehouse)
-		sources.append({"location": b.warehouse, "qty": flt(b.actual_qty), "lat": lat, "lng": lng})
+	expired = expired_qty(whs, [item_code])
+	usable_by_wh, left_out = {}, 0.0
+	for b in frappe.get_all("Bin", filters={"item_code": item_code, "warehouse": ["in", whs]}, fields=["warehouse", "actual_qty"]):
+		q = flt(b.actual_qty) - expired.get((item_code, b.warehouse), 0.0)
+		left_out += expired.get((item_code, b.warehouse), 0.0)
+		usable_by_wh[b.warehouse] = max(q, 0.0)
+		if q > 0:
+			lat, lng = coords_of("Warehouse", b.warehouse)
+			sources.append({"location": b.warehouse, "qty": q, "lat": lat, "lng": lng})
+	if left_out > 0:
+		warnings.append(_("{0} units in expired batches were left out of the available stock.").format(flt(left_out, 2)))
+	by_loc = {}
 	for r in frappe.db.sql(
 		"""select mri.warehouse, sum(mri.qty - mri.ordered_qty) q from `tabMaterial Request Item` mri join `tabMaterial Request` mr on mr.name = mri.parent
 		where mr.docstatus = 1 and mr.company = %s and mr.material_request_type = 'Material Transfer' and mr.status not in ('Stopped', 'Cancelled', 'Transferred', 'Received')
 		and mri.item_code = %s and ifnull(mri.warehouse, '') != '' group by mri.warehouse having sum(mri.qty - mri.ordered_qty) > 0""", (company, item_code), as_dict=True):
-		lat, lng = coords_of("Warehouse", r.warehouse)
-		dests.append({"location": r.warehouse, "demand": flt(r.q), "lat": lat, "lng": lng})
+		by_loc[r.warehouse] = flt(r.q)
+	if include_branch_needs:
+		needs, w = branch_needs(company, item_code, usable_by_wh)
+		warnings.extend(w)
+		for n in needs:
+			# an open transfer request for the same warehouse already states a need: take the larger, never both
+			by_loc[n["location"]] = max(by_loc.get(n["location"], 0.0), n["demand"])
+		if needs:
+			warnings.append(_("Needs of {0} pharmacy branches were added from their recent sales and minimum levels.").format(len(needs)))
+	for loc, q in by_loc.items():
+		lat, lng = coords_of("Warehouse", loc)
+		dests.append({"location": loc, "demand": q, "lat": lat, "lng": lng})
 	if not sources:
 		warnings.append(_("No warehouse holds this item."))
 	if not dests:

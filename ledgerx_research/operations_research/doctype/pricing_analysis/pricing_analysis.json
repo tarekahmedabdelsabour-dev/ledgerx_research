@@ -251,5 +251,6 @@
  ],
  "autoname": "format:PRC-.YYYY.-.#####",
  "icon": "fa fa-tags",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

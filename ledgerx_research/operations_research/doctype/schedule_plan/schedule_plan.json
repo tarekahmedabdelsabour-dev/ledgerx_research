@@ -191,5 +191,6 @@
  ],
  "autoname": "format:SCH-.YYYY.-.#####",
  "icon": "fa fa-calendar",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

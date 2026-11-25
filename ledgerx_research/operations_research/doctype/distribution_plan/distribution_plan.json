@@ -204,5 +204,6 @@
  ],
  "autoname": "format:DST-.YYYY.-.#####",
  "icon": "fa fa-truck",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

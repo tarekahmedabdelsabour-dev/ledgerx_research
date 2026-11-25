@@ -234,5 +234,6 @@
  ],
  "autoname": "format:RTE-.YYYY.-.#####",
  "icon": "fa fa-road",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

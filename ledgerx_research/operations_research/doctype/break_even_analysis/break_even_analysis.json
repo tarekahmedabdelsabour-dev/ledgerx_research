@@ -294,5 +294,6 @@
  ],
  "autoname": "format:BEA-.YYYY.-.#####",
  "icon": "fa fa-balance-scale",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

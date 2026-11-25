@@ -189,5 +189,6 @@
  ],
  "autoname": "format:PRF-.YYYY.-.#####",
  "icon": "fa fa-pie-chart",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

@@ -190,5 +190,6 @@
  ],
  "autoname": "format:ROP-.YYYY.-.#####",
  "icon": "fa fa-cubes",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

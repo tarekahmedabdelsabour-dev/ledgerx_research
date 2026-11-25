@@ -257,5 +257,6 @@
  ],
  "autoname": "format:MIX-.YYYY.-.#####",
  "icon": "fa fa-industry",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

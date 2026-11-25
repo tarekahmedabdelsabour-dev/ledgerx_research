@@ -204,5 +204,6 @@
  ],
  "autoname": "format:MOB-.YYYY.-.#####",
  "icon": "fa fa-exchange",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

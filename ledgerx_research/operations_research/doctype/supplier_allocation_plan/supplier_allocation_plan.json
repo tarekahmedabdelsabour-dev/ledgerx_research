@@ -194,5 +194,6 @@
  ],
  "autoname": "format:ALC-.YYYY.-.#####",
  "icon": "fa fa-handshake-o",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

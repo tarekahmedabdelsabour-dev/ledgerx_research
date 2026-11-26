@@ -62,6 +62,7 @@ def ensure_settings():
 	if not s.company:
 		s.company = frappe.db.get_single_value("Global Defaults", "default_company") or frappe.db.get_value("Company", {}, "name")
 		if s.company:
+			s.flags.ignore_mandatory = True  # the accounts are chosen later, in the settings form
 			s.save(ignore_permissions=True)
 
 
